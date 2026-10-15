@@ -24,7 +24,7 @@
 @font-face { font-family: "Gentium"; src: url("fonts/GentiumBookPlus-Regular.ttf"); font-display: swap; }
 :root {
   --rust: #8f4421; --rust-dark: #5e2b14; --cream: #e9e2d8; --muted: #cfc5b8; --ochre: #d6aa6e; --night: #1e1813;
-  --card: #2a221b; --line: #6b5643; --on-rust: #e9e2d8; --input-bg: #fbf8f3; --input-ink: #1e1813; color-scheme: dark;
+  --card: #2a221b; --line: #6b5643; --on-rust: #e9e2d8; --input-bg: #fbf8f3; --input-ink: #1e1813; --input-line: #8a7660; color-scheme: dark;
 }
 /* Light mode (Kyle 2026-10-14): follows the visitor's device unless they pick one with the switch. All pairs >= 5:1. */
 @media (prefers-color-scheme: light) {
@@ -68,7 +68,7 @@ ul.points li { margin: 6px 0; }
 form.signup { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; margin: 16px 0 8px; }
 form.signup .field { flex: 1 1 240px; display: flex; flex-direction: column; gap: 4px; }
 form.signup label { font-size: 16px; }
-form.signup input[type="email"] { font: inherit; padding: 10px 12px; border-radius: 6px; border: 2px solid var(--line); background: var(--input-bg); color: var(--input-ink); width: 100%; }
+form.signup input[type="email"] { font: inherit; padding: 10px 12px; border-radius: 6px; border: 2px solid var(--input-line); background: var(--input-bg); color: var(--input-ink); width: 100%; }
 form.signup button { font-family: "Archivo Black", Impact, sans-serif; font-size: 17px; letter-spacing: .04em; padding: 12px 22px;
   border-radius: 6px; border: 2px solid var(--ochre); background: var(--rust); color: var(--on-rust); cursor: pointer; }
 .small { font-size: 16px; color: var(--muted); }
@@ -101,7 +101,7 @@ html.art-off .art-frame { display: flex; }
   <img class="ai-art" src="img/sun.png" alt="" width="36" height="36">
   <span class="mark">DUSTBANNERS</span>
   <nav aria-label="Main"><a href="#game">The game</a><a href="#playtest">Help playtest</a><a href="#creator">Creator</a><a href="#ai">AI and art</a><a href="#signup">Email news</a><a href="#follow">Follow</a></nav>
-  <button type="button" class="art-toggle" id="art-toggle" aria-pressed="true">AI art: On</button>
+  <button type="button" class="art-toggle" id="art-toggle">AI art: On</button>
   <button type="button" class="art-toggle" id="theme-toggle">Light mode</button>
 </header>
 
@@ -209,7 +209,6 @@ html.art-off .art-frame { display: flex; }
   function show() {
     var off = root.classList.contains("art-off");
     btn.textContent = off ? "AI art: Off" : "AI art: On";
-    btn.setAttribute("aria-pressed", off ? "false" : "true");
   }
   btn.addEventListener("click", function () {
     root.classList.toggle("art-off");
