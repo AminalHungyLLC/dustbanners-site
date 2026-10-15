@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dustbanners</title>
+<meta name="description" content="Dustbanners: a two-player card game of survival on a broken frontier. Win by breaking the enemy Leader, or by holding the map.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dustbanners.com/">
+<meta property="og:title" content="Dustbanners">
+<meta property="og:description" content="A two-player card game of survival on a broken frontier. Placeholder art (AI-made). Final art by human artists.">
+<meta property="og:image" content="https://dustbanners.com/img/hero.jpg">
+<meta property="og:image:alt" content="Dustbanners title and six placeholder cards over a frontier map, labeled: Placeholder art (AI-made). Final art by human artists.">
+<link rel="icon" href="img/sun.png">
+<style>
+@font-face { font-family: "Archivo Black"; src: url("fonts/ArchivoBlack-Regular.ttf"); font-display: swap; }
+@font-face { font-family: "Gentium"; src: url("fonts/GentiumBookPlus-Regular.ttf"); font-display: swap; }
+:root {
+  --rust: #8f4421; --rust-dark: #5e2b14; --cream: #e9e2d8; --muted: #cfc5b8; --ochre: #d6aa6e; --night: #1e1813;
+  --card: #2a221b; --line: #6b5643;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--night); color: var(--cream); font: 18px/1.6 "Gentium", Georgia, serif; overflow-wrap: break-word; }
+img { max-width: 100%; }
+a { color: var(--ochre); }
+a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid var(--ochre); outline-offset: 2px; }
+.skip { position: absolute; left: -9999px; }
+.skip:focus { left: 16px; top: 8px; background: var(--night); padding: 8px 12px; z-index: 10; }
+header { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 14px 16px; max-width: 1100px; margin: 0 auto; }
+header img { width: 36px; height: 36px; }
+header .mark { font-family: "Archivo Black", Impact, sans-serif; letter-spacing: .06em; font-size: 20px; }
+header nav { margin-left: auto; display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 16px; }
+header nav a { color: var(--cream); text-decoration: none; }
+header nav a:hover { text-decoration: underline; }
+.hero img { display: block; width: 100%; height: auto; }
+.hero figcaption { max-width: 1100px; margin: 0 auto; padding: 6px 16px 0; font-size: 15px; color: var(--muted); }
+.cta { text-align: center; padding: 28px 16px 8px; }
+.button { display: inline-block; background: var(--rust); color: var(--cream); text-decoration: none; padding: 14px 26px;
+  border-radius: 6px; font-family: "Archivo Black", Impact, sans-serif; letter-spacing: .04em; font-size: 18px; border: 2px solid var(--ochre); }
+.cta p { margin: 10px 0 0; color: var(--muted); }
+section { max-width: 780px; margin: 0 auto; padding: 40px 16px; }
+h2 { font-family: "Archivo Black", Impact, sans-serif; letter-spacing: .05em; color: var(--ochre); font-size: 26px; margin: 0 0 12px; }
+.panel { background: var(--rust-dark); border-left: 6px solid var(--rust); padding: 22px 24px; border-radius: 4px; }
+.panel p:first-child { margin-top: 0; }
+.panel p:last-child { margin-bottom: 0; }
+ul.points { padding-left: 1.2em; }
+ul.points li { margin: 6px 0; }
+.links { display: flex; flex-wrap: wrap; gap: 12px; }
+.links a, .links .soon { background: var(--card); border: 1px solid var(--line); color: var(--cream); padding: 10px 16px; border-radius: 6px; text-decoration: none; }
+.links a:hover { border-color: var(--ochre); }
+.links .soon { border-style: dashed; color: var(--muted); }
+form.signup { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; margin: 16px 0 8px; }
+form.signup .field { flex: 1 1 240px; display: flex; flex-direction: column; gap: 4px; }
+form.signup label { font-size: 16px; }
+form.signup input[type="email"] { font: inherit; padding: 10px 12px; border-radius: 6px; border: 2px solid var(--line); background: #fbf8f3; color: #1e1813; width: 100%; }
+form.signup button { font-family: "Archivo Black", Impact, sans-serif; font-size: 17px; letter-spacing: .04em; padding: 12px 22px;
+  border-radius: 6px; border: 2px solid var(--ochre); background: var(--rust); color: var(--cream); cursor: pointer; }
+.small { font-size: 16px; color: var(--muted); }
+footer { text-align: center; padding: 30px 16px 40px; font-size: 15px; color: var(--muted); }
+footer p { margin: 6px 0; }
+/* AI art switch (Kyle 2026-10-14): visitors can hide every AI-made placeholder image. */
+.art-toggle { font: inherit; font-size: 15px; background: var(--card); color: var(--cream); border: 1px solid var(--line);
+  border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+.art-toggle:hover, .art-toggle:focus-visible { border-color: var(--ochre); }
+.art-frame { display: none; max-width: 1100px; margin: 0 auto; aspect-ratio: 16 / 9; max-height: 60vh; border: 2px dashed var(--line);
+  align-items: center; justify-content: center; text-align: center; padding: 16px; color: var(--muted); font-size: 18px; }
+html.art-off .ai-art { display: none !important; }
+html.art-off .art-frame { display: flex; }
+@media (max-width: 600px) {
+  body { font-size: 17px; }
+  header nav { gap: 4px 14px; font-size: 15px; margin-left: 0; width: 100%; }
+  h2 { font-size: 22px; }
+  .panel { padding: 18px 16px; }
+  .button { padding: 12px 18px; font-size: 16px; }
+}
+</style>
+<script>try { if (localStorage.getItem("dustbanners-ai-art") === "off") document.documentElement.classList.add("art-off"); } catch (e) {}</script>
+</head>
+<body>
+<a class="skip" href="#game">Skip to the game</a>
+<header>
+  <img class="ai-art" src="img/sun.png" alt="" width="36" height="36">
+  <span class="mark">DUSTBANNERS</span>
+  <nav aria-label="Main"><a href="#game">The game</a><a href="#playtest">Help playtest</a><a href="#creator">Creator</a><a href="#ai">AI and art</a><a href="#signup">Email news</a><a href="#follow">Follow</a></nav>
+  <button type="button" class="art-toggle" id="art-toggle" aria-pressed="true">AI art: On</button>
+</header>
+
+<main>
+<figure class="hero" style="margin:0">
+  <div class="art-frame">AI placeholder art is hidden. The final art is coming from human artists.</div>
+  <picture class="ai-art">
+    <source media="(max-width: 1100px)" srcset="img/hero-1024.jpg">
+    <img src="img/hero.jpg" width="1920" height="1080"
+         alt="The Dustbanners title over a painted frontier map, with six placeholder cards fanned out: Violent Squall, Veda Knell, Scrapjaw, Leave No Witnesses, Wreckline Bike and First Through. A label on the image says: Placeholder art (AI-made). Final art by human artists.">
+  </picture>
+  <figcaption class="ai-art">Placeholder art (AI-made). Final art by human artists.</figcaption>
+</figure>
+
+<div class="cta">
+  <span class="button" role="note">Kickstarter coming soon</span>
+  <p>Get one email the day it launches: <a href="#signup">sign up for news</a>. Want to help test the game? <a href="#playtest">Help playtest</a>.</p>
+</div>
+
+<section id="game">
+  <h2>The game</h2>
+  <div class="panel">
+    <p>Dustbanners is a two-player card game of survival on a broken frontier. Each of you leads a faction into a valley of
+    nine places. Plan with your own deck, deal with a shared Frontier Deck of storms, finds and trouble, and win by breaking
+    the enemy Leader or holding most of the nine places.</p>
+    <ul class="points">
+      <li>2 players, ages 14 and up.</li>
+      <li>The first box has two factions: the Wardens (&ldquo;How do we protect what&rsquo;s ours?&rdquo;) and the Raiders
+      (&ldquo;What can we take?&rdquo;). Each banner has two Leaders and two Companions to choose from.</li>
+      <li>Two ways to win, and both are always open: break the enemy Leader, or hold most of the 9 places at the end of a turn.</li>
+      <li>The Frontier Deck turns up something every turn (a storm, a wild animal, a find) that both of you have to deal with.</li>
+      <li>No random packs. Every box has the same cards.</li>
+      <li>More factions to come.</li>
+    </ul>
+    <p>A printed test copy is being made, and a print-and-play version is coming.</p>
+  </div>
+</section>
+
+<section id="playtest">
+  <h2>Help playtest</h2>
+  <p>Dustbanners is still being tested. If you have played it, or want to help us test it, tell us what worked, what
+  confused you and what you would change. Your answers go straight into the next round of fixes.</p>
+  <div class="links">
+    <a href="https://forms.gle/Hwv51YV4hsCZciK97" rel="noopener">Open the playtest feedback form</a>
+  </div>
+  <p class="small">The form is on Google Forms. We only use your answers to improve the game. Read our
+  <a href="privacy.html">privacy notice</a>.</p>
+</section>
+
+<section id="creator">
+  <h2>The creator</h2>
+  <div class="panel">
+    <p>I&rsquo;m Kyle. I make games as AminalHungy, a one-person studio in Colorado. I grew up on Sierra adventures, SimCity,
+    Fallout and early Magic: The Gathering.</p>
+    <p>Dustbanners began on a hike in Boulder: my friend Ross and I climbed a trail, and the next morning I woke up wanting to
+    build the world I had seen from near the top. It is a two-player card game for people who like to plan with a deck and
+    then get surprised by one they can only guess.</p>
+  </div>
+</section>
+
+<section id="ai">
+  <h2>AI and art</h2>
+  <div class="panel">
+    <p>I use AI tools to help make Dustbanners. The world, the rules and every final decision are mine. AI tools helped build and
+    test the digital version of the game, run its balance simulations, and draft some of the text, which I edit and approve. A
+    paid human editor will do the final pass on every word players see. All card art shown before launch is AI-made placeholder
+    art, and it is labeled as placeholder everywhere it appears. The final card and box art will be made by paid human artists.
+    The card backs and the logo were also made with AI tools for now, and a human artist will redraw them. No AI art will be in
+    the printed game.</p>
+  </div>
+</section>
+
+<section id="signup">
+  <h2>Get email news</h2>
+  <p>Sign up and we will email you Dustbanners news: the day the Kickstarter launches, when the print-and-play is ready, and
+  news from playtests and the world of the game. We only send news, and we never sell your email.</p>
+  <form class="signup" action="https://app.kit.com/forms/10047860/subscriptions" method="post">
+    <div class="field">
+      <label for="email">Your email</label>
+      <input id="email" name="email_address" type="email" autocomplete="email" required placeholder="you@example.com">
+    </div>
+    <button type="submit">Sign up</button>
+  </form>
+  <p class="small">You will get one email first to confirm. Every email has an unsubscribe link at the bottom: one click and you
+  are off the list. Read our <a href="privacy.html">privacy notice</a>.</p>
+</section>
+
+<section id="follow">
+  <h2>Follow along</h2>
+  <div class="links">
+    <a href="https://www.instagram.com/dustbanners" rel="noopener">Instagram</a>
+    <a href="https://bsky.app/profile/dustbanners.bsky.social" rel="noopener">Bluesky</a>
+    <span class="soon">Kickstarter (coming soon)</span>
+  </div>
+</section>
+</main>
+
+<footer>
+  <p>Sun logo and card art: Placeholder art (AI-made). Final art by human artists.</p>
+  <p>Dustbanners&trade; &middot; &copy; 2026 AminalHungy &middot; <a href="privacy.html">Privacy</a></p>
+</footer>
+<script>
+(function () {
+  var root = document.documentElement, btn = document.getElementById("art-toggle");
+  function show() {
+    var off = root.classList.contains("art-off");
+    btn.textContent = off ? "AI art: Off" : "AI art: On";
+    btn.setAttribute("aria-pressed", off ? "false" : "true");
+  }
+  btn.addEventListener("click", function () {
+    root.classList.toggle("art-off");
+    try { localStorage.setItem("dustbanners-ai-art", root.classList.contains("art-off") ? "off" : "on"); } catch (e) {}
+    show();
+  });
+  show();
+})();
+</script>
+</body>
+</html>
