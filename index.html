@@ -83,9 +83,26 @@ footer p { margin: 6px 0; }
   align-items: center; justify-content: center; text-align: center; padding: 16px; color: var(--muted); font-size: 18px; }
 html.art-off .ai-art { display: none !important; }
 html.art-off .art-frame { display: flex; }
+/* Menu (Kyle 2026-10-14): wide screens show everything in one row; phones get a 3-line button that drops the menu down. */
+header { position: relative; }
+.site-menu { margin-left: auto; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px; }
+.site-menu .switches { display: flex; gap: 8px; }
+.menu-btn { display: none; margin-left: auto; width: 44px; height: 44px; padding: 10px; border: 1px solid var(--line);
+  border-radius: 6px; background: var(--card); cursor: pointer; flex-direction: column; justify-content: space-between; }
+.menu-btn span { display: block; height: 3px; border-radius: 2px; background: var(--cream); }
+@media (max-width: 800px) {
+  .menu-btn { display: flex; }
+  .site-menu { display: none; position: absolute; top: 100%; left: 0; right: 0; z-index: 20; margin: 0;
+    flex-direction: column; align-items: stretch; gap: 0; background: var(--card); border-bottom: 2px solid var(--line);
+    box-shadow: 0 8px 16px rgba(0,0,0,.35); padding: 4px 16px 14px; }
+  header.open .site-menu { display: flex; }
+  .site-menu nav { flex-direction: column; gap: 0; margin: 0; font-size: 18px; }
+  .site-menu nav a { display: block; padding: 12px 4px; border-bottom: 1px solid var(--line); text-transform: uppercase;
+    letter-spacing: .05em; }
+  .site-menu .switches { padding-top: 12px; flex-wrap: wrap; }
+}
 @media (max-width: 600px) {
   body { font-size: 17px; }
-  header nav { gap: 4px 14px; font-size: 15px; margin-left: 0; width: 100%; }
   h2 { font-size: 22px; }
   .panel { padding: 18px 16px; }
   .button { padding: 12px 18px; font-size: 16px; }
@@ -101,9 +118,15 @@ html.art-off .art-frame { display: flex; }
 <header>
   <img class="ai-art" src="img/sun.png" alt="" width="36" height="36">
   <span class="mark">DUSTBANNERS</span>
-  <nav aria-label="Main"><a href="#game">The game</a><a href="#playtest">Help playtest</a><a href="#creator">Creator</a><a href="#ai">AI and art</a><a href="#signup">Email news</a><a href="#follow">Follow</a></nav>
-  <button type="button" class="art-toggle" id="art-toggle">AI art: On</button>
-  <button type="button" class="art-toggle" id="theme-toggle">Light mode</button>
+  <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="site-menu" aria-label="Menu">
+    <span></span><span></span><span></span></button>
+  <div class="site-menu" id="site-menu">
+    <nav aria-label="Main"><a href="#game">The game</a><a href="#playtest">Help playtest</a><a href="#creator">Creator</a><a href="#ai">AI and art</a><a href="#signup">Email news</a><a href="#follow">Follow</a></nav>
+    <div class="switches">
+      <button type="button" class="art-toggle" id="art-toggle">AI art: On</button>
+      <button type="button" class="art-toggle" id="theme-toggle">Light mode</button>
+    </div>
+  </div>
 </header>
 
 <main>
@@ -234,6 +257,14 @@ html.art-off .art-frame { display: flex; }
   });
   if (mq.addEventListener) mq.addEventListener("change", showTheme);
   showTheme();
+  // Phone menu: the 3-line button opens and closes the drop-down; a link tap or Escape closes it.
+  var header = document.querySelector("header"), mbtn = document.getElementById("menu-btn");
+  function setMenu(open) { header.classList.toggle("open", open); mbtn.setAttribute("aria-expanded", open ? "true" : "false"); }
+  mbtn.addEventListener("click", function () { setMenu(!header.classList.contains("open")); });
+  [].slice.call(document.querySelectorAll("#site-menu nav a")).forEach(function (a) {
+    a.addEventListener("click", function () { setMenu(false); });
+  });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") { setMenu(false); } });
 })();
 </script>
 </body>
