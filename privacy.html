@@ -11,7 +11,11 @@
 <style>
 @font-face { font-family: "Archivo Black"; src: url("fonts/ArchivoBlack-Regular.ttf"); font-display: swap; }
 @font-face { font-family: "Gentium"; src: url("fonts/GentiumBookPlus-Regular.ttf"); font-display: swap; }
-:root { --cream: #e9e2d8; --muted: #cfc5b8; --ochre: #d6aa6e; --night: #1e1813; --draft-bg: #f3d27a; --draft-ink: #1e1813; }
+:root { --cream: #e9e2d8; --muted: #cfc5b8; --ochre: #d6aa6e; --night: #1e1813; --draft-bg: #f3d27a; --draft-ink: #1e1813; color-scheme: dark; }
+@media (prefers-color-scheme: light) {
+  :root:not(.theme-dark) { --cream: #1e1813; --muted: #5a4a3c; --ochre: #7a4e15; --night: #f4ede2; color-scheme: light; }
+}
+:root.theme-light { --cream: #1e1813; --muted: #5a4a3c; --ochre: #7a4e15; --night: #f4ede2; color-scheme: light; }
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--night); color: var(--cream); font: 18px/1.6 "Gentium", Georgia, serif; overflow-wrap: break-word; }
 a { color: var(--ochre); }
@@ -28,7 +32,10 @@ footer { text-align: center; padding: 20px 16px 40px; font-size: 15px; color: va
 @media (max-width: 600px) { body { font-size: 17px; } h1 { font-size: 24px; } }
 html.art-off .ai-art { display: none !important; }
 </style>
-<script>try { if (localStorage.getItem("dustbanners-ai-art") === "off") document.documentElement.classList.add("art-off"); } catch (e) {}</script>
+<script>try { var r = document.documentElement;
+  if (localStorage.getItem("dustbanners-ai-art") === "off") r.classList.add("art-off");
+  var t = localStorage.getItem("dustbanners-theme"); if (t === "light" || t === "dark") r.classList.add("theme-" + t);
+} catch (e) {}</script>
 </head>
 <body>
 <header>
@@ -47,8 +54,8 @@ Our mailing address will appear here and in every email we send once our news em
 <h2>What we collect</h2>
 <p>Only what you choose to give us: your email if you sign up for news; your answers on our feedback form; your name if you
 want to be credited as a playtester or sign a playtest release; photos or quotes only if you agreed.</p>
-<p>This website does not use cookies, analytics or tracking. If you use the &ldquo;AI art&rdquo; switch, your own browser
-remembers that one choice on your device; it is never sent to us.Our website host, GitHub Pages, logs each visitor&rsquo;s IP
+<p>This website does not use cookies, analytics or tracking. If you use the &ldquo;AI art&rdquo; or light/dark switches, your own
+browser remembers those choices on your device; they are never sent to us. Our website host, GitHub Pages, logs each visitor&rsquo;s IP
 address for security, under GitHub&rsquo;s own privacy statement.</p>
 
 <h2>Why</h2>

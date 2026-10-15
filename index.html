@@ -24,8 +24,15 @@
 @font-face { font-family: "Gentium"; src: url("fonts/GentiumBookPlus-Regular.ttf"); font-display: swap; }
 :root {
   --rust: #8f4421; --rust-dark: #5e2b14; --cream: #e9e2d8; --muted: #cfc5b8; --ochre: #d6aa6e; --night: #1e1813;
-  --card: #2a221b; --line: #6b5643;
+  --card: #2a221b; --line: #6b5643; --on-rust: #e9e2d8; --input-bg: #fbf8f3; --input-ink: #1e1813; color-scheme: dark;
 }
+/* Light mode (Kyle 2026-10-14): follows the visitor's device unless they pick one with the switch. All pairs >= 5:1. */
+@media (prefers-color-scheme: light) {
+  :root:not(.theme-dark) { --rust-dark: #ead8c3; --cream: #1e1813; --muted: #5a4a3c; --ochre: #7a4e15; --night: #f4ede2;
+    --card: #fffaf3; --line: #b9a58c; --input-bg: #ffffff; color-scheme: light; }
+}
+:root.theme-light { --rust-dark: #ead8c3; --cream: #1e1813; --muted: #5a4a3c; --ochre: #7a4e15; --night: #f4ede2;
+  --card: #fffaf3; --line: #b9a58c; --input-bg: #ffffff; color-scheme: light; }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body { margin: 0; background: var(--night); color: var(--cream); font: 18px/1.6 "Gentium", Georgia, serif; overflow-wrap: break-word; }
@@ -43,7 +50,7 @@ header nav a:hover { text-decoration: underline; }
 .hero img { display: block; width: 100%; height: auto; }
 .hero figcaption { max-width: 1100px; margin: 0 auto; padding: 6px 16px 0; font-size: 15px; color: var(--muted); }
 .cta { text-align: center; padding: 28px 16px 8px; }
-.button { display: inline-block; background: var(--rust); color: var(--cream); text-decoration: none; padding: 14px 26px;
+.button { display: inline-block; background: var(--rust); color: var(--on-rust); text-decoration: none; padding: 14px 26px;
   border-radius: 6px; font-family: "Archivo Black", Impact, sans-serif; letter-spacing: .04em; font-size: 18px; border: 2px solid var(--ochre); }
 .cta p { margin: 10px 0 0; color: var(--muted); }
 section { max-width: 780px; margin: 0 auto; padding: 40px 16px; }
@@ -60,9 +67,9 @@ ul.points li { margin: 6px 0; }
 form.signup { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; margin: 16px 0 8px; }
 form.signup .field { flex: 1 1 240px; display: flex; flex-direction: column; gap: 4px; }
 form.signup label { font-size: 16px; }
-form.signup input[type="email"] { font: inherit; padding: 10px 12px; border-radius: 6px; border: 2px solid var(--line); background: #fbf8f3; color: #1e1813; width: 100%; }
+form.signup input[type="email"] { font: inherit; padding: 10px 12px; border-radius: 6px; border: 2px solid var(--line); background: var(--input-bg); color: var(--input-ink); width: 100%; }
 form.signup button { font-family: "Archivo Black", Impact, sans-serif; font-size: 17px; letter-spacing: .04em; padding: 12px 22px;
-  border-radius: 6px; border: 2px solid var(--ochre); background: var(--rust); color: var(--cream); cursor: pointer; }
+  border-radius: 6px; border: 2px solid var(--ochre); background: var(--rust); color: var(--on-rust); cursor: pointer; }
 .small { font-size: 16px; color: var(--muted); }
 footer { text-align: center; padding: 30px 16px 40px; font-size: 15px; color: var(--muted); }
 footer p { margin: 6px 0; }
@@ -82,7 +89,10 @@ html.art-off .art-frame { display: flex; }
   .button { padding: 12px 18px; font-size: 16px; }
 }
 </style>
-<script>try { if (localStorage.getItem("dustbanners-ai-art") === "off") document.documentElement.classList.add("art-off"); } catch (e) {}</script>
+<script>try { var r = document.documentElement;
+  if (localStorage.getItem("dustbanners-ai-art") === "off") r.classList.add("art-off");
+  var t = localStorage.getItem("dustbanners-theme"); if (t === "light" || t === "dark") r.classList.add("theme-" + t);
+} catch (e) {}</script>
 </head>
 <body>
 <a class="skip" href="#game">Skip to the game</a>
@@ -91,6 +101,7 @@ html.art-off .art-frame { display: flex; }
   <span class="mark">DUSTBANNERS</span>
   <nav aria-label="Main"><a href="#game">The game</a><a href="#playtest">Help playtest</a><a href="#creator">Creator</a><a href="#ai">AI and art</a><a href="#signup">Email news</a><a href="#follow">Follow</a></nav>
   <button type="button" class="art-toggle" id="art-toggle" aria-pressed="true">AI art: On</button>
+  <button type="button" class="art-toggle" id="theme-toggle">Light mode</button>
 </header>
 
 <main>
@@ -205,6 +216,23 @@ html.art-off .art-frame { display: flex; }
     show();
   });
   show();
+  // Light/dark switch: starts from the device setting; a click picks the other look and remembers it on this device.
+  var tbtn = document.getElementById("theme-toggle"), mq = window.matchMedia("(prefers-color-scheme: light)");
+  function isLight() {
+    if (root.classList.contains("theme-light")) return true;
+    if (root.classList.contains("theme-dark")) return false;
+    return mq.matches;
+  }
+  function showTheme() { tbtn.textContent = isLight() ? "Dark mode" : "Light mode"; }
+  tbtn.addEventListener("click", function () {
+    var next = isLight() ? "dark" : "light";
+    root.classList.remove("theme-light", "theme-dark");
+    root.classList.add("theme-" + next);
+    try { localStorage.setItem("dustbanners-theme", next); } catch (e) {}
+    showTheme();
+  });
+  if (mq.addEventListener) mq.addEventListener("change", showTheme);
+  showTheme();
 })();
 </script>
 </body>
