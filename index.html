@@ -34,6 +34,7 @@
 :root.theme-light { --rust-dark: #ead8c3; --cream: #1e1813; --muted: #5a4a3c; --ochre: #7a4e15; --night: #f4ede2;
   --card: #fffaf3; --line: #b9a58c; --input-bg: #ffffff; color-scheme: light; }
 * { box-sizing: border-box; }
+h1, h2, .mark, .button, form.signup button { font-synthesis: none; } /* Archivo Black has one weight; never fake bold (Kyle saw blurry headings 2026-10-14) */
 html { scroll-behavior: smooth; }
 body { margin: 0; background: var(--night); color: var(--cream); font: 18px/1.6 "Gentium", Georgia, serif; overflow-wrap: break-word; }
 img { max-width: 100%; }
@@ -54,7 +55,7 @@ header nav a:hover { text-decoration: underline; }
   border-radius: 6px; font-family: "Archivo Black", Impact, sans-serif; letter-spacing: .04em; font-size: 18px; border: 2px solid var(--ochre); }
 .cta p { margin: 10px 0 0; color: var(--muted); }
 section { max-width: 780px; margin: 0 auto; padding: 40px 16px; }
-h2 { font-family: "Archivo Black", Impact, sans-serif; letter-spacing: .05em; color: var(--ochre); font-size: 26px; margin: 0 0 12px; }
+h2 { font-family: "Archivo Black", Impact, sans-serif; font-weight: 400; letter-spacing: .05em; color: var(--ochre); font-size: 26px; margin: 0 0 12px; }
 .panel { background: var(--rust-dark); border-left: 6px solid var(--rust); padding: 22px 24px; border-radius: 4px; }
 .panel p:first-child { margin-top: 0; }
 .panel p:last-child { margin-bottom: 0; }

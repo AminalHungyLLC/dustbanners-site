@@ -17,6 +17,7 @@
 }
 :root.theme-light { --cream: #1e1813; --muted: #5a4a3c; --ochre: #7a4e15; --night: #f4ede2; color-scheme: light; }
 * { box-sizing: border-box; }
+h1, h2, .mark, .button, form.signup button { font-synthesis: none; } /* Archivo Black has one weight; never fake bold (Kyle saw blurry headings 2026-10-14) */
 body { margin: 0; background: var(--night); color: var(--cream); font: 18px/1.6 "Gentium", Georgia, serif; overflow-wrap: break-word; }
 a { color: var(--ochre); }
 a:focus-visible { outline: 3px solid var(--ochre); outline-offset: 2px; }
@@ -24,8 +25,8 @@ header { max-width: 780px; margin: 0 auto; padding: 14px 16px; display: flex; al
 header img { width: 36px; height: 36px; }
 header a { color: var(--cream); text-decoration: none; font-family: "Archivo Black", Impact, sans-serif; letter-spacing: .06em; font-size: 20px; }
 main { max-width: 780px; margin: 0 auto; padding: 8px 16px 40px; }
-h1 { font-family: "Archivo Black", Impact, sans-serif; letter-spacing: .04em; color: var(--ochre); font-size: 28px; margin: 12px 0; }
-h2 { font-family: "Archivo Black", Impact, sans-serif; letter-spacing: .04em; color: var(--ochre); font-size: 20px; margin: 28px 0 6px; }
+h1 { font-family: "Archivo Black", Impact, sans-serif; font-weight: 400; letter-spacing: .04em; color: var(--ochre); font-size: 28px; margin: 12px 0; }
+h2 { font-family: "Archivo Black", Impact, sans-serif; font-weight: 400; letter-spacing: .04em; color: var(--ochre); font-size: 20px; margin: 28px 0 6px; }
 .draft { background: var(--draft-bg); color: var(--draft-ink); padding: 0 4px; border-radius: 3px; font-weight: bold; }
 .note { color: var(--muted); font-size: 16px; }
 footer { text-align: center; padding: 20px 16px 40px; font-size: 15px; color: var(--muted); }
