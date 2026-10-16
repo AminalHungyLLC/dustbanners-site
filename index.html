@@ -76,6 +76,13 @@ form.signup button { font-family: "Archivo Black", Impact, sans-serif; font-size
 .stat { font-size: 20px; color: var(--ochre); }
 footer { text-align: center; padding: 30px 16px 40px; font-size: 15px; color: var(--muted); }
 footer p { margin: 6px 0; }
+footer .nw { white-space: nowrap; }
+footer .gate { padding-bottom: 22px; margin-bottom: 18px; border-bottom: 1px solid var(--rust); }
+footer .gate-ask { font-size: 17px; color: var(--cream); margin-bottom: 12px; }
+footer .gate-btn { display: inline-block; border: 1px solid var(--ochre); color: var(--ochre); text-decoration: none;
+  padding: 12px 22px; border-radius: 6px; font-size: 17px; }
+footer .gate-btn:hover, footer .gate-btn:focus { background: var(--rust-dark); }
+footer .art-note { font-size: 14px; }
 /* AI art switch (Kyle 2026-10-14): visitors can hide every AI-made placeholder image. */
 .art-toggle { font: inherit; font-size: 15px; background: var(--card); color: var(--cream); border: 1px solid var(--line);
   border-radius: 6px; padding: 6px 12px; cursor: pointer; }
@@ -230,9 +237,12 @@ header { position: relative; }
 </main>
 
 <footer>
-  <p>Sun logo and card art: Placeholder art (AI-made). Final art by human artists.</p>
-  <p><a href="https://docs.google.com/forms/d/e/1FAIpQLSeLGjetFpVL5vjk9n1kVDnuCJZK04rodNUD4oKncrjfLcybfA/viewform" rel="noopener">Leave Word at the Gate</a>: tell us what's broken or confusing on this site.</p>
-  <p>Dustbanners&trade; &middot; &copy; 2026 AminalHungy &middot; <a href="privacy.html">Privacy</a></p>
+  <div class="gate">
+    <p class="gate-ask"><span class="nw">Something broken or confusing</span> <span class="nw">on this site?</span></p>
+    <a class="gate-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSeLGjetFpVL5vjk9n1kVDnuCJZK04rodNUD4oKncrjfLcybfA/viewform" rel="noopener">Leave Word at the Gate</a>
+  </div>
+  <p class="art-note"><span class="nw">Sun logo and card art:</span> <span class="nw">placeholder art (AI-made).</span> <span class="nw">Final art by human artists.</span></p>
+  <p><span class="nw">Dustbanners&trade; &middot; &copy; 2026 AminalHungy</span> <span class="nw">&middot; <a href="privacy.html">Privacy</a></span></p>
 </footer>
 <script>
 (function () {
