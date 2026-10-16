@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Proving Ground | Dustbanners</title>
+<meta name="description" content="How Dustbanners is balanced: the computer plays the computer, thousands of times, before people sit down at a table.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dustbanners.com/proving-ground.html">
+<meta property="og:title" content="Proving Ground | Dustbanners">
+<meta property="og:description" content="How Dustbanners is balanced: the computer plays the computer before people sit down at a table.">
+<meta property="og:image" content="https://dustbanners.com/img/sun.png">
+<meta property="og:image:alt" content="The Dustbanners sun logo: a half sun rising over the horizon. Placeholder art (AI-made). Final art by human artists.">
+<meta property="og:site_name" content="Dustbanners">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="img/sun.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+@font-face { font-family: "Archivo Black"; src: url("fonts/ArchivoBlack-Regular.ttf"); font-display: swap; }
+@font-face { font-family: "Gentium"; src: url("fonts/GentiumBookPlus-Regular.ttf"); font-display: swap; }
+:root {
+  --rust: #8f4421; --rust-dark: #5e2b14; --cream: #e9e2d8; --muted: #cfc5b8; --ochre: #d6aa6e; --night: #1e1813;
+  --card: #2a221b; --line: #6b5643; --on-rust: #e9e2d8; --input-bg: #fbf8f3; --input-ink: #1e1813; --input-line: #8a7660; color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :root:not(.theme-dark) { --rust-dark: #ead8c3; --cream: #1e1813; --muted: #5a4a3c; --ochre: #7a4e15; --night: #f4ede2;
+    --card: #fffaf3; --line: #b9a58c; --input-bg: #ffffff; color-scheme: light; }
+}
+:root.theme-light { --rust-dark: #ead8c3; --cream: #1e1813; --muted: #5a4a3c; --ochre: #7a4e15; --night: #f4ede2;
+  --card: #fffaf3; --line: #b9a58c; --input-bg: #ffffff; color-scheme: light; }
+* { box-sizing: border-box; }
+h1, h2 { text-transform: uppercase; }
+h1, h2, h3, .mark, .big { font-synthesis: none; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--night); color: var(--cream); font: 18px/1.6 "Gentium", Georgia, serif; overflow-wrap: break-word; }
+img { max-width: 100%; }
+a { color: var(--ochre); }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--ochre); outline-offset: 2px; }
+.skip { position: absolute; left: -9999px; }
+.skip:focus { left: 16px; top: 8px; background: var(--night); padding: 8px 12px; z-index: 10; }
+header { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 14px 16px; max-width: 1100px; margin: 0 auto; position: relative; }
+header img { width: 36px; height: 36px; }
+header .mark { font-family: "Archivo Black", Impact, sans-serif; letter-spacing: .06em; font-size: 20px; color: var(--cream); text-decoration: none; }
+header nav { margin-left: auto; display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 16px; }
+header nav a { color: var(--cream); text-decoration: none; }
+header nav a:hover { text-decoration: underline; }
+header nav a[aria-current="page"] { color: var(--ochre); }
+section { max-width: 780px; margin: 0 auto; padding: 32px 16px; }
+h1 { font-family: "Archivo Black", Impact, sans-serif; font-weight: 400; letter-spacing: .05em; color: var(--ochre); font-size: 34px; line-height: 1.2; margin: 0 0 4px; }
+h2 { font-family: "Archivo Black", Impact, sans-serif; font-weight: 400; letter-spacing: .05em; color: var(--ochre); font-size: 26px; margin: 0 0 12px; }
+h3 { font-family: "Archivo Black", Impact, sans-serif; font-weight: 400; letter-spacing: .03em; font-size: 19px; margin: 26px 0 6px; }
+.lede { font-size: 20px; color: var(--muted); margin: 0 0 18px; }
+.panel { background: var(--rust-dark); border-left: 6px solid var(--rust); padding: 22px 24px; border-radius: 4px; }
+.panel p:first-child { margin-top: 0; }
+.panel p:last-child { margin-bottom: 0; }
+ul.points { padding-left: 1.2em; }
+ul.points li { margin: 6px 0; }
+.small { font-size: 16px; color: var(--muted); }
+.tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 8px 0; }
+@media (max-width: 460px) { .tiles { grid-template-columns: 1fr; } }
+.tile { background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 14px 16px; }
+.tile .big { display: block; font-family: "Archivo Black", Impact, sans-serif; font-size: 30px; line-height: 1.15; color: var(--ochre); }
+.tile p { margin: 6px 0 0; font-size: 16px; }
+.chart { background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 14px 16px; margin: 8px 0 6px; }
+.split { display: flex; height: 34px; border-radius: 4px; overflow: hidden; border: 1px solid var(--line); }
+.split span { display: block; height: 100%; }
+.c-hold { background: var(--ochre); }
+.split .c-hold { border-right: 3px solid var(--night); }
+.c-break { background: repeating-linear-gradient(45deg, var(--muted) 0 6px, var(--card) 6px 9px); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 10px 0 0; padding: 0; list-style: none; font-size: 16px; }
+.legend li { display: flex; align-items: center; gap: 8px; }
+.sw { display: inline-block; width: 14px; height: 14px; border-radius: 3px; border: 1px solid var(--line); flex: none; }
+.rows { display: flex; flex-direction: column; gap: 10px; }
+.row { display: grid; grid-template-columns: minmax(96px, 9em) 1fr minmax(64px, auto); gap: 10px; align-items: center; font-size: 16px; }
+.row .val { font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+.track { position: relative; height: 18px; background: var(--night); border: 1px solid var(--line); border-radius: 3px; }
+.track .fill { position: absolute; left: 0; top: 0; bottom: 0; background: var(--ochre); border-radius: 2px 0 0 2px; }
+.track .fill.old { background: repeating-linear-gradient(45deg, var(--muted) 0 6px, var(--card) 6px 9px); }
+.track .mid { position: absolute; left: 50%; top: -4px; bottom: -4px; border-left: 2px dashed var(--cream); }
+.track .band { position: absolute; top: 0; bottom: 0; border-left: 1px solid var(--cream); border-right: 1px solid var(--cream); background: transparent; }
+.chart .note { margin: 10px 0 0; font-size: 15px; color: var(--muted); }
+ol.steps { padding-left: 1.3em; }
+ol.steps li { margin: 10px 0; }
+footer { text-align: center; padding: 30px 16px 40px; font-size: 15px; color: var(--muted); }
+footer p { margin: 6px 0; }
+footer .nw { white-space: nowrap; }
+footer .gate { padding-bottom: 22px; margin-bottom: 18px; border-bottom: 1px solid var(--rust); }
+footer .gate-ask { font-size: 17px; color: var(--cream); margin-bottom: 12px; }
+footer .gate-btn { display: inline-block; border: 1px solid var(--ochre); color: var(--ochre); text-decoration: none;
+  padding: 12px 22px; border-radius: 6px; font-size: 17px; }
+footer .gate-btn:hover, footer .gate-btn:focus { background: var(--rust-dark); }
+footer .art-note { font-size: 14px; }
+.art-toggle { font: inherit; font-size: 15px; background: var(--card); color: var(--cream); border: 1px solid var(--line);
+  border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+.art-toggle:hover, .art-toggle:focus-visible { border-color: var(--ochre); }
+html.art-off .ai-art { display: none !important; }
+.site-menu { margin-left: auto; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px; }
+.site-menu .switches { display: flex; gap: 8px; }
+.menu-btn { display: none; margin-left: auto; width: 44px; height: 44px; padding: 10px; border: 1px solid var(--line);
+  border-radius: 6px; background: var(--card); cursor: pointer; flex-direction: column; justify-content: space-between; }
+.menu-btn span { display: block; height: 3px; border-radius: 2px; background: var(--cream); }
+@media (max-width: 800px) {
+  .menu-btn { display: flex; }
+  .site-menu { display: none; position: absolute; top: 100%; left: 0; right: 0; z-index: 20; margin: 0;
+    flex-direction: column; align-items: stretch; gap: 0; background: var(--card); border-bottom: 2px solid var(--line);
+    box-shadow: 0 8px 16px rgba(0,0,0,.35); padding: 4px 16px 14px; }
+  header.open .site-menu { display: flex; }
+  .site-menu nav { flex-direction: column; gap: 0; margin: 0; font-size: 18px; }
+  .site-menu nav a { display: block; padding: 12px 4px; border-bottom: 1px solid var(--line); text-transform: uppercase;
+    letter-spacing: .05em; }
+  .site-menu .switches { padding-top: 12px; flex-wrap: wrap; }
+}
+@media (max-width: 600px) {
+  body { font-size: 17px; }
+  h1 { font-size: 27px; }
+  h2 { font-size: 22px; }
+  .panel { padding: 18px 16px; }
+  .row { grid-template-columns: 1fr minmax(64px, auto); }
+  .row .lbl { grid-column: 1 / span 2; }
+  .row .track { grid-column: 1; }
+}
+</style>
+<script>try { var r = document.documentElement;
+  if (localStorage.getItem("dustbanners-ai-art") === "off") r.classList.add("art-off");
+  var t = localStorage.getItem("dustbanners-theme"); if (t === "light" || t === "dark") r.classList.add("theme-" + t);
+} catch (e) {}</script>
+</head>
+<body>
+<a class="skip" href="#what">Skip to the page</a>
+<header>
+  <img class="ai-art" src="img/sun.png" alt="" width="36" height="36">
+  <a class="mark" href="index.html">DUSTBANNERS</a>
+  <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="site-menu" aria-label="Menu">
+    <span></span><span></span><span></span></button>
+  <div class="site-menu" id="site-menu">
+    <nav aria-label="Main"><a href="index.html">Home</a><a href="index.html#game">The game</a><a href="index.html#playtest">Help playtest</a><a href="proving-ground.html" aria-current="page">Proving Ground</a><a href="index.html#signup">Email news</a><a href="index.html#contact">Contact</a></nav>
+    <div class="switches">
+      <button type="button" class="art-toggle" id="art-toggle">AI art: On</button>
+      <button type="button" class="art-toggle" id="theme-toggle">Light mode</button>
+    </div>
+  </div>
+</header>
+
+<main>
+<section id="what">
+  <h1>Proving Ground</h1>
+  <p class="lede">How Dustbanners gets balanced before anyone plays it.</p>
+  <div class="panel">
+    <p>Before people sit down at a table, the computer plays Dustbanners against itself, over and over. Every game is written
+    down: which banner won, how it won, who went first, and how many rounds it took.</p>
+    <p>Those records show where the game leans one way. When a card or a rule tips the balance, it gets changed and tested
+    again, so the game is fair before it reaches players. The games run on Kyle&rsquo;s laptop and on computers in the cloud.</p>
+  </div>
+  <p class="small">These are computer players, not people. The numbers below speak to balance only. They say nothing about
+  how fun a game is or how long it takes at a real table.</p>
+</section>
+
+<section id="totals">
+  <h2>The big counts</h2>
+  <div class="tiles">
+    <div class="tile"><span class="big">17,000+</span>
+      <p>More than 17,000 simulated games played so far, across many test versions of the game.</p></div>
+    <div class="tile"><span class="big">7 in 10</span>
+      <p>About 7 in 10 of those games ran in the cloud. About 3 in 10 ran on Kyle&rsquo;s laptop.</p></div>
+    <div class="tile"><span class="big">2,000</span>
+      <p>Games that tried out possible changes: 14 rule options, one card change and one setting for the computer player.</p></div>
+    <div class="tile"><span class="big">120</span>
+      <p>Games played so far under the current rules. All 120 finished with a winner: none stalled, none crashed.</p></div>
+  </div>
+</section>
+
+<section id="rules">
+  <h2>The current rules</h2>
+  <ul class="points">
+    <li>Hold 8 of the 9 places at the end of a turn to win.</li>
+    <li>Breaking the other side&rsquo;s Leader still wins too.</li>
+    <li>The second player draws 1 extra card in the opening hand.</li>
+    <li>The first player gets 1 less Supply on turn 1.</li>
+  </ul>
+  <p class="small">Every result on this page comes from 120 games under these rules: 12 banner pairings, 10 games each,
+  computer against computer.</p>
+</section>
+
+<section id="results">
+  <h2>Results under the current rules</h2>
+
+  <h3 id="how-games-end">How games end</h3>
+  <div class="chart">
+    <div class="split" role="img" aria-label="How 120 games ended: 51.7 percent by holding 8 of the 9 places, 48.3 percent by breaking a Leader.">
+      <span class="c-hold" style="width:51.7%"></span><span class="c-break" style="width:48.3%"></span>
+    </div>
+    <ul class="legend">
+      <li><span class="sw c-hold" aria-hidden="true"></span>Won by holding 8 of the 9 places: <strong>51.7%</strong> (62 of 120 games)</li>
+      <li><span class="sw c-break" aria-hidden="true"></span>Won by breaking a Leader: <strong>48.3%</strong> (58 of 120 games)</li>
+    </ul>
+    <p class="note">Both ways to win stay alive. The target was close to half and half, with holding a little ahead (about
+    55 to 45).</p>
+  </div>
+
+  <h3 id="first-second">First player or second player</h3>
+  <div class="chart">
+    <div class="rows" role="img" aria-label="Wins by seat in 120 games: first player 46.7 percent, second player 53.3 percent. Dashed line marks an even 50 percent.">
+      <div class="row"><span class="lbl">First player</span><span class="track"><span class="fill" style="width:46.7%"></span><span class="mid"></span></span><span class="val">46.7%</span></div>
+      <div class="row"><span class="lbl">Second player</span><span class="track"><span class="fill" style="width:53.3%"></span><span class="mid"></span></span><span class="val">53.3%</span></div>
+    </div>
+    <p class="note">First player won 56 of 120 games; second player won 64 of 120. The dashed line is an even 50%. The target
+    for the first player is between 45% and 55%.</p>
+  </div>
+
+  <h3 id="length">Game length</h3>
+  <div class="tiles">
+    <div class="tile"><span class="big">8.6</span><p>Rounds on average (120 games).</p></div>
+    <div class="tile"><span class="big">8</span><p>Rounds in the middle game (the median of 120 games).</p></div>
+    <div class="tile"><span class="big">12</span><p>Rounds or fewer for about 9 in 10 of the 120 games.</p></div>
+    <div class="tile"><span class="big">5 to 16</span><p>Rounds in the shortest and the longest of the 120 games.</p></div>
+  </div>
+  <p class="small">A round is one turn for each player. Rounds are a count, not a clock.</p>
+
+  <h3 id="banners">How close the banners are</h3>
+  <div class="chart">
+    <div class="rows" role="img" aria-label="Win share by banner, 60 games each: Banner A 61.7 percent, Banner B 50.0 percent, Banner C 46.7 percent, Banner D 41.7 percent. Dashed line marks an even 50 percent.">
+      <div class="row"><span class="lbl">Banner A</span><span class="track"><span class="fill" style="width:61.7%"></span><span class="mid"></span></span><span class="val">61.7%</span></div>
+      <div class="row"><span class="lbl">Banner B</span><span class="track"><span class="fill" style="width:50%"></span><span class="mid"></span></span><span class="val">50.0%</span></div>
+      <div class="row"><span class="lbl">Banner C</span><span class="track"><span class="fill" style="width:46.7%"></span><span class="mid"></span></span><span class="val">46.7%</span></div>
+      <div class="row"><span class="lbl">Banner D</span><span class="track"><span class="fill" style="width:41.7%"></span><span class="mid"></span></span><span class="val">41.7%</span></div>
+    </div>
+    <p class="note">Each banner played 60 games: A won 37, B won 30, C won 28 and D won 25. The letters go by win share,
+    highest first. With only 60 games each, any one share can swing about 12 points either way by chance alone, so the
+    gap between the top and the bottom is being watched as more games are played.</p>
+  </div>
+</section>
+
+<section id="decided">
+  <h2>How a rule gets decided</h2>
+  <p>The rule for winning by holding places changed recently. Here is how that happened, step by step.</p>
+  <ol class="steps">
+    <li><strong>Spot the lean.</strong> Under the old rule, which needed one place fewer, most games ended by holding places,
+    and the player who went first won more often than the player who went second.</li>
+    <li><strong>Try the options on the same games.</strong> 14 rule options were played on the same starting setups, so a
+    difference in the results comes from the rule, not from the shuffle.</li>
+    <li><strong>Compare against the targets.</strong> Holding should win a little over half the games (between 50% and 60%),
+    and the first player should win between 45% and 55%. Only one of the 14 options landed inside both targets in those games: holding 8
+    of the 9 places, together with the extra opening card for the second player and 1 less Supply for the first player on
+    turn 1. The other rule options missed one target or both.</li>
+    <li><strong>Kyle makes the call.</strong> The results go to Kyle, who decides. He chose that option, and it is now the
+    rule.</li>
+    <li><strong>Keep checking.</strong> 120 games is a first look, not the last word. Testing goes on as the game grows.</li>
+  </ol>
+  <div class="chart">
+    <div class="rows" role="img" aria-label="Same 120 starting setups, old rule against current rule. Won by holding: old rule 70.8 percent, current rules 51.7 percent. First player wins: old rule 62.5 percent, current rules 46.7 percent.">
+      <div class="row"><span class="lbl">Won by holding, old rule</span><span class="track"><span class="fill old" style="width:70.8%"></span><span class="mid"></span></span><span class="val">70.8%</span></div>
+      <div class="row"><span class="lbl">Won by holding, current rules</span><span class="track"><span class="fill" style="width:51.7%"></span><span class="mid"></span></span><span class="val">51.7%</span></div>
+      <div class="row"><span class="lbl">First player wins, old rule</span><span class="track"><span class="fill old" style="width:62.5%"></span><span class="mid"></span></span><span class="val">62.5%</span></div>
+      <div class="row"><span class="lbl">First player wins, current rules</span><span class="track"><span class="fill" style="width:46.7%"></span><span class="mid"></span></span><span class="val">46.7%</span></div>
+    </div>
+    <p class="note">Both rule sets played the same 120 starting setups. Old rule: 85 of 120 games won by holding, and the first
+    player won 75 of 120. Current rules: 62 of 120 won by holding, and the first player won 56 of 120. The dashed line is
+    an even 50%.</p>
+  </div>
+</section>
+
+<section id="fine-print">
+  <h2>What these numbers are not</h2>
+  <ul class="points">
+    <li>They come from the computer playing itself, not from people.</li>
+    <li>They do not measure fun, or how long a game takes at a real table.</li>
+    <li>They are small samples. A share near 50% from 120 games can be off by about 9 points either way by chance.</li>
+  </ul>
+  <p>Want to help test it with real people? <a href="index.html#playtest">Help playtest</a>.</p>
+</section>
+</main>
+
+<footer>
+  <div class="gate">
+    <p class="gate-ask"><span class="nw">Something broken or confusing</span> <span class="nw">on this site?</span></p>
+    <a class="gate-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSeLGjetFpVL5vjk9n1kVDnuCJZK04rodNUD4oKncrjfLcybfA/viewform" rel="noopener">Leave Word at the Gate</a>
+  </div>
+  <p class="art-note"><span class="nw">Sun logo:</span> <span class="nw">placeholder art (AI-made).</span> <span class="nw">Final art by human artists.</span></p>
+  <p><span class="nw">Dustbanners&trade; &middot; &copy; 2026 AminalHungy</span> <span class="nw">&middot; <a href="privacy.html">Privacy</a></span></p>
+</footer>
+<script>
+(function () {
+  var root = document.documentElement, btn = document.getElementById("art-toggle");
+  function show() { btn.textContent = root.classList.contains("art-off") ? "AI art: Off" : "AI art: On"; }
+  btn.addEventListener("click", function () {
+    root.classList.toggle("art-off");
+    try { localStorage.setItem("dustbanners-ai-art", root.classList.contains("art-off") ? "off" : "on"); } catch (e) {}
+    show();
+  });
+  show();
+  var tbtn = document.getElementById("theme-toggle"), mq = window.matchMedia("(prefers-color-scheme: light)");
+  function isLight() {
+    if (root.classList.contains("theme-light")) return true;
+    if (root.classList.contains("theme-dark")) return false;
+    return mq.matches;
+  }
+  function showTheme() { tbtn.textContent = isLight() ? "Dark mode" : "Light mode"; }
+  tbtn.addEventListener("click", function () {
+    var next = isLight() ? "dark" : "light";
+    root.classList.remove("theme-light", "theme-dark");
+    root.classList.add("theme-" + next);
+    try { localStorage.setItem("dustbanners-theme", next); } catch (e) {}
+    showTheme();
+  });
+  if (mq.addEventListener) mq.addEventListener("change", showTheme);
+  showTheme();
+  var header = document.querySelector("header"), mbtn = document.getElementById("menu-btn");
+  function setMenu(open) { header.classList.toggle("open", open); mbtn.setAttribute("aria-expanded", open ? "true" : "false"); }
+  mbtn.addEventListener("click", function () { setMenu(!header.classList.contains("open")); });
+  [].slice.call(document.querySelectorAll("#site-menu nav a")).forEach(function (a) {
+    a.addEventListener("click", function () { setMenu(false); });
+  });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") { setMenu(false); } });
+})();
+</script>
+</body>
+</html>
