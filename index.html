@@ -83,6 +83,8 @@ footer .gate-btn { display: inline-block; border: 1px solid var(--ochre); color:
   padding: 12px 22px; border-radius: 6px; font-size: 17px; }
 footer .gate-btn:hover, footer .gate-btn:focus { background: var(--rust-dark); }
 footer .art-note { font-size: 14px; }
+.contact-mail { font-size: 20px; overflow-wrap: anywhere; }
+.contact-mail a { color: var(--ochre); }
 /* AI art switch (Kyle 2026-10-14): visitors can hide every AI-made placeholder image. */
 .art-toggle { font: inherit; font-size: 15px; background: var(--card); color: var(--cream); border: 1px solid var(--line);
   border-radius: 6px; padding: 6px 12px; cursor: pointer; }
@@ -129,7 +131,7 @@ header { position: relative; }
   <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="site-menu" aria-label="Menu">
     <span></span><span></span><span></span></button>
   <div class="site-menu" id="site-menu">
-    <nav aria-label="Main"><a href="#game">The game</a><a href="#playtest">Help playtest</a><a href="#creator">Creator</a><a href="#ai">AI and art</a><a href="#signup">Email news</a><a href="#follow">Follow</a></nav>
+    <nav aria-label="Main"><a href="#game">The game</a><a href="#playtest">Help playtest</a><a href="#creator">Creator</a><a href="#ai">AI and art</a><a href="#signup">Email news</a><a href="#follow">Follow</a><a href="#contact">Contact</a></nav>
     <div class="switches">
       <button type="button" class="art-toggle" id="art-toggle">AI art: On</button>
       <button type="button" class="art-toggle" id="theme-toggle">Light mode</button>
@@ -196,6 +198,7 @@ header { position: relative; }
   <div class="links">
     <a href="https://forms.gle/Hwv51YV4hsCZciK97" rel="noopener">Open the playtest feedback form</a>
   </div>
+  <p>Rather not use a form? Email <a href="mailto:hello@dustbanners.com">hello@dustbanners.com</a> instead.</p>
   <p class="small">The form is on Google Forms. We only use your answers to improve the game. Read our
   <a href="privacy.html">privacy notice</a>.</p>
 </section>
@@ -233,6 +236,13 @@ header { position: relative; }
     <a href="https://www.reddit.com/r/Dustbanners/" rel="noopener">Reddit</a>
     <span class="soon">Kickstarter (coming soon)</span>
   </div>
+</section>
+
+<section id="contact">
+  <h2>Contact AminalHungy</h2>
+  <p>Questions about the game, an order, or how to play? Bought it and haven&rsquo;t played yet? Game feedback you&rsquo;d rather
+  not put in a form? Email us. A real person reads every message.</p>
+  <p class="contact-mail"><a href="mailto:hello@dustbanners.com">hello@dustbanners.com</a></p>
 </section>
 </main>
 
