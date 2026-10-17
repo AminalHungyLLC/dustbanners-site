@@ -57,6 +57,11 @@ h3 { font-family: "Archivo Black", Impact, sans-serif; font-weight: 400; letter-
 ul.points { padding-left: 1.2em; }
 ul.points li { margin: 6px 0; }
 .small { font-size: 16px; color: var(--muted); }
+/* The two caveats stay, styled as part of the page rather than fine print. */
+.fieldnote { background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--ochre);
+  border-radius: 6px; padding: 12px 16px; margin: 18px 0 6px; font-size: 17px; line-height: 1.55; color: var(--cream); }
+.fieldnote b { display: block; margin-bottom: 4px; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ochre); }
 .tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 8px 0; }
 @media (max-width: 460px) { .tiles { grid-template-columns: 1fr; } }
 .tile { background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 14px 16px; }
@@ -152,7 +157,7 @@ html.art-off .ai-art { display: none !important; }
     <p>Those records show where the game leans one way. When a card or a rule tips the balance, it gets changed and tested
     again, so the game is fair before it reaches players. The games run on Kyle&rsquo;s laptop and on computers in the cloud.</p>
   </div>
-  <p class="small">These are computer players, not people. The numbers below speak to balance only. They say nothing about
+  <p class="fieldnote"><b>Who played these games</b>These are computer players, not people. The numbers below speak to balance only. They say nothing about
   how fun a game is or how long it takes at a real table.</p>
 </section>
 
@@ -178,7 +183,7 @@ html.art-off .ai-art { display: none !important; }
     <li>The second player draws 1 extra card in the opening hand.</li>
     <li>The first player gets 1 less Supply on turn 1.</li>
   </ul>
-  <p class="small">Every result on this page comes from 120 games under these rules: 12 banner pairings, 10 games each,
+  <p class="fieldnote"><b>Where the numbers come from</b>Every result on this page comes from 120 games under these rules: 12 banner pairings, 10 games each,
   computer against computer.</p>
 </section>
 
