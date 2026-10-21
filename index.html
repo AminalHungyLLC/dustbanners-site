@@ -91,10 +91,18 @@ footer .art-note { font-size: 14px; }
 .art-toggle { font: inherit; font-size: 15px; background: var(--card); color: var(--cream); border: 1px solid var(--line);
   border-radius: 6px; padding: 6px 12px; cursor: pointer; }
 .art-toggle:hover, .art-toggle:focus-visible { border-color: var(--ochre); }
-.art-frame { display: none; max-width: 1100px; margin: 0 auto; aspect-ratio: 16 / 9; max-height: 60vh; border: 2px dashed var(--line);
-  align-items: center; justify-content: center; text-align: center; padding: 16px; color: var(--muted); font-size: 18px; }
 html.art-off .ai-art { display: none !important; }
-html.art-off .art-frame { display: flex; }
+/* r27 (Kyle 2026-10-19): the AI art switch hides only the AI art. Each picture has an art-free twin (cards and text stay). */
+.free-art { display: none; }
+html.art-off .free-art { display: block; }
+.card-grid img.free-art { display: none; }
+html.art-off .card-grid img.free-art { display: block; }
+.hero img { max-width: 100%; height: auto; }
+.card-grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 22px; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
+.card-grid li { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 14px; }
+.card-grid img { display: block; width: 100%; max-width: 360px; height: auto; margin: 0 auto 12px; }
+.card-grid h3 { margin: 0 0 6px; font-size: 19px; }
+.card-grid p { margin: 0; font-size: 17px; }
 /* Menu (Kyle 2026-10-14): wide screens show everything in one row; phones get a 3-line button that drops the menu down. */
 header { position: relative; }
 .site-menu { margin-left: auto; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px; }
@@ -133,7 +141,7 @@ header { position: relative; }
   <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="site-menu" aria-label="Menu">
     <span></span><span></span><span></span></button>
   <div class="site-menu" id="site-menu">
-    <nav aria-label="Main"><a href="#game">The game</a><a href="#playtest">Help playtest</a><a href="#creator">Creator</a><a href="#ai">Made by people</a><a href="#signup">Email news</a><a href="#follow">Follow</a><a href="#contact">Contact</a></nav>
+    <nav aria-label="Main"><a href="#game">The game</a><a href="#cards">The cards</a><a href="#playtest">Help playtest</a><a href="#creator">Creator</a><a href="#ai">Made by people</a><a href="#signup">Email news</a><a href="#follow">Follow</a><a href="#contact">Contact</a></nav>
     <div class="switches">
       <button type="button" class="art-toggle" id="art-toggle">AI art: On</button>
       <button type="button" class="art-toggle" id="theme-toggle">Light mode</button>
@@ -143,11 +151,15 @@ header { position: relative; }
 
 <main>
 <figure class="hero" style="margin:0">
-  <div class="art-frame">AI placeholder art is hidden. The final art is coming from human artists.</div>
   <picture class="ai-art">
     <source media="(max-width: 1100px)" srcset="img/hero-1024.jpg">
     <img src="img/hero.jpg" width="1920" height="1080"
-         alt="The Dustbanners title over a painted frontier map, with six placeholder cards fanned out: Violent Squall, Veda Knell, Scrapjaw, Leave No Witnesses, Wreckline Bike and First Through. Placeholder art (AI-made). Final art by human artists.">
+         alt="The Dustbanners title over a painted frontier map, with six placeholder cards fanned out: a Frontier Disaster card, a Leader, a Companion, a Tactic, an Equipment card and a Unit. Each card shows a generic name and its real rules text. Placeholder art (AI-made). Final art by human artists.">
+  </picture>
+  <picture class="free-art">
+    <source media="(max-width: 1100px)" srcset="img/hero-free-1024.jpg">
+    <img src="img/hero-free.jpg" width="1920" height="1080"
+         alt="The Dustbanners title on a plain dark background, with the same six cards fanned out: a Frontier Disaster card, a Leader, a Companion, a Tactic, an Equipment card and a Unit. The art boxes are empty.">
   </picture>
   <figcaption class="ai-art">Placeholder art (AI-made). Final art by human artists.</figcaption>
 </figure>
@@ -160,7 +172,7 @@ header { position: relative; }
 <section id="teaser">
   <h2>Eighty years after the fall, the valley still has nine places worth holding.</h2>
   <div class="panel">
-    <p>Dustbanners is a two-player card game set on a broken frontier, about eighty years after the world fell apart. You lead a banner into a valley of nine places. Break the other side&rsquo;s Leader, or hold eight of the nine by the end of a turn. The Frontier Deck turns up a storm, a wild animal or a find every turn, and both of you have to deal with it.</p>
+    <p>Dustbanners is a two-player card game set on a broken frontier, about eighty years after the world fell apart. You lead a banner into a valley of nine places. Break the other side&rsquo;s Leader, or hold eight of the nine at the end of any turn. The Frontier Deck turns up a storm, a wild animal or a find every turn, and both of you have to deal with it.</p>
     <p>What&rsquo;s in it for you:</p>
     <ul class="points">
       <li><strong>A world that will grow.</strong> Each season will add a chapter of the story, and new cards will come from it.</li>
@@ -199,7 +211,7 @@ header { position: relative; }
       <li>2 players, ages 14 and up.</li>
       <li>The first box has two factions: the Wardens (&ldquo;How do we protect what&rsquo;s ours?&rdquo;) and the Raiders
       (&ldquo;What can we take?&rdquo;). Each banner has two Leaders and two Companions to choose from.</li>
-      <li>Two ways to win, and both are always open: break the enemy Leader, or hold 8 of the 9 places at the end of a turn.</li>
+      <li>Two ways to win, and both are always open: break the enemy Leader, or hold 8 of the 9 places at the end of any turn.</li>
       <li>The Frontier Deck turns up something every turn (a storm, a wild animal, a find) that both of you have to deal with.</li>
       <li>No random packs. Every box has the same cards.</li>
       <li>More factions to come.</li>
@@ -209,7 +221,7 @@ header { position: relative; }
       <ul class="points">
         <li>Magic: The Gathering, but want fixed boxes, a simpler resource (we call it Supply), and a world whose story grows with every season.</li>
         <li>Android: Netrunner, for two sides that play differently, no random packs, and a frontier with its own history to read.</li>
-        <li>KeyForge, for decks that are ready to play out of the box, with cards balanced in thousands of simulated games before they reach your table.</li>
+        <li>KeyForge, for decks that are ready to play out of the box.</li>
         <li>Marvel Champions, for fixed expansions instead of boosters, each one a new chapter of the story.</li>
         <li>Root, for factions that feel nothing alike, each with its own people, places and sayings.</li>
         <li>Arcs, for card-driven strategy in a world you can read as deep as you like.</li>
@@ -217,6 +229,66 @@ header { position: relative; }
       <p class="small">Those games belong to their makers. Dustbanners is not connected to any of them.</p>
     </div>
     <p>A printed test copy is being made, and a print-and-play version is coming.</p>
+  </div>
+</section>
+
+<section id="cards">
+  <h2>The cards</h2>
+  <div class="panel">
+    <p>Every card in the first box is one of these eight kinds. Here is one of each, with its real rules text. The names are
+    plain stand-ins for now. When the AI art is on, the pictures in the cards are AI-made placeholders. Use the
+    &ldquo;AI art&rdquo; button at the top to swap them for empty boxes. The final art is coming from human artists.</p>
+    <ul class="card-grid">
+      <li>
+        <img class="ai-art" src="img/card-leader.webp" width="480" height="672" loading="lazy" alt="A Leader card named Warden Leader. HP 21. Its rules say: [1/Opp Turn] The first time a Unit or Companion you control would take damage, you may pay 1 Supply: prevent 1 damage. [1/Opp Turn] After your Unit Guards, prevents damage, or survives combat while defending, give one of your ready Units +1 Attack through your next turn. This bonus cannot stack with itself on one Unit. The picture in the card is AI-made. Placeholder art (AI-made).">
+        <img class="free-art" src="img/card-leader-free.webp" width="480" height="672" loading="lazy" alt="A Leader card named Warden Leader. HP 21. Its rules say: [1/Opp Turn] The first time a Unit or Companion you control would take damage, you may pay 1 Supply: prevent 1 damage. [1/Opp Turn] After your Unit Guards, prevents damage, or survives combat while defending, give one of your ready Units +1 Attack through your next turn. This bonus cannot stack with itself on one Unit. The art box is empty.">
+        <h3>Leader</h3>
+        <p>Your Leader leads your banner. If your Leader is defeated, you lose.</p>
+      </li>
+      <li>
+        <img class="ai-art" src="img/card-companion.webp" width="480" height="672" loading="lazy" alt="A Companion card named Guard Pig. ATK 1, RET 3, HP 6. Its rules say: Guard Pig can Guard one of your Units or Companions, or your Leader, anywhere. [1/Opp Turn] After combat ends, if Guard Pig Guarded and remains in play, ready one other Unit you control at the attacked Location. The picture in the card is AI-made. Placeholder art (AI-made).">
+        <img class="free-art" src="img/card-companion-free.webp" width="480" height="672" loading="lazy" alt="A Companion card named Guard Pig. ATK 1, RET 3, HP 6. Its rules say: Guard Pig can Guard one of your Units or Companions, or your Leader, anywhere. [1/Opp Turn] After combat ends, if Guard Pig Guarded and remains in play, ready one other Unit you control at the attacked Location. The art box is empty.">
+        <h3>Companion</h3>
+        <p>A Companion is an animal or a person who fights beside your Leader. If it is defeated, you can bring it back.</p>
+      </li>
+      <li>
+        <img class="ai-art" src="img/card-unit.webp" width="480" height="672" loading="lazy" alt="A Unit card named Warden Healer. Cost 2. ATK 1, RET 2, HP 3. Its rules say: Once each turn after a Unit or Companion at Warden Healer&#x27;s Location is dealt damage and remains in play, you may exhaust Warden Healer to Restore 1 damage from it. The picture in the card is AI-made. Placeholder art (AI-made).">
+        <img class="free-art" src="img/card-unit-free.webp" width="480" height="672" loading="lazy" alt="A Unit card named Warden Healer. Cost 2. ATK 1, RET 2, HP 3. Its rules say: Once each turn after a Unit or Companion at Warden Healer&#x27;s Location is dealt damage and remains in play, you may exhaust Warden Healer to Restore 1 damage from it. The art box is empty.">
+        <h3>Unit</h3>
+        <p>Units are your banner&rsquo;s people. They move, attack, defend and capture places.</p>
+      </li>
+      <li>
+        <img class="ai-art" src="img/card-tactic.webp" width="480" height="672" loading="lazy" alt="A Tactic card named Fall Back. Cost 1. Its rules say: Redeploy one damaged Unit or Companion you control to an adjacent Location you control. Prevent the next 1 damage that would be dealt to it this turn. The picture in the card is AI-made. Placeholder art (AI-made).">
+        <img class="free-art" src="img/card-tactic-free.webp" width="480" height="672" loading="lazy" alt="A Tactic card named Fall Back. Cost 1. Its rules say: Redeploy one damaged Unit or Companion you control to an adjacent Location you control. Prevent the next 1 damage that would be dealt to it this turn. The art box is empty.">
+        <h3>Tactic</h3>
+        <p>A Tactic is a one-time action. Do what it says, then put it in your discard pile, the Ditch.</p>
+      </li>
+      <li>
+        <img class="ai-art" src="img/card-equipment.webp" width="480" height="672" loading="lazy" alt="An Equipment card named Warden Shield. Cost 2. DUR 3. Its rules say: Attach to a Unit you control. The attached Unit can Guard your Leader or a Location you control, anywhere. While Guarding, prevent the first 1 combat damage dealt to it each turn. The picture in the card is AI-made. Placeholder art (AI-made).">
+        <img class="free-art" src="img/card-equipment-free.webp" width="480" height="672" loading="lazy" alt="An Equipment card named Warden Shield. Cost 2. DUR 3. Its rules say: Attach to a Unit you control. The attached Unit can Guard your Leader or a Location you control, anywhere. While Guarding, prevent the first 1 combat damage dealt to it each turn. The art box is empty.">
+        <h3>Equipment</h3>
+        <p>Equipment is gear. It goes on a card it names, or it sits at a place you control.</p>
+      </li>
+      <li>
+        <img class="ai-art" src="img/card-structure.webp" width="480" height="672" loading="lazy" alt="A Structure card named Field Clinic. Cost 3. DUR 4. Its rules say: [1/Turn] [After Combat] After combat ends at this Location during your turn, you may pay 1 Supply. Restore 1 damage from one surviving Unit or Companion you control there. The picture in the card is AI-made. Placeholder art (AI-made).">
+        <img class="free-art" src="img/card-structure-free.webp" width="480" height="672" loading="lazy" alt="A Structure card named Field Clinic. Cost 3. DUR 4. Its rules say: [1/Turn] [After Combat] After combat ends at this Location during your turn, you may pay 1 Supply. Restore 1 damage from one surviving Unit or Companion you control there. The art box is empty.">
+        <h3>Structure</h3>
+        <p>A Structure is something you build at a place you control.</p>
+      </li>
+      <li>
+        <img class="ai-art" src="img/card-location.webp" width="480" height="672" loading="lazy" alt="A Battlefield Location card named Mountain Road. DUR 4. Its rules say: Capture Reward - When a player Captures Mountain Road, that player draws 1 card, then discards 1 card. Routes: the West Yard; the Upper Junction. The picture in the card is AI-made. Placeholder art (AI-made).">
+        <img class="free-art" src="img/card-location-free.webp" width="480" height="672" loading="lazy" alt="A Battlefield Location card named Mountain Road. DUR 4. Its rules say: Capture Reward - When a player Captures Mountain Road, that player draws 1 card, then discards 1 card. Routes: the West Yard; the Upper Junction. The art box is empty.">
+        <h3>Battlefield Location</h3>
+        <p>A Location is one of the nine places on the map. Hold 8 of the 9 at the end of any turn to win.</p>
+      </li>
+      <li>
+        <img class="ai-art" src="img/card-frontier.webp" width="480" height="672" loading="lazy" alt="A Frontier card named Hidden Supplies. Its rules say: Resolve - Each player Generates 1 Supply this turn. The reveal controller Generates 1 additional Supply. The picture in the card is AI-made. Placeholder art (AI-made).">
+        <img class="free-art" src="img/card-frontier-free.webp" width="480" height="672" loading="lazy" alt="A Frontier card named Hidden Supplies. Its rules say: Resolve - Each player Generates 1 Supply this turn. The reveal controller Generates 1 additional Supply. The art box is empty.">
+        <h3>Frontier card</h3>
+        <p>Frontier cards come from the shared deck. Storms, finds, animals and trouble happen to both of you.</p>
+      </li>
+    </ul>
+    <p class="small ai-art">Placeholder art (AI-made). Final art by human artists.</p>
   </div>
 </section>
 
