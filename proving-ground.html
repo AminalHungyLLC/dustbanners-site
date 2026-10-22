@@ -152,10 +152,10 @@ html.art-off .ai-art { display: none !important; }
 <main>
 <section id="what">
   <h1>Proving Ground</h1>
-  <p class="lede">How Dustbanners is tested before anyone plays it.</p>
+  <p class="lede">How Dustbanners is being tested before anyone plays it.</p>
   <div class="panel">
     <p>Before people sit down at a table, the computer plays Dustbanners against itself, over and over. Every game is written
-    down: which banner won, how it won, who went first, and how many rounds it took.</p>
+    down: which Banner won, how it won, who went first, and how many rounds it took. The first box has two Banners. The game plays four Banners today, and four more come later.</p>
     <p>Those records show where the game leans one way. When a card or a rule tips the balance, it gets changed and tested
     again. The games run on Kyle&rsquo;s laptop and on computers in the cloud.</p>
   </div>
@@ -171,7 +171,8 @@ html.art-off .ai-art { display: none !important; }
     <div class="tile"><span class="big">7 in 10</span>
       <p>About 7 in 10 of those games ran in the cloud. About 3 in 10 ran on Kyle&rsquo;s laptop.</p></div>
     <div class="tile"><span class="big">2,000</span>
-      <p>Games that tried out possible changes: 14 rule options, one card change and one setting for the computer player.</p></div>
+      <p>Games that tried out possible changes: 14 rule options, one card change and one setting for the computer player.</p>
+      <p>These are the games of the rule trials behind &lsquo;How a rule gets decided&rsquo;. The other games tested cards, decks and the program itself, and many of those tried changes too.</p></div>
     <div class="tile"><span class="big">120</span>
       <p>Games played so far under the current rules. All 120 finished with a winner: none stalled, none crashed.</p></div>
   </div>
@@ -180,12 +181,13 @@ html.art-off .ai-art { display: none !important; }
 <section id="rules">
   <h2>The current rules</h2>
   <ul class="points">
-    <li>Hold 8 of the 9 places at the end of any turn to win.</li>
+    <li>Hold 8 of the 9 places at the end of any turn to win. That is the rule today.</li>
     <li>Breaking the other side&rsquo;s Leader still wins too.</li>
     <li>The second player draws 1 extra card in the opening hand.</li>
     <li>The first player gets 1 less Supply on turn 1.</li>
   </ul>
-  <p class="fieldnote"><b>Where the numbers come from</b>Every result on this page comes from 120 games under these rules: 12 banner pairings, 10 games each,
+  <p>The two turn 1 rules are part of the rules. They came with the change from hold 7 to hold 8: the second player draws 1 extra card in the opening hand, and the first player gets 1 less Supply on turn 1.</p>
+  <p class="fieldnote"><b>Where the numbers come from</b>Every result on this page comes from 120 games under these rules: 12 Banner pairings, 10 games each,
   computer against computer.</p>
 </section>
 
@@ -224,21 +226,28 @@ html.art-off .ai-art { display: none !important; }
   </div>
   <p class="small">A round is one turn for each player. Rounds are a count, not a clock.</p>
 
-  <h3 id="banners">How close the banners are</h3>
+  <h3 id="banners">How close the Banners are</h3>
   <div class="chart">
-    <div class="rows" role="img" aria-label="Win share by banner, 60 games each: Banner A 61.7 percent, Banner B 50.0 percent, Banner C 46.7 percent, Banner D 41.7 percent. Dashed line marks an even 50 percent.">
+    <div class="rows" role="img" aria-label="Win share by Banner, 60 games each: Banner A 61.7 percent, Banner B 50.0 percent, Banner C 46.7 percent, Banner D 41.7 percent. Dashed line marks an even 50 percent.">
       <div class="row"><span class="lbl">Banner A</span><span class="track"><span class="fill" style="width:61.7%"></span><span class="mid"></span></span><span class="val">61.7%</span></div>
       <div class="row"><span class="lbl">Banner B</span><span class="track"><span class="fill" style="width:50%"></span><span class="mid"></span></span><span class="val">50.0%</span></div>
       <div class="row"><span class="lbl">Banner C</span><span class="track"><span class="fill" style="width:46.7%"></span><span class="mid"></span></span><span class="val">46.7%</span></div>
       <div class="row"><span class="lbl">Banner D</span><span class="track"><span class="fill" style="width:41.7%"></span><span class="mid"></span></span><span class="val">41.7%</span></div>
     </div>
-    <p class="note">Each banner played 60 games: A won 37, B won 30, C won 28 and D won 25. The letters go by win share,
+    <p class="note">Each Banner played 60 games. Wins out of 60:</p>
+    <ul class="points">
+      <li>Banner A: 37</li>
+      <li>Banner B: 30</li>
+      <li>Banner C: 28</li>
+      <li>Banner D: 25</li>
+    </ul>
+    <p class="note">The letters go by win share,
     highest first. With only 60 games each, any one share can swing about 12 points either way by chance alone, so the
     gap between the top and the bottom is being watched as more games are played.</p>
   </div>
 
   <h3 id="leaders">Leaders</h3>
-  <p class="small">Each banner has two Leaders to choose from. Within each banner, the Leader with the higher win share is
+  <p class="small">Each Banner has two Leaders to choose from. Within each Banner, the Leader with the higher win share is
   listed first (A1 before A2). Same 120 games as above.</p>
   <div class="chart">
     <div class="rows" role="img" aria-label="Win share by Leader. Banner A: Leader A1 63.3 percent, 19 of 30 games; Leader A2 60.0 percent, 18 of 30. Banner B: Leader B1 59.4 percent, 19 of 32; Leader B2 39.3 percent, 11 of 28. Banner C: Leader C1 53.3 percent, 16 of 30; Leader C2 40.0 percent, 12 of 30. Banner D: Leader D1 52.9 percent, 18 of 34; Leader D2 26.9 percent, 7 of 26. Dashed line marks an even 50 percent.">
@@ -251,8 +260,18 @@ html.art-off .ai-art { display: none !important; }
       <div class="row"><span class="lbl">Leader D1</span><span class="track"><span class="fill" style="width:52.9%"></span><span class="mid"></span></span><span class="val">52.9%</span></div>
       <div class="row"><span class="lbl">Leader D2</span><span class="track"><span class="fill" style="width:26.9%"></span><span class="mid"></span></span><span class="val">26.9%</span></div>
     </div>
-    <p class="note">Wins out of games played: A1 won 19 of 30, A2 18 of 30, B1 19 of 32, B2 11 of 28, C1 16 of 30, C2 12 of
-    30, D1 18 of 34 and D2 7 of 26. The dashed line is an even 50%.</p>
+    <p class="note">Wins out of games played:</p>
+    <ul class="points">
+      <li>Leader A1: 19 of 30</li>
+      <li>Leader A2: 18 of 30</li>
+      <li>Leader B1: 19 of 32</li>
+      <li>Leader B2: 11 of 28</li>
+      <li>Leader C1: 16 of 30</li>
+      <li>Leader C2: 12 of 30</li>
+      <li>Leader D1: 18 of 34</li>
+      <li>Leader D2: 7 of 26</li>
+    </ul>
+    <p class="note">The dashed line is an even 50%.</p>
     <p class="note">Each Leader played only 26 to 34 of these games, so any one share can swing about 17 points either way by
     chance alone. Treat these as early signs, not verdicts.</p>
   </div>

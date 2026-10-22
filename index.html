@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-DBpnz6wF+obO8n4OcbYBP2+vZkM7UQlXANzH2lWyuQ4=' 'sha256-QxsWlAdjZ8Zj28vt0lcXlvaqvGc1xkmhXIgUIxRACJc='; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://app.kit.com https://*.kit.com">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-DBpnz6wF+obO8n4OcbYBP2+vZkM7UQlXANzH2lWyuQ4=' 'sha256-rssY1Ueb3ByMPqr7kSUPc9SRq3NZmtfM/fEswsAOVk0='; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://app.kit.com https://*.kit.com">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Dustbanners</title>
 <meta name="description" content="Dustbanners: a two-player card game of survival on a broken frontier. Win by breaking the enemy Leader, or by holding the map.">
@@ -101,7 +101,7 @@ html.art-off .card-grid img.free-art { display: block; }
 .card-grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 22px; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
 .card-grid li { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 14px; }
 .card-grid img { display: block; width: 100%; max-width: 360px; height: auto; margin: 0 auto 12px; }
-.card-grid h3 { margin: 0 0 6px; font-size: 19px; }
+.card-grid h3 { margin: 0 0 10px; font-size: 21px; text-align: center; }
 .card-grid p { margin: 0; font-size: 17px; }
 /* Menu (Kyle 2026-10-14): wide screens show everything in one row; phones get a 3-line button that drops the menu down. */
 header { position: relative; }
@@ -170,9 +170,9 @@ header { position: relative; }
 </div>
 
 <section id="teaser">
-  <h2>Eighty years after the fall, the valley still has nine places worth holding.</h2>
+  <h2>Eighty years after the fall, the valley still has nine outposts worth holding.</h2>
   <div class="panel">
-    <p>Dustbanners is a two-player card game set on a broken frontier, about eighty years after the world fell apart. You lead a banner into a valley of nine places. Break the other side&rsquo;s Leader, or hold eight of the nine at the end of any turn. The Frontier Deck turns up a storm, a wild animal or a find every turn, and both of you have to deal with it.</p>
+    <p>Dustbanners is a two-player card game set on a broken frontier, about eighty years after the world fell apart. You lead a Banner into a valley of nine places. Every faction flies a banner, and in this game the side you lead is called a Banner. Break the other side&rsquo;s Leader, or hold eight of the nine at the end of any turn. Your rival is not your only trouble. The Frontier throws storms, wild animals and strange finds at both of you, and you have to face them.</p>
     <p>What&rsquo;s in it for you:</p>
     <ul class="points">
       <li><strong>A world that will grow.</strong> Each season will add a chapter of the story, and new cards will come from it.</li>
@@ -210,7 +210,7 @@ header { position: relative; }
     <ul class="points">
       <li>2 players, ages 14 and up.</li>
       <li>The first box has two factions: the Wardens (&ldquo;How do we protect what&rsquo;s ours?&rdquo;) and the Raiders
-      (&ldquo;What can we take?&rdquo;). Each banner has two Leaders and two Companions to choose from.</li>
+      (&ldquo;What can we take?&rdquo;). Each Banner has two Leaders and two Companions to choose from.</li>
       <li>Two ways to win, and both are always open: break the enemy Leader, or hold 8 of the 9 places at the end of any turn.</li>
       <li>The Frontier Deck turns up something every turn (a storm, a wild animal, a find) that both of you have to deal with.</li>
       <li>No random packs. Every box has the same cards.</li>
@@ -240,51 +240,51 @@ header { position: relative; }
     &ldquo;AI art&rdquo; button at the top to swap them for empty boxes. The final art is coming from human artists.</p>
     <ul class="card-grid">
       <li>
+        <h3>Leader</h3>
         <img class="ai-art" src="img/card-leader.webp" width="480" height="672" loading="lazy" alt="A Leader card named Warden Leader. HP 21. Its rules say: [1/Opp Turn] The first time a Unit or Companion you control would take damage, you may pay 1 Supply: prevent 1 damage. [1/Opp Turn] After your Unit Guards, prevents damage, or survives combat while defending, give one of your ready Units +1 Attack through your next turn. This bonus cannot stack with itself on one Unit. The picture in the card is AI-made. Placeholder art (AI-made).">
         <img class="free-art" src="img/card-leader-free.webp" width="480" height="672" loading="lazy" alt="A Leader card named Warden Leader. HP 21. Its rules say: [1/Opp Turn] The first time a Unit or Companion you control would take damage, you may pay 1 Supply: prevent 1 damage. [1/Opp Turn] After your Unit Guards, prevents damage, or survives combat while defending, give one of your ready Units +1 Attack through your next turn. This bonus cannot stack with itself on one Unit. The art box is empty.">
-        <h3>Leader</h3>
-        <p>Your Leader leads your banner. If your Leader is defeated, you lose.</p>
+        <p>Your Leader leads your Banner. If your Leader is defeated, you lose.</p>
       </li>
       <li>
+        <h3>Companion</h3>
         <img class="ai-art" src="img/card-companion.webp" width="480" height="672" loading="lazy" alt="A Companion card named Guard Pig. ATK 1, RET 3, HP 6. Its rules say: Guard Pig can Guard one of your Units or Companions, or your Leader, anywhere. [1/Opp Turn] After combat ends, if Guard Pig Guarded and remains in play, ready one other Unit you control at the attacked Location. The picture in the card is AI-made. Placeholder art (AI-made).">
         <img class="free-art" src="img/card-companion-free.webp" width="480" height="672" loading="lazy" alt="A Companion card named Guard Pig. ATK 1, RET 3, HP 6. Its rules say: Guard Pig can Guard one of your Units or Companions, or your Leader, anywhere. [1/Opp Turn] After combat ends, if Guard Pig Guarded and remains in play, ready one other Unit you control at the attacked Location. The art box is empty.">
-        <h3>Companion</h3>
         <p>A Companion is an animal or a person who fights beside your Leader. If it is defeated, you can bring it back.</p>
       </li>
       <li>
+        <h3>Unit</h3>
         <img class="ai-art" src="img/card-unit.webp" width="480" height="672" loading="lazy" alt="A Unit card named Warden Healer. Cost 2. ATK 1, RET 2, HP 3. Its rules say: Once each turn after a Unit or Companion at Warden Healer&#x27;s Location is dealt damage and remains in play, you may exhaust Warden Healer to Restore 1 damage from it. The picture in the card is AI-made. Placeholder art (AI-made).">
         <img class="free-art" src="img/card-unit-free.webp" width="480" height="672" loading="lazy" alt="A Unit card named Warden Healer. Cost 2. ATK 1, RET 2, HP 3. Its rules say: Once each turn after a Unit or Companion at Warden Healer&#x27;s Location is dealt damage and remains in play, you may exhaust Warden Healer to Restore 1 damage from it. The art box is empty.">
-        <h3>Unit</h3>
-        <p>Units are your banner&rsquo;s people. They move, attack, defend and capture places.</p>
+        <p>Units are your Banner&rsquo;s people. They move, attack, defend and capture places.</p>
       </li>
       <li>
+        <h3>Tactic</h3>
         <img class="ai-art" src="img/card-tactic.webp" width="480" height="672" loading="lazy" alt="A Tactic card named Fall Back. Cost 1. Its rules say: Redeploy one damaged Unit or Companion you control to an adjacent Location you control. Prevent the next 1 damage that would be dealt to it this turn. The picture in the card is AI-made. Placeholder art (AI-made).">
         <img class="free-art" src="img/card-tactic-free.webp" width="480" height="672" loading="lazy" alt="A Tactic card named Fall Back. Cost 1. Its rules say: Redeploy one damaged Unit or Companion you control to an adjacent Location you control. Prevent the next 1 damage that would be dealt to it this turn. The art box is empty.">
-        <h3>Tactic</h3>
         <p>A Tactic is a one-time action. Do what it says, then put it in your discard pile, the Ditch.</p>
       </li>
       <li>
+        <h3>Equipment</h3>
         <img class="ai-art" src="img/card-equipment.webp" width="480" height="672" loading="lazy" alt="An Equipment card named Warden Shield. Cost 2. DUR 3. Its rules say: Attach to a Unit you control. The attached Unit can Guard your Leader or a Location you control, anywhere. While Guarding, prevent the first 1 combat damage dealt to it each turn. The picture in the card is AI-made. Placeholder art (AI-made).">
         <img class="free-art" src="img/card-equipment-free.webp" width="480" height="672" loading="lazy" alt="An Equipment card named Warden Shield. Cost 2. DUR 3. Its rules say: Attach to a Unit you control. The attached Unit can Guard your Leader or a Location you control, anywhere. While Guarding, prevent the first 1 combat damage dealt to it each turn. The art box is empty.">
-        <h3>Equipment</h3>
         <p>Equipment is gear. It goes on a card it names, or it sits at a place you control.</p>
       </li>
       <li>
+        <h3>Structure</h3>
         <img class="ai-art" src="img/card-structure.webp" width="480" height="672" loading="lazy" alt="A Structure card named Field Clinic. Cost 3. DUR 4. Its rules say: [1/Turn] [After Combat] After combat ends at this Location during your turn, you may pay 1 Supply. Restore 1 damage from one surviving Unit or Companion you control there. The picture in the card is AI-made. Placeholder art (AI-made).">
         <img class="free-art" src="img/card-structure-free.webp" width="480" height="672" loading="lazy" alt="A Structure card named Field Clinic. Cost 3. DUR 4. Its rules say: [1/Turn] [After Combat] After combat ends at this Location during your turn, you may pay 1 Supply. Restore 1 damage from one surviving Unit or Companion you control there. The art box is empty.">
-        <h3>Structure</h3>
         <p>A Structure is something you build at a place you control.</p>
       </li>
       <li>
+        <h3>Battlefield Location</h3>
         <img class="ai-art" src="img/card-location.webp" width="480" height="672" loading="lazy" alt="A Battlefield Location card named Mountain Road. DUR 4. Its rules say: Capture Reward - When a player Captures Mountain Road, that player draws 1 card, then discards 1 card. Routes: the West Yard; the Upper Junction. The picture in the card is AI-made. Placeholder art (AI-made).">
         <img class="free-art" src="img/card-location-free.webp" width="480" height="672" loading="lazy" alt="A Battlefield Location card named Mountain Road. DUR 4. Its rules say: Capture Reward - When a player Captures Mountain Road, that player draws 1 card, then discards 1 card. Routes: the West Yard; the Upper Junction. The art box is empty.">
-        <h3>Battlefield Location</h3>
         <p>A Location is one of the nine places on the map. Hold 8 of the 9 at the end of any turn to win.</p>
       </li>
       <li>
+        <h3>Frontier card</h3>
         <img class="ai-art" src="img/card-frontier.webp" width="480" height="672" loading="lazy" alt="A Frontier card named Hidden Supplies. Its rules say: Resolve - Each player Generates 1 Supply this turn. The reveal controller Generates 1 additional Supply. The picture in the card is AI-made. Placeholder art (AI-made).">
         <img class="free-art" src="img/card-frontier-free.webp" width="480" height="672" loading="lazy" alt="A Frontier card named Hidden Supplies. Its rules say: Resolve - Each player Generates 1 Supply this turn. The reveal controller Generates 1 additional Supply. The art box is empty.">
-        <h3>Frontier card</h3>
         <p>Frontier cards come from the shared deck. Storms, finds, animals and trouble happen to both of you.</p>
       </li>
     </ul>
@@ -400,6 +400,9 @@ header { position: relative; }
     a.addEventListener("click", function () { setMenu(false); });
   });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") { setMenu(false); } });
+  // The "Get email news" button in the story section jumps to the sign-up and puts the cursor in the email box (the page does not scroll again).
+  var go = document.querySelector('a.button[href="#signup"]'), em = document.getElementById("email");
+  if (go && em) { go.addEventListener("click", function () { setTimeout(function () { try { em.focus({ preventScroll: true }); } catch (e) { em.focus(); } }, 0); }); }
 })();
 </script>
 </body>
