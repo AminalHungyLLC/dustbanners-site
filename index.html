@@ -127,6 +127,14 @@ header { position: relative; }
   .panel { padding: 18px 16px; }
   .button { padding: 12px 18px; font-size: 16px; }
 }
+/* Sticky top bar r33c (Kyle 2026-10-23; Warden SQ-site-r33b-REVIEW-r1): phones and narrow windows only, the width at which the menu becomes the three-line button. The full-width wrapper carries the opaque background. */
+@media (max-width: 800px) {
+  .topbar { position: sticky; top: 0; z-index: 30; background: var(--night); border-bottom: 1px solid var(--line, rgba(128,128,128,.35)); }
+  .skip:focus { z-index: 40; }
+  html { scroll-padding-top: 96px; }
+  .site-menu { max-height: calc(100vh - 84px); max-height: calc(100dvh - 84px); overflow-y: auto; }
+}
+/* end sticky top bar */
 </style>
 <script>try { var r = document.documentElement;
   if (localStorage.getItem("dustbanners-ai-art") === "off") r.classList.add("art-off");
@@ -135,6 +143,7 @@ header { position: relative; }
 </head>
 <body>
 <a class="skip" href="#game">Skip to the game</a>
+<div class="topbar">
 <header>
   <img class="ai-art" src="img/sun.png" alt="" width="36" height="36">
   <span class="mark">DUSTBANNERS</span>
@@ -148,6 +157,7 @@ header { position: relative; }
     </div>
   </div>
 </header>
+</div>
 
 <main>
 <figure class="hero" style="margin:0">

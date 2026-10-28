@@ -127,6 +127,14 @@ html.art-off .ai-art { display: none !important; }
   .row .lbl { grid-column: 1 / span 2; }
   .row .track { grid-column: 1; }
 }
+/* Sticky top bar r33c (Kyle 2026-10-23; Warden SQ-site-r33b-REVIEW-r1): phones and narrow windows only, the width at which the menu becomes the three-line button. The full-width wrapper carries the opaque background. */
+@media (max-width: 800px) {
+  .topbar { position: sticky; top: 0; z-index: 30; background: var(--night); border-bottom: 1px solid var(--line, rgba(128,128,128,.35)); }
+  .skip:focus { z-index: 40; }
+  html { scroll-padding-top: 96px; }
+  .site-menu { max-height: calc(100vh - 84px); max-height: calc(100dvh - 84px); overflow-y: auto; }
+}
+/* end sticky top bar */
 </style>
 <script>try { var r = document.documentElement;
   if (localStorage.getItem("dustbanners-ai-art") === "off") r.classList.add("art-off");
@@ -135,6 +143,7 @@ html.art-off .ai-art { display: none !important; }
 </head>
 <body>
 <a class="skip" href="#what">Skip to the page</a>
+<div class="topbar">
 <header>
   <img class="ai-art" src="img/sun.png" alt="" width="36" height="36">
   <a class="mark" href="index.html">DUSTBANNERS</a>
@@ -148,6 +157,7 @@ html.art-off .ai-art { display: none !important; }
     </div>
   </div>
 </header>
+</div>
 
 <main>
 <section id="what">
