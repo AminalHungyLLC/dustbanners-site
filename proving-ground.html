@@ -34,7 +34,8 @@
 * { box-sizing: border-box; }
 h1, h2 { text-transform: uppercase; }
 h1, h2, h3, .mark, .big { font-synthesis: none; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: auto; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
 body { margin: 0; background: var(--night); color: var(--cream); font: 18px/1.6 "Gentium", Georgia, serif; overflow-wrap: break-word; }
 img { max-width: 100%; }
 a { color: var(--ochre); }
@@ -163,6 +164,7 @@ html.art-off .ai-art { display: none !important; }
 <section id="what">
   <h1>Proving Ground</h1>
   <p class="lede">How Dustbanners is being tested before anyone plays it.</p>
+  <p class="small asof">The counts on this page are as of October 16, 2026, from games played by the earlier test version of the game (before Alpha 4.0).</p>
   <div class="panel">
     <p>Before people sit down at a table, the computer plays Dustbanners against itself, over and over. Every game is written
     down: which Banner won, how it won, who went first, and how many rounds it took. The first box has two Banners. The game plays four Banners today, and four more come later.</p>

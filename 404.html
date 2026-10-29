@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="robots" content="noindex">
+<title>Page not found - Dustbanners</title>
+<meta name="description" content="That page is not here. Go back to the Dustbanners home page.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style>
+@font-face { font-family: "Archivo Black"; src: url("/fonts/ArchivoBlack-Regular.ttf"); font-display: swap; }
+@font-face { font-family: "Gentium"; src: url("/fonts/GentiumBookPlus-Regular.ttf"); font-display: swap; }
+:root { --rust: #8f4421; --rust-dark: #5e2b14; --cream: #e9e2d8; --muted: #cfc5b8; --ochre: #d6aa6e; --night: #1e1813; --line: #6b5643; --on-rust: #e9e2d8; color-scheme: dark; }
+@media (prefers-color-scheme: light) {
+  :root { --rust-dark: #ead8c3; --cream: #1e1813; --muted: #5a4a3c; --ochre: #7a4e15; --night: #f4ede2; --line: #b9a58c; color-scheme: light; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--night); color: var(--cream); font: 18px/1.6 "Gentium", Georgia, serif; overflow-wrap: break-word; }
+a { color: var(--ochre); }
+a:focus-visible { outline: 3px solid var(--ochre); outline-offset: 2px; }
+.mark { display: block; padding: 14px 16px; max-width: 1100px; margin: 0 auto; font-family: "Archivo Black", Impact, sans-serif; letter-spacing: .06em; font-size: 20px; }
+main { max-width: 780px; margin: 0 auto; padding: 40px 16px; }
+h1 { font-family: "Archivo Black", Impact, sans-serif; font-weight: 400; font-synthesis: none; letter-spacing: .05em; text-transform: uppercase; color: var(--ochre); font-size: 28px; margin: 0 0 12px; }
+.panel { background: var(--rust-dark); border-left: 6px solid var(--rust); padding: 22px 24px; border-radius: 4px; }
+.panel p:first-child { margin-top: 0; }
+.panel p:last-child { margin-bottom: 0; }
+.button { display: inline-block; background: var(--rust); color: var(--on-rust); text-decoration: none; padding: 14px 26px; border-radius: 6px; font-family: "Archivo Black", Impact, sans-serif; letter-spacing: .04em; font-size: 18px; border: 2px solid var(--ochre); }
+@media (max-width: 600px) { body { font-size: 17px; } h1 { font-size: 24px; } .panel { padding: 18px 16px; } .button { padding: 12px 18px; font-size: 16px; } }
+</style>
+</head>
+<body>
+<span class="mark">DUSTBANNERS</span>
+<main>
+  <h1>Page not found</h1>
+  <div class="panel">
+    <p>That page is not here. The link may be old, or it may have a typo.</p>
+    <p><a class="button" href="/">Back to the home page</a></p>
+    <p>Want news when the game launches? <a href="/#signup">Get email news</a>. Something broken on this site? Email <a href="mailto:hello@dustbanners.com">hello@dustbanners.com</a>.</p>
+  </div>
+</main>
+</body>
+</html>
