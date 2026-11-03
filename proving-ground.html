@@ -128,7 +128,7 @@ html.art-off .ai-art { display: none !important; }
   .row .lbl { grid-column: 1 / span 2; }
   .row .track { grid-column: 1; }
 }
-/* Sticky top bar r33c (Kyle 2026-10-23; Warden SQ-site-r33b-REVIEW-r1): phones and narrow windows only, the width at which the menu becomes the three-line button. The full-width wrapper carries the opaque background. */
+/* Sticky top bar: phones and narrow windows only, the width at which the menu becomes the three-line button. The full-width wrapper carries the opaque background. */
 @media (max-width: 800px) {
   .topbar { position: sticky; top: 0; z-index: 30; background: var(--night); border-bottom: 1px solid var(--line, rgba(128,128,128,.35)); }
   .skip:focus { z-index: 40; }
@@ -164,7 +164,7 @@ html.art-off .ai-art { display: none !important; }
 <section id="what">
   <h1>Proving Ground</h1>
   <p class="lede">How Dustbanners is being tested before anyone plays it.</p>
-  <p class="small asof">The counts on this page are as of October 16, 2026, from games played by the earlier test version of the game (before Alpha 4.0).</p>
+  <p class="small asof">As of October 16, 2026. The counts on this page come from games played by an older test version of the game, from before Alpha 4.0. Newer test versions have come out since then, and new counts will come later. Every number here is a current setting, not a final one.</p>
   <div class="panel">
     <p>Before people sit down at a table, the computer plays Dustbanners against itself, over and over. Every game is written
     down: which Banner won, how it won, who went first, and how many rounds it took. The first box has two Banners. The game plays four Banners today, and four more come later.</p>
@@ -179,9 +179,9 @@ html.art-off .ai-art { display: none !important; }
   <h2>The big counts</h2>
   <div class="tiles">
     <div class="tile"><span class="big">17,000+</span>
-      <p>More than 17,000 simulated games played so far, across many test versions of the game.</p></div>
+      <p>More than 17,000 simulated games played by October 15, 2026, across many test versions of the game.</p></div>
     <div class="tile"><span class="big">7 in 10</span>
-      <p>About 7 in 10 of those games ran in the cloud. About 3 in 10 ran on Kyle&rsquo;s laptop.</p></div>
+      <p>About 7 in 10 of those games ran in the cloud. About 3 in 10 ran on Kyle&rsquo;s laptop. (Count as of October 15, 2026.)</p></div>
     <div class="tile"><span class="big">2,000</span>
       <p>Games that tried out possible changes: 14 rule options, one card change and one setting for the computer player.</p>
       <p>These are the games of the rule trials behind &lsquo;How a rule gets decided&rsquo;. The other games tested cards, decks and the program itself, and many of those tried changes too.</p></div>
@@ -324,6 +324,7 @@ html.art-off .ai-art { display: none !important; }
     <li>They come from the computer playing itself, not from people.</li>
     <li>They do not measure fun, or how long a game takes at a real table.</li>
     <li>They are small samples. A share near 50% from 120 games can be off by about 9 points either way by chance.</li>
+    <li>They are current settings, not final ones. Rules and card numbers can still change, and so can these results.</li>
   </ul>
   <p>Want to help test it with real people? <a href="index.html#playtest">Help playtest</a>.</p>
 </section>
