@@ -38,10 +38,25 @@ html.art-off .ai-art { display: none !important; }
 @media (max-width: 800px) {
   .topbar { position: sticky; top: 0; z-index: 30; background: var(--night); border-bottom: 1px solid var(--line, rgba(128,128,128,.35)); }
   .skip:focus { z-index: 40; }
-  html { scroll-padding-top: 96px; }
-  .site-menu { max-height: calc(100vh - 84px); max-height: calc(100dvh - 84px); overflow-y: auto; }
+  html { scroll-padding-top: 150px; }
+  .site-menu { max-height: calc(100vh - 150px); max-height: calc(100dvh - 150px); overflow-y: auto; }
 }
 /* end sticky top bar */
+.skip { position: absolute; left: -9999px; }
+.skip:focus { left: 16px; top: 8px; background: var(--night); padding: 8px 12px; z-index: 40; }
+/* r38: three doors tab bar */
+.doors { max-width: 780px; margin: 0 auto; padding: 0 16px; }
+.doors ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-bottom: 1px solid var(--line, rgba(128,128,128,.35)); }
+.doors a { display: block; min-height: 48px; padding: 10px 6px 8px; text-align: center; text-decoration: none; color: var(--cream);
+  border-bottom: 4px solid transparent; overflow-wrap: anywhere; }
+.doors .d-name { display: block; font-family: "Archivo Black", Impact, sans-serif; text-transform: uppercase; letter-spacing: .04em; font-size: 16px; font-synthesis: none; }
+.doors .d-flavor { display: none; font-size: 14px; line-height: 1.3; color: var(--muted); }
+.doors a:hover .d-name { text-decoration: underline; }
+.doors a:focus-visible { outline: 3px solid var(--ochre); outline-offset: -3px; }
+.doors a[aria-current] { background: color-mix(in srgb, var(--ochre) 14%, transparent); border-bottom-color: var(--ochre); }
+.doors a[aria-current="page"] .d-name::before { content: "\25B8\00a0"; }
+@media (min-width: 700px) { .doors .d-flavor { display: block; } .doors .d-name { font-size: 18px; } }
+@media (forced-colors: active) { .doors a[aria-current] { border-bottom-color: Highlight; } .doors a:focus-visible { outline-color: Highlight; } }
 </style>
 <script>try { var r = document.documentElement;
   if (localStorage.getItem("dustbanners-ai-art") === "off") r.classList.add("art-off");
@@ -49,13 +64,21 @@ html.art-off .ai-art { display: none !important; }
 } catch (e) {}</script>
 </head>
 <body>
+<a class="skip" href="#page">Skip to the page</a>
 <div class="topbar">
 <header>
   <img class="ai-art" src="img/sun.png" alt="" width="36" height="36">
   <a href="index.html">DUSTBANNERS</a>
 </header>
+<nav class="doors" aria-label="Three doors">
+  <ul>
+    <li><a href="index.html"><span class="d-name">Play</span><span class="d-flavor" aria-hidden="true">Raise a banner. The valley is still worth holding.</span></a></li>
+    <li><a href="playtest.html"><span class="d-name">Playtest</span><span class="d-flavor" aria-hidden="true">Every plan breaks on first contact. Help us find where.</span></a></li>
+    <li><a href="draw.html"><span class="d-name">Draw</span><span class="d-flavor" aria-hidden="true">Somebody has to put a face to the Wardens and the Raiders.</span></a></li>
+  </ul>
+</nav>
 </div>
-<main>
+<main id="page">
 <h1>Privacy notice</h1>
 <p class="note">Last updated November 2, 2026.</p>
 
@@ -70,6 +93,15 @@ want to be credited as a playtester or sign a playtest release; photos or quotes
 <p>This website does not use cookies, analytics or tracking. If you use the &ldquo;AI art&rdquo; or light/dark switches, your own
 browser remembers those choices on your device; they are never sent to us. Our website host, GitHub Pages, logs each visitor&rsquo;s IP
 address for security, under GitHub&rsquo;s own privacy statement. After you submit the signup form, the confirmation pages are run by Kit, under Kit&rsquo;s own cookies and privacy policy, not ours.</p>
+
+<h2>Artist sign-up</h2>
+<p>Our <a href="draw.html">artist page</a> links to a sign-up form on Google Forms. If you fill it in, Google keeps your
+answers for us in a private Google Sheet that only Kyle can open. We keep only what you type there: your name or pen name, a
+link to your work, your art styles, your rates, and, if you choose, what you would like to draw, where you are, how you found
+us and an email for a reply. We use them only to think about you for paid art work and, if you gave an email, to reply.
+Your answers are never posted or shown on a public page. We keep them for 12 months, then delete them, or sooner once the
+art is planned. Email <a href="mailto:hello@dustbanners.com">hello@dustbanners.com</a> and say &ldquo;remove me&rdquo;, and we
+will delete them sooner. Signing up is not a job offer. Google&rsquo;s own privacy policy also applies to its forms.</p>
 
 <h2>Print-and-play demo</h2>
 <p>When the free print-and-play demo is ready, you can download it from this website. Downloading it does not ask for your

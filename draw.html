@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-DBpnz6wF+obO8n4OcbYBP2+vZkM7UQlXANzH2lWyuQ4='; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Draw for Dustbanners | Dustbanners</title>
+<meta name="description" content="Artists: tell us who you are so we can reach out when paid art work starts.">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="img/sun.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+@font-face { font-family: "Archivo Black"; src: url("fonts/ArchivoBlack-Regular.ttf"); font-display: swap; }
+@font-face { font-family: "Gentium"; src: url("fonts/GentiumBookPlus-Regular.ttf"); font-display: swap; }
+:root { --cream: #e9e2d8; --muted: #cfc5b8; --ochre: #d6aa6e; --night: #1e1813; color-scheme: dark; }
+@media (prefers-color-scheme: light) {
+  :root:not(.theme-dark) { --cream: #1e1813; --muted: #5a4a3c; --ochre: #7a4e15; --night: #f4ede2; color-scheme: light; }
+}
+:root.theme-light { --cream: #1e1813; --muted: #5a4a3c; --ochre: #7a4e15; --night: #f4ede2; color-scheme: light; }
+* { box-sizing: border-box; }
+h1, h2 { text-transform: uppercase; } /* Kyle 2026-10-14: headings in caps like the DUSTBANNERS mark */
+h1, h2, .mark, .button { font-synthesis: none; } /* Archivo Black has one weight; never fake bold */
+body { margin: 0; background: var(--night); color: var(--cream); font: 18px/1.6 "Gentium", Georgia, serif; overflow-wrap: break-word; }
+a { color: var(--ochre); }
+a:focus-visible { outline: 3px solid var(--ochre); outline-offset: 2px; }
+header { max-width: 780px; margin: 0 auto; padding: 14px 16px; display: flex; align-items: center; gap: 12px; }
+header img { width: 36px; height: 36px; }
+header a { color: var(--cream); text-decoration: none; font-family: "Archivo Black", Impact, sans-serif; letter-spacing: .06em; font-size: 20px; }
+main { max-width: 780px; margin: 0 auto; padding: 8px 16px 40px; }
+h1 { font-family: "Archivo Black", Impact, sans-serif; font-weight: 400; letter-spacing: .04em; color: var(--ochre); font-size: 28px; margin: 12px 0; }
+h2 { font-family: "Archivo Black", Impact, sans-serif; font-weight: 400; letter-spacing: .04em; color: var(--ochre); font-size: 20px; margin: 28px 0 6px; }
+.note { color: var(--muted); font-size: 16px; }
+.button { display: inline-block; margin: 8px 0; padding: 12px 24px; font-family: "Archivo Black", Impact, sans-serif; font-size: 18px; letter-spacing: .04em; text-transform: uppercase; text-decoration: none; color: var(--night); background: var(--ochre); border: 2px solid var(--ochre); border-radius: 4px; }
+footer { text-align: center; padding: 20px 16px 40px; font-size: 15px; color: var(--muted); }
+@media (max-width: 600px) { body { font-size: 17px; } h1 { font-size: 24px; } }
+html.art-off .ai-art { display: none !important; }
+@media (max-width: 800px) {
+  .topbar { position: sticky; top: 0; z-index: 30; background: var(--night); border-bottom: 1px solid var(--line, rgba(128,128,128,.35)); }
+  .skip:focus { z-index: 40; }
+  html { scroll-padding-top: 150px; }
+}
+.skip { position: absolute; left: -9999px; }
+.skip:focus { left: 16px; top: 8px; background: var(--night); padding: 8px 12px; z-index: 10; }
+/* r38: three doors tab bar */
+.doors { max-width: 780px; margin: 0 auto; padding: 0 16px; }
+.doors ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-bottom: 1px solid var(--line, rgba(128,128,128,.35)); }
+.doors a { display: block; min-height: 48px; padding: 10px 6px 8px; text-align: center; text-decoration: none; color: var(--cream);
+  border-bottom: 4px solid transparent; overflow-wrap: anywhere; }
+.doors .d-name { display: block; font-family: "Archivo Black", Impact, sans-serif; text-transform: uppercase; letter-spacing: .04em; font-size: 16px; font-synthesis: none; }
+.doors .d-flavor { display: none; font-size: 14px; line-height: 1.3; color: var(--muted); }
+.doors a:hover .d-name { text-decoration: underline; }
+.doors a:focus-visible { outline: 3px solid var(--ochre); outline-offset: -3px; }
+.doors a[aria-current] { background: color-mix(in srgb, var(--ochre) 14%, transparent); border-bottom-color: var(--ochre); }
+.doors a[aria-current="page"] .d-name::before { content: "\25B8\00a0"; }
+@media (min-width: 700px) { .doors .d-flavor { display: block; } .doors .d-name { font-size: 18px; } }
+@media (forced-colors: active) { .doors a[aria-current] { border-bottom-color: Highlight; } .doors a:focus-visible { outline-color: Highlight; } }
+.d-banner { margin: 12px 0 0; color: var(--muted); }
+.d-banner .d-bname { font-family: "Archivo Black", Impact, sans-serif; font-synthesis: none; text-transform: uppercase; letter-spacing: .04em; color: var(--cream); }
+.d-banner .d-bflavor { font-style: italic; }
+/* r38: status bars (written at build time, no script) */
+.status { margin: 16px 0 24px; padding: 14px 16px; border: 1px solid var(--line, rgba(128,128,128,.35)); border-radius: 6px; }
+.status h2 { margin: 0 0 6px; font-size: 18px; }
+.status p { margin: 6px 0; }
+.st-bar { position: relative; height: 14px; border-radius: 7px; background: color-mix(in srgb, var(--muted) 35%, transparent); margin: 14px 14px 12px 0; }
+.st-fill { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 7px; background: var(--ochre); }
+.st-tick { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--muted); }
+.st-goal { position: absolute; top: -6px; bottom: -6px; width: 3px; margin-left: -3px; background: var(--cream); }
+.st-goal::before { content: ""; position: absolute; top: 0; left: 3px; border-style: solid; border-width: 5px 0 5px 9px; border-color: transparent transparent transparent var(--cream); }
+.st-nums { display: flex; flex-direction: column; gap: 2px; font-size: 16px; }
+.st-nums span { display: block; }
+.st-trend, .st-asof, .st-steps { font-size: 15px; color: var(--muted); }
+</style>
+<script>try { var r = document.documentElement;
+  if (localStorage.getItem("dustbanners-ai-art") === "off") r.classList.add("art-off");
+  var t = localStorage.getItem("dustbanners-theme"); if (t === "light" || t === "dark") r.classList.add("theme-" + t);
+} catch (e) {}</script>
+</head>
+<body>
+<a class="skip" href="#page">Skip to the page</a>
+<div class="topbar">
+<header>
+  <img class="ai-art" src="img/sun.png" alt="" width="36" height="36">
+  <a href="index.html">DUSTBANNERS</a>
+</header>
+<nav class="doors" aria-label="Three doors">
+  <ul>
+    <li><a href="index.html"><span class="d-name">Play</span><span class="d-flavor" aria-hidden="true">Raise a banner. The valley is still worth holding.</span></a></li>
+    <li><a href="playtest.html"><span class="d-name">Playtest</span><span class="d-flavor" aria-hidden="true">Every plan breaks on first contact. Help us find where.</span></a></li>
+    <li><a href="draw.html" aria-current="page"><span class="d-name">Draw</span><span class="d-flavor" aria-hidden="true">Somebody has to put a face to the Wardens and the Raiders.</span></a></li>
+  </ul>
+</nav>
+</div>
+<main id="page">
+<p class="d-banner"><span class="d-bname">Draw</span> &middot; <span class="d-bflavor">Somebody has to put a face to the Wardens and the Raiders.</span></p>
+<h1>Draw for Dustbanners</h1>
+<section class="status" aria-labelledby="st-draw-h">
+  <h2 id="st-draw-h">Where the art stands</h2>
+  <p class="st-plain">This will be paid work once the game is funded. Nothing is promised yet; for now we&rsquo;re building a list.</p>
+  <div class="st-bar" aria-hidden="true"><span class="st-fill" style="width:0%"></span><span class="st-tick" style="left:0"></span><span class="st-goal" style="left:100%"></span></div>
+  <p class="st-nums"><span>Start: sign-up list open.</span> <span><strong>Now: the list is open; art work has not started.</strong></span> <span>Goal: paid art work begins.</span></p>
+  <p class="st-steps">Step 1 of 3, 0% of the way. The three steps: list open, game funded, art work begins.</p>
+  <p class="st-trend">First status line. More will follow as things change.</p>
+  <p class="st-asof">As of November 2026. A target, not a promise.</p>
+</section>
+
+<p>Dustbanners is a card game for two players. It is set in a dusty world of four groups that fight over a shared Frontier. It is made by one person, Kyle.</p>
+<p>Here is the honest part. The card art you see now is AI-made placeholder art. It is labeled that way everywhere. The final card art, box art, card backs and logo will be made by paid human artists. No AI art will be in the finished game, printed or digital.</p>
+<p>This will be paid work once the game is funded. Nothing is promised yet; for now we&rsquo;re building a list. Signing up is not a job offer, and it does not promise any work, pay or date. It lets you tell us who you are, so we can reach out when we are ready.</p>
+
+<h2>Sign up</h2>
+<p>The sign-up form is on Google Forms. It asks for:</p>
+<ul>
+<li>your name (a pen name is fine);</li>
+<li>a link to a web page that shows your work (a link only, no files);</li>
+<li>the art styles you work in;</li>
+<li>your rates, or &ldquo;open to discuss&rdquo; (we are not asking you to cut your price);</li>
+<li>if you like: what you would like to draw, anything you would rather not draw, which groups interest you, where you are or your time zone, how you found us, and an email for a reply.</li>
+</ul>
+<p><a class="button" href="https://docs.google.com/forms/d/e/1FAIpQLSdVl7hHz0PMOGI0PqKPLlAu0DDMin4NmdnhixaG1EqUEnAt3Q/viewform" rel="noopener">Sign up on our Google Form</a></p>
+
+<h2>Privacy</h2>
+<ul>
+<li><strong>What we keep:</strong> only the answers you type in the form. We do not collect anything else about you.</li>
+<li><strong>Where:</strong> Google Forms saves your answers in a private Google Sheet that only Kyle can open. They are not shown on any public page, and your answers are never posted.</li>
+<li><strong>How long:</strong> 12 months, then deleted, or sooner once the art is planned.</li>
+<li><strong>Your email:</strong> optional, and used only if Kyle chooses to reply. It is not copied into other files or pages.</li>
+<li><strong>Remove yourself:</strong> email <a href="mailto:hello@dustbanners.com">hello@dustbanners.com</a> and say &ldquo;remove me&rdquo;. We will delete your answers and tell you when it is done.</li>
+<li><strong>Not sold, not shared.</strong> We do not sell your details or share them.</li>
+</ul>
+<p>Kyle reads every answer himself. Nothing you write is run as a command or posted anywhere. Google has its own privacy policy for its forms. Read our full <a href="privacy.html">privacy notice</a>.</p>
+</main>
+<footer><a href="index.html">Back to Dustbanners</a> &middot; &copy; 2026 AminalHungy<br>The sun logo at the top is placeholder art (AI-made). Final art by human artists.</footer>
+</body>
+</html>

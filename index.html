@@ -137,10 +137,46 @@ header { position: relative; }
 @media (max-width: 800px) {
   .topbar { position: sticky; top: 0; z-index: 30; background: var(--night); border-bottom: 1px solid var(--line, rgba(128,128,128,.35)); }
   .skip:focus { z-index: 40; }
-  html { scroll-padding-top: 96px; }
-  .site-menu { max-height: calc(100vh - 84px); max-height: calc(100dvh - 84px); overflow-y: auto; }
+  html { scroll-padding-top: 150px; }
+  .site-menu { max-height: calc(100vh - 150px); max-height: calc(100dvh - 150px); overflow-y: auto; }
 }
 /* end sticky top bar */
+/* r38: three doors tab bar */
+.doors { max-width: 780px; margin: 0 auto; padding: 0 16px; }
+.doors ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-bottom: 1px solid var(--line, rgba(128,128,128,.35)); }
+.doors a { display: block; min-height: 48px; padding: 10px 6px 8px; text-align: center; text-decoration: none; color: var(--cream);
+  border-bottom: 4px solid transparent; overflow-wrap: anywhere; }
+.doors .d-name { display: block; font-family: "Archivo Black", Impact, sans-serif; text-transform: uppercase; letter-spacing: .04em; font-size: 16px; font-synthesis: none; }
+.doors .d-flavor { display: none; font-size: 14px; line-height: 1.3; color: var(--muted); }
+.doors a:hover .d-name { text-decoration: underline; }
+.doors a:focus-visible { outline: 3px solid var(--ochre); outline-offset: -3px; }
+.doors a[aria-current] { background: color-mix(in srgb, var(--ochre) 14%, transparent); border-bottom-color: var(--ochre); }
+.doors a[aria-current="page"] .d-name::before { content: "\25B8\00a0"; }
+@media (min-width: 700px) { .doors .d-flavor { display: block; } .doors .d-name { font-size: 18px; } }
+@media (forced-colors: active) { .doors a[aria-current] { border-bottom-color: Highlight; } .doors a:focus-visible { outline-color: Highlight; } }
+/* r38: status bars (written at build time, no script) */
+.status { margin: 16px 0 24px; padding: 14px 16px; border: 1px solid var(--line, rgba(128,128,128,.35)); border-radius: 6px; }
+.status h2, .status h3 { margin: 0 0 6px; font-family: "Archivo Black", Impact, sans-serif; font-weight: 400; font-synthesis: none; text-transform: uppercase; letter-spacing: .04em; color: var(--ochre); font-size: 18px; }
+.status p { margin: 6px 0; }
+.st-bar { position: relative; height: 14px; border-radius: 7px; background: color-mix(in srgb, var(--muted) 35%, transparent); margin: 14px 14px 12px 0; }
+.st-fill { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 7px; background: var(--ochre); }
+.st-tick { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--muted); }
+.st-goal { position: absolute; top: -6px; bottom: -6px; width: 3px; margin-left: -3px; background: var(--cream); }
+.st-goal::before { content: ""; position: absolute; top: 0; left: 3px; border-style: solid; border-width: 5px 0 5px 9px; border-color: transparent transparent transparent var(--cream); }
+.st-nums { display: flex; flex-direction: column; gap: 2px; font-size: 16px; }
+.st-nums span { display: block; }
+.st-trend, .st-asof, .st-steps { font-size: 15px; color: var(--muted); }
+.status.compact { border: 0; padding: 0; margin: 4px 0 0; }
+.status.compact .st-bar { margin-top: 10px; }
+.status.compact .st-nums { font-size: 15px; }
+/* r38: pick your path cards */
+.path-cards { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.path-cards li { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; }
+.path-cards h3 { margin: 0; font-family: "Archivo Black", Impact, sans-serif; font-weight: 400; font-synthesis: none; text-transform: uppercase; letter-spacing: .04em; color: var(--ochre); font-size: 20px; }
+.path-cards p { margin: 0; }
+.path-cards .p-flavor { color: var(--muted); font-size: 16px; font-style: italic; }
+.path-cards .p-here { font-size: 15px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.path-cards .p-link { margin-top: auto; padding-top: 6px; }
 </style>
 <script>try { var r = document.documentElement;
   if (localStorage.getItem("dustbanners-ai-art") === "off") r.classList.add("art-off");
@@ -156,13 +192,20 @@ header { position: relative; }
   <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="site-menu" aria-label="Menu">
     <span></span><span></span><span></span></button>
   <div class="site-menu" id="site-menu">
-    <nav aria-label="Main"><a href="#signup">Email news</a><a href="#game">The game</a><a href="#cards">The cards</a><a href="#playtest">Help playtest</a><a href="#creator">Creator</a><a href="#ai">Made by people</a><a href="#follow">Follow</a><a href="#contact">Contact</a></nav>
+    <nav aria-label="On this page"><a href="#signup">Email news</a><a href="#game">The game</a><a href="#cards">The cards</a><a href="playtest.html">Help playtest</a><a href="#creator">Creator</a><a href="#ai">Made by people</a><a href="draw.html">Artists</a><a href="#follow">Follow</a><a href="#contact">Contact</a></nav>
     <div class="switches">
       <button type="button" class="art-toggle" id="art-toggle">AI art: On</button>
       <button type="button" class="art-toggle" id="theme-toggle">Light mode</button>
     </div>
   </div>
 </header>
+<nav class="doors" aria-label="Three doors">
+  <ul>
+    <li><a href="index.html" aria-current="page"><span class="d-name">Play</span><span class="d-flavor" aria-hidden="true">Raise a banner. The valley is still worth holding.</span></a></li>
+    <li><a href="playtest.html"><span class="d-name">Playtest</span><span class="d-flavor" aria-hidden="true">Every plan breaks on first contact. Help us find where.</span></a></li>
+    <li><a href="draw.html"><span class="d-name">Draw</span><span class="d-flavor" aria-hidden="true">Somebody has to put a face to the Wardens and the Raiders.</span></a></li>
+  </ul>
+</nav>
 </div>
 
 <main>
@@ -183,8 +226,51 @@ header { position: relative; }
 <div class="cta">
   <p class="status-label">Kickstarter: coming soon</p>
   <a class="button" href="#signup">Get email news</a>
-  <p>Get one email the day it launches. Want to help test the game? <a href="#playtest">Help playtest</a>.</p>
+  <p>Get one email the day it launches. Want to help test the game? <a href="playtest.html">Help playtest</a>.</p>
 </div>
+
+<section id="paths">
+  <h2>Pick your path</h2>
+  <ul class="path-cards">
+    <li>
+      <h3>Play</h3>
+      <p class="p-flavor">Raise a banner. The valley is still worth holding.</p>
+      <p class="p-here">You are here</p>
+      <p>Read about the game, see the cards and get email news.</p>
+      <div class="status compact" role="group" aria-labelledby="st-play-c">
+        <p id="st-play-c"><strong>Where the game stands</strong></p>
+        <div class="st-bar" aria-hidden="true"><span class="st-fill" style="width:40%"></span><span class="st-tick" style="left:0"></span><span class="st-goal" style="left:100%"></span></div>
+        <p class="st-nums"><span><strong>Now: step 3 of 6</strong></span><span>40% of the way to the printed game in your hands.</span></p>
+        <p class="st-asof">As of November 2026. A target, not a promise.</p>
+      </div>
+      <p class="p-link"><a href="#signup">Get email news</a></p>
+    </li>
+    <li>
+      <h3>Playtest</h3>
+      <p class="p-flavor">Every plan breaks on first contact. Help us find where.</p>
+      <p>Help us test the game and tell us what you think.</p>
+      <div class="status compact" role="group" aria-labelledby="st-playtest-c">
+        <p id="st-playtest-c"><strong>Where testing stands</strong></p>
+        <div class="st-bar" aria-hidden="true"><span class="st-fill" style="width:0%"></span><span class="st-tick" style="left:0"></span></div>
+        <p class="st-nums"><span><strong>Now: 0 recorded sessions</strong></span><span>With people we have not met.</span></p>
+        <p class="st-asof">As of November 2026.</p>
+      </div>
+      <p class="p-link"><a href="playtest.html">Go to Playtest</a></p>
+    </li>
+    <li>
+      <h3>Draw</h3>
+      <p class="p-flavor">Somebody has to put a face to the Wardens and the Raiders.</p>
+      <p>Artists: sign up to draw for the game. It will be paid work once the game is funded.</p>
+      <div class="status compact" role="group" aria-labelledby="st-draw-c">
+        <p id="st-draw-c"><strong>Where the art stands</strong></p>
+        <div class="st-bar" aria-hidden="true"><span class="st-fill" style="width:0%"></span><span class="st-tick" style="left:0"></span><span class="st-goal" style="left:100%"></span></div>
+        <p class="st-nums"><span><strong>Now: step 1 of 3</strong></span><span>0% of the way to paid art work beginning.</span></p>
+        <p class="st-asof">As of November 2026. A target, not a promise.</p>
+      </div>
+      <p class="p-link"><a href="draw.html">Go to Draw</a></p>
+    </li>
+  </ul>
+</section>
 
 <section id="teaser">
   <h2 class="sentence">Eighty years after the fall, the valley still has nine outposts worth holding.</h2>
@@ -324,21 +410,10 @@ header { position: relative; }
 
 <section id="playtest">
   <h2>Help playtest</h2>
-  <p class="stat"><strong>More than 17,000 simulated games</strong> played so far, computer against computer, to balance the
-  cards before anyone sits down at a table.</p>
+  <p>Want to help test? The Playtest page has how.</p>
   <div class="links">
-    <a href="proving-ground.html">See what the simulated games show</a>
+    <a href="playtest.html">Go to the Playtest page</a>
   </div>
-  <p>Dustbanners is still being tested. If you have played it, or want to help us test it, tell us what worked, what
-  confused you and what you would change. Your answers go straight into the next round of fixes.</p>
-  <p class="small">The playtest app also lets you play against a computer opponent. For now it is an early, simple rival.
-  Harder levels will come later, shaped by what testers tell us.</p>
-  <div class="links">
-    <a href="https://forms.gle/Hwv51YV4hsCZciK97" rel="noopener">Open the playtest feedback form</a>
-  </div>
-  <p>Rather not use a form? Email <a href="mailto:hello@dustbanners.com">hello@dustbanners.com</a>. A real human named Kyle reads it.</p>
-  <p class="small">The form is on Google Forms. We only use your answers to improve the game. Read our
-  <a href="privacy.html">privacy notice</a>.</p>
 </section>
 
 <section id="creator">
@@ -362,6 +437,7 @@ header { position: relative; }
     paid human editor will do the final pass on every word players see. All art shown before launch, including the card backs
     and the logo, is AI-made placeholder art. The final card art, box art, card backs and logo will be made by paid human
     artists. No AI art will be in the finished game, printed or digital.</p>
+    <p>Are you an artist? <a href="draw.html">Sign up to draw for Dustbanners</a>. It will be paid work once the game is funded.</p>
   </div>
 </section>
 

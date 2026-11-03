@@ -28,11 +28,30 @@ h1 { font-family: "Archivo Black", Impact, sans-serif; font-weight: 400; font-sy
 .panel p:first-child { margin-top: 0; }
 .panel p:last-child { margin-bottom: 0; }
 .button { display: inline-block; background: var(--rust); color: var(--on-rust); text-decoration: none; padding: 14px 26px; border-radius: 6px; font-family: "Archivo Black", Impact, sans-serif; letter-spacing: .04em; font-size: 18px; border: 2px solid var(--ochre); }
+.doors { max-width: 780px; margin: 0 auto; padding: 0 16px; }
+.doors ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-bottom: 1px solid var(--line, rgba(128,128,128,.35)); }
+.doors a { display: block; min-height: 48px; padding: 10px 6px 8px; text-align: center; text-decoration: none; color: var(--cream);
+  border-bottom: 4px solid transparent; overflow-wrap: anywhere; }
+.doors .d-name { display: block; font-family: "Archivo Black", Impact, sans-serif; text-transform: uppercase; letter-spacing: .04em; font-size: 16px; font-synthesis: none; }
+.doors .d-flavor { display: none; font-size: 14px; line-height: 1.3; color: var(--muted); }
+.doors a:hover .d-name { text-decoration: underline; }
+.doors a:focus-visible { outline: 3px solid var(--ochre); outline-offset: -3px; }
+.doors a[aria-current] { background: color-mix(in srgb, var(--ochre) 14%, transparent); border-bottom-color: var(--ochre); }
+.doors a[aria-current="page"] .d-name::before { content: "\25B8\00a0"; }
+@media (min-width: 700px) { .doors .d-flavor { display: block; } .doors .d-name { font-size: 18px; } }
+@media (forced-colors: active) { .doors a[aria-current] { border-bottom-color: Highlight; } .doors a:focus-visible { outline-color: Highlight; } }
 @media (max-width: 600px) { body { font-size: 17px; } h1 { font-size: 24px; } .panel { padding: 18px 16px; } .button { padding: 12px 18px; font-size: 16px; } }
 </style>
 </head>
 <body>
 <span class="mark">DUSTBANNERS</span>
+<nav class="doors" aria-label="Three doors">
+  <ul>
+    <li><a href="/"><span class="d-name">Play</span><span class="d-flavor" aria-hidden="true">Raise a banner. The valley is still worth holding.</span></a></li>
+    <li><a href="/playtest.html"><span class="d-name">Playtest</span><span class="d-flavor" aria-hidden="true">Every plan breaks on first contact. Help us find where.</span></a></li>
+    <li><a href="/draw.html"><span class="d-name">Draw</span><span class="d-flavor" aria-hidden="true">Somebody has to put a face to the Wardens and the Raiders.</span></a></li>
+  </ul>
+</nav>
 <main>
   <h1>Page not found</h1>
   <div class="panel">
