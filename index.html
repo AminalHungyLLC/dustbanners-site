@@ -154,6 +154,15 @@ header { position: relative; }
 .doors a[aria-current="page"] .d-name::before { content: "\25B8\00a0"; }
 @media (min-width: 700px) { .doors .d-flavor { display: block; } .doors .d-name { font-size: 18px; } }
 @media (forced-colors: active) { .doors a[aria-current] { border-bottom-color: Highlight; } .doors a:focus-visible { outline-color: Highlight; } }
+/* r38c: narrow phones: labels never break inside a word; three tabs on one row from 320 px up */
+.doors .d-name { white-space: nowrap; }
+@media (max-width: 699px) {
+  .doors { padding: 0 8px; }
+  .doors a { padding: 12px 2px 10px; min-height: 48px; }
+  .doors .d-name { font-size: 14px; letter-spacing: .01em; }
+  .doors a[aria-current="page"] .d-name::before { font-size: 9px; content: "\25B8\00a0"; vertical-align: 1px; }
+}
+@media (max-width: 359px) { .doors .d-name { font-size: 12px; } }
 /* r38: status bars (written at build time, no script) */
 .status { margin: 16px 0 24px; padding: 14px 16px; border: 1px solid var(--line, rgba(128,128,128,.35)); border-radius: 6px; }
 .status h2, .status h3 { margin: 0 0 6px; font-family: "Archivo Black", Impact, sans-serif; font-weight: 400; font-synthesis: none; text-transform: uppercase; letter-spacing: .04em; color: var(--ochre); font-size: 18px; }
@@ -201,7 +210,7 @@ header { position: relative; }
 </header>
 <nav class="doors" aria-label="Three doors">
   <ul>
-    <li><a href="index.html" aria-current="page"><span class="d-name">Play</span><span class="d-flavor" aria-hidden="true">Raise a banner. The valley is still worth holding.</span></a></li>
+    <li><a href="index.html" aria-current="page"><span class="d-name">Game</span><span class="d-flavor" aria-hidden="true">Raise a banner. The valley is still worth holding.</span></a></li>
     <li><a href="playtest.html"><span class="d-name">Playtest</span><span class="d-flavor" aria-hidden="true">Every plan breaks on first contact. Help us find where.</span></a></li>
     <li><a href="draw.html"><span class="d-name">Draw</span><span class="d-flavor" aria-hidden="true">Somebody has to put a face to the Wardens and the Raiders.</span></a></li>
   </ul>
@@ -233,7 +242,7 @@ header { position: relative; }
   <h2>Pick your path</h2>
   <ul class="path-cards">
     <li>
-      <h3>Play</h3>
+      <h3>Game</h3>
       <p class="p-flavor">Raise a banner. The valley is still worth holding.</p>
       <p class="p-here">You are here</p>
       <p>Read about the game, see the cards and get email news.</p>
