@@ -12,7 +12,7 @@
 <meta property="og:title" content="Dustbanners">
 <meta property="og:description" content="A two-player card game of survival on a broken frontier.">
 <meta property="og:image" content="https://dustbanners.com/img/sun.png">
-<meta property="og:image:alt" content="The Dustbanners sun logo: a half sun rising over the horizon. Placeholder art (AI-made). Final art by human artists.">
+<meta property="og:image:alt" content="The Dustbanners sun logo: a half sun rising over the horizon.">
 <meta property="og:image:width" content="256">
 <meta property="og:image:height" content="256">
 <meta property="og:site_name" content="Dustbanners">
@@ -50,6 +50,7 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid 
 header { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 14px 16px; max-width: 1100px; margin: 0 auto; }
 header img { width: 36px; height: 36px; }
 header .mark { font-family: "Archivo Black", Impact, sans-serif; letter-spacing: .06em; font-size: 20px; }
+header h1.mark { margin: 0; font-weight: normal; line-height: inherit; }
 header nav { margin-left: auto; display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 16px; }
 header nav a { color: var(--cream); text-decoration: none; }
 header nav a:hover { text-decoration: underline; }
@@ -196,8 +197,8 @@ header { position: relative; }
 <a class="skip" href="#game">Skip to the game</a>
 <div class="topbar">
 <header>
-  <img class="ai-art" src="img/sun.png" alt="" width="36" height="36">
-  <span class="mark">DUSTBANNERS</span>
+  <img src="img/sun.png" alt="" width="36" height="36">
+  <h1 class="mark">DUSTBANNERS</h1>
   <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="site-menu" aria-label="Menu">
     <span></span><span></span><span></span></button>
   <div class="site-menu" id="site-menu">
@@ -293,7 +294,7 @@ header { position: relative; }
       <li><strong>The same box for everyone.</strong> No random packs. Every box has the same cards, and nothing stronger is sold later.</li>
       <li><strong>Tested before you play.</strong> More than 17,000 simulated games so far, computer against computer, to help balance the cards.</li>
       <li><strong>Two sides that play nothing alike.</strong> The Wardens ask &ldquo;How do we protect what&rsquo;s ours?&rdquo; The Raiders ask &ldquo;What can we take?&rdquo;</li>
-      <li><strong>Made by people.</strong> AI tools help me build the software, test balance and draft text; the ideas and decisions are mine. Art shown now is AI placeholder, labeled. Human artists will make the final art, card backs and logo, and a human editor will do the final text pass.</li>
+      <li><strong>Made by people.</strong> AI tools help me build the software, test balance and draft text; the ideas and decisions are mine. The card and board pictures shown now are AI placeholders, labeled. Human artists will make the final art, card backs and logo, and a human editor will do the final text pass.</li>
     </ul>
     <p>We only send news, and we never sell your email.</p>
     <p><a class="button" href="#signup">Get email news</a></p>
@@ -344,9 +345,6 @@ header { position: relative; }
     </div>
     <p>A printed test copy is being made. A free print-and-play demo is coming too: two starter decks and the core rules,
     ready to print at home. It is a demo, not the full game, and each sheet says so.</p>
-    <!-- DEMO LINK: NOT LIVE. Keep this commented out until Kyle says yes. Replace the placeholder with the real file before uncommenting.
-    <p><a class="button" href="PLACEHOLDER-DEMO-FILE.invalid">Download the free print-and-play demo</a></p>
-    -->
     <p class="small">The demo download is not ready yet. <a href="#signup">Get email news</a> to hear when it is.</p>
   </div>
 </section>
@@ -445,9 +443,11 @@ header { position: relative; }
     editor.</strong></p>
     <p>I use AI tools to help make Dustbanners. The world, the rules and every final decision are mine. AI tools helped build and
     test the digital version of the game, run its balance simulations, and draft some of the text, which I edit and approve. A
-    paid human editor will do the final pass on every word players see. All art shown before launch, including the card backs
-    and the logo, is AI-made placeholder art. The final card art, box art, card backs and logo will be made by paid human
-    artists. No AI art will be in the finished game, printed or digital.</p>
+    paid human editor will do the final pass on every word players see. The pictures on the cards, the board and the game
+    screens shown now are AI-made placeholder art, and they are labeled. The final card art, box art, card backs and logo
+    will be made by paid human artists. AI art is used only for our own placeholders.</p>
+    <p>The AI tools I use: Claude (from Anthropic) and Codex (from OpenAI) for code, testing and text drafts; OpenAI&rsquo;s
+    image tool and Canva&rsquo;s image tool for the placeholder pictures.</p>
     <p>Are you an artist? <a href="draw.html">Sign up to draw for Dustbanners</a>. It will be paid work once the game is funded.</p>
   </div>
 </section>
