@@ -1,4 +1,4 @@
-/* Try one turn (site r41h): six short guided examples of a turn, a new one on each visit. A simplified taste, not the full
+/* Try one turn (site r41i): six short guided examples of a turn, a new one on each visit. A simplified example, not the full
    rules; a step that leaves the rule book says "Simplified". Keyboard: Tab and Enter. No timers.
    The last example seen is kept in this browser only (dustbanners-try-example); if storage fails, a random one is shown. */
 (function () {
@@ -8,6 +8,7 @@
   var P = [$("d-p0"), $("d-p1"), $("d-p2")], say = demo.querySelector(".d-say");
   var L = { step: st.querySelector(".d-step"), what: st.querySelector(".d-what"), why: st.querySelector(".d-why") };
   var KEY = "dustbanners-try-example", Y = "Yours", O = "Open", T = "Theirs";
+  var NAMES = ["Your depot", "Rusted Track", "The Lower Junction"];
   function B(own, toks, at) { return { own: own, toks: toks, at: at }; }
   var X = [
     { goal: "Your goal: get your Unit to Rusted Track and keep it there through a storm.", storm: true,
@@ -19,21 +20,21 @@
         { btn: "Move to Rusted Track", b: B([Y, O, T], [[], ["Your Unit"], ["Enemy Unit"]], 1),
           what: "Your Unit moves one road to Rusted Track.", why: "A Unit moves once a turn, to the next place." },
         { btn: "Play your Tactic", b: B([Y, O, T], [[], ["Your Unit", "Dug in"], ["Enemy Unit"]], 1),
-          what: "You paid your last Supply. A Tactic is a one-time card. Your Unit digs in.", why: "Simplified: digging in is made up for this taste." },
+          what: "You paid your last Supply. A Tactic is a one-time card. Your Unit digs in.", why: "Simplified: digging in is made up for this example." },
         { btn: "End your turn", b: B([Y, O, T], [[], ["Your Unit", "Dug in"], ["Enemy Unit"]], 1),
           what: "On the enemy’s turn, the Frontier Deck turns up a storm, Wall of Wind. Your Unit dug in, so it stays." }],
       head: "Your Unit held on!", end: "Simplified: this storm is made up. On your next turn, your Unit can Capture Rusted Track, which means take it." },
-    { goal: "Your goal: take Rusted Track. Nobody holds it yet.",
+    { goal: "Your goal: take Mountain Road. Nobody holds it yet.", names: ["The West Yard", "Mountain Road", "The Upper Junction"],
       b: B([Y, O, T], [[], ["Your Unit"], []]),
-      what: "Your Unit, one of your people, has stood at Rusted Track since last turn.", why: "To Capture means to take an open place with no enemy Unit.",
+      what: "Your Unit, one of your people, has stood at Mountain Road since last turn.", why: "To Capture means to take an open place with no enemy Unit.",
       steps: [
-        { btn: "Capture Rusted Track", b: B([Y, Y, T], [[], ["Your Unit"], []], 1),
-          what: "Your Unit is now exhausted: used until your next turn. Rusted Track is yours.", why: "Only a Unit that did not move this turn can Capture." },
+        { btn: "Capture Mountain Road", b: B([Y, Y, T], [[], ["Your Unit"], []], 1),
+          what: "Your Unit is now exhausted: used until your next turn. Mountain Road is yours.", why: "Only a Unit that did not move this turn can Capture." },
         { btn: "Take the reward", b: B([Y, Y, T], [[], ["Your Unit"], []], 1),
-          what: "A place gives a Capture Reward when you Capture it.", why: "Simplified: this taste does not show what Rusted Track gives." },
+          what: "Mountain Road’s Capture Reward: you draw 1 card, then discard 1 card from your hand.", why: "A place can have a Capture Reward. A discarded card goes to your Ditch, your discard pile." },
         { btn: "End your turn", b: B([Y, Y, T], [[], ["Your Unit"], []]),
           what: "Your turn ends. You now hold 2 of these 3 places." }],
-      head: "Rusted Track is yours!", end: "To win the real game, hold all 9 places at the end of a turn, or break the enemy Leader." },
+      head: "Mountain Road is yours!", end: "To win the real game, hold all 9 places at the end of a turn, or break the enemy Leader." },
     { goal: "Your goal: keep Rusted Track safe on the enemy’s turn.",
       b: B([Y, Y, T], [[], ["Your Guard", "Enemy Unit"], []]),
       what: "An enemy Unit came to Rusted Track last turn. Now it attacks the place.", why: "Rusted Track is yours. Your Guard is a card that can protect it.",
@@ -93,9 +94,10 @@
   }
   function done() { return k >= X[x].steps.length; }
   function label() { go.textContent = (coarse && coarse.matches ? "Tap" : "Click") + ": " + (done() ? "Try another example" : X[x].steps[k].btn); }
-  function board(b) {
+  function board(b, names) {
     P.forEach(function (p, i) {
       var t = p.querySelectorAll(".pt"), own = b.own[i];
+      set(p.querySelector(".pn"), names[i]);
       set(p.querySelector(".po"), own);
       p.className = "d-place " + (own === Y ? "mine" : own === O ? "open" : "theirs") + (b.at === i ? " here" : "");
       for (var j = 0; j < 2; j++) {
@@ -108,13 +110,13 @@
   function draw() {
     var s = X[x], n = s.steps.length, end = done();
     wait = 150;
-    board(end ? s.steps[n - 1].b : k ? s.steps[k - 1].b : s.b);
+    board(end ? s.steps[n - 1].b : k ? s.steps[k - 1].b : s.b, s.names || NAMES);
     set($("d-goal"), s.goal);
     if (end) {
       set(L.step, s.head); set(L.what, s.steps[n - 1].what); set(L.why, s.end);
     } else {
       var w = k ? s.steps[k - 1] : s;
-      set(L.step, "Example " + (x + 1) + " of " + X.length + ". Next, step " + (k + 1) + " of " + n + ": " + s.steps[k].btn + ".");
+      set(L.step, "Example " + (x + 1) + " of " + X.length + " · Step " + (k + 1) + " of " + n);
       set(L.what, w.what); set(L.why, w.why);
     }
     label();
