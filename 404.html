@@ -3,71 +3,61 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-4uFrN+WVLefnMtyZ9+yafXTxBRK6FTpJVmefoC2IF5E='; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="robots" content="noindex">
 <title>Page not found - Dustbanners</title>
 <meta name="description" content="That page is not here. Go back to the Dustbanners home page.">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<style>
-@font-face { font-family: "Archivo Black"; src: url("/fonts/ArchivoBlack-Regular.ttf"); font-display: swap; }
-@font-face { font-family: "Gentium"; src: url("/fonts/GentiumBookPlus-Regular.ttf"); font-display: swap; }
-:root { --rust: #8f4421; --rust-dark: #5e2b14; --cream: #e9e2d8; --muted: #cfc5b8; --ochre: #d6aa6e; --night: #1e1813; --line: #6b5643; --on-rust: #e9e2d8; color-scheme: dark; }
-@media (prefers-color-scheme: light) {
-  :root { --rust-dark: #ead8c3; --cream: #1e1813; --muted: #5a4a3c; --ochre: #7a4e15; --night: #f4ede2; --line: #b9a58c; color-scheme: light; }
-}
-* { box-sizing: border-box; }
-body { margin: 0; background: var(--night); color: var(--cream); font: 18px/1.6 "Gentium", Georgia, serif; overflow-wrap: break-word; }
-a { color: var(--ochre); }
-a:focus-visible { outline: 3px solid var(--ochre); outline-offset: 2px; }
-.mark { display: block; padding: 14px 16px; max-width: 1100px; margin: 0 auto; font-family: "Archivo Black", Impact, sans-serif; letter-spacing: .06em; font-size: 20px; }
-main { max-width: 780px; margin: 0 auto; padding: 40px 16px; }
-h1 { font-family: "Archivo Black", Impact, sans-serif; font-weight: 400; font-synthesis: none; letter-spacing: .05em; text-transform: uppercase; color: var(--ochre); font-size: 28px; margin: 0 0 12px; }
-.panel { background: var(--rust-dark); border-left: 6px solid var(--rust); padding: 22px 24px; border-radius: 4px; }
-.panel p:first-child { margin-top: 0; }
-.panel p:last-child { margin-bottom: 0; }
-.button { display: inline-block; background: var(--rust); color: var(--on-rust); text-decoration: none; padding: 14px 26px; border-radius: 6px; font-family: "Archivo Black", Impact, sans-serif; letter-spacing: .04em; font-size: 18px; border: 2px solid var(--ochre); }
-.doors { max-width: 780px; margin: 0 auto; padding: 0 16px; }
-.doors ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-bottom: 1px solid var(--line, rgba(128,128,128,.35)); }
-.doors a { display: block; min-height: 48px; padding: 10px 6px 8px; text-align: center; text-decoration: none; color: var(--cream);
-  border-bottom: 4px solid transparent; overflow-wrap: anywhere; }
-.doors .d-name { display: block; font-family: "Archivo Black", Impact, sans-serif; text-transform: uppercase; letter-spacing: .04em; font-size: 16px; font-synthesis: none; }
-.doors .d-flavor { display: none; font-size: 14px; line-height: 1.3; color: var(--muted); }
-.doors a:hover .d-name { text-decoration: underline; }
-.doors a:focus-visible { outline: 3px solid var(--ochre); outline-offset: -3px; }
-.doors a[aria-current] { background: color-mix(in srgb, var(--ochre) 14%, transparent); border-bottom-color: var(--ochre); }
-.doors a[aria-current="page"] .d-name::before { content: "\25B8\00a0"; }
-@media (min-width: 700px) { .doors .d-flavor { display: block; } .doors .d-name { font-size: 18px; } }
-@media (forced-colors: active) { .doors a[aria-current] { border-bottom-color: Highlight; } .doors a:focus-visible { outline-color: Highlight; } }
-/* r38c: narrow phones: labels never break inside a word; three tabs on one row from 320 px up */
-.doors .d-name { white-space: nowrap; }
-@media (max-width: 699px) {
-  .doors { padding: 0 8px; }
-  .doors a { padding: 12px 2px 10px; min-height: 48px; }
-  .doors .d-name { font-size: 14px; letter-spacing: .01em; }
-  .doors a[aria-current="page"] .d-name::before { font-size: 9px; content: "\25B8\00a0"; vertical-align: 1px; }
-}
-@media (max-width: 359px) { .doors .d-name { font-size: 12px; } }
-@media (max-width: 600px) { body { font-size: 17px; } h1 { font-size: 24px; } .panel { padding: 18px 16px; } .button { padding: 12px 18px; font-size: 16px; } }
-</style>
+<link rel="preload" href="/fonts/GentiumBookPlus-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/css/site.css">
+<script>try { var r = document.documentElement;
+  if (localStorage.getItem("dustbanners-ai-art") === "off") r.classList.add("art-off");
+  var t = localStorage.getItem("dustbanners-theme"); if (t === "light" || t === "dark") r.classList.add("theme-" + t);
+  if (localStorage.getItem("dustbanners-motion") === "off") r.classList.add("motion-off");
+} catch (e) {}</script>
 </head>
 <body>
-<span class="mark">DUSTBANNERS</span>
-<nav class="doors" aria-label="Three doors">
-  <ul>
-    <li><a href="/"><span class="d-name">Game</span><span class="d-flavor" aria-hidden="true">Raise a banner. The valley is still worth holding.</span></a></li>
-    <li><a href="/playtest.html"><span class="d-name">Playtest</span><span class="d-flavor" aria-hidden="true">Every plan breaks on first contact. Help us find where.</span></a></li>
-    <li><a href="/draw.html"><span class="d-name">Draw</span><span class="d-flavor" aria-hidden="true">Somebody has to put a face to the Wardens and the Raiders.</span></a></li>
-  </ul>
-</nav>
-<main>
+<a class="skip" href="#main">Skip to the page</a>
+<div class="topbar">
+<header class="bar">
+  <a class="brand" href="/"><img src="/img/sun.png" alt="" width="34" height="34">Dustbanners</a>
+  <a class="btn bar-cta" href="/#signup">Email news</a>
+  <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="site-menu" aria-label="Menu"><span></span><span></span><span></span></button>
+  <div class="menu" id="site-menu">
+    <nav aria-label="Main"><ul>
+      <li><a href="/#game">The Game</a></li>
+      <li><a href="/#play">Play It</a></li>
+      <li><a href="/#involved">Get Involved</a></li>
+      <li><a href="/#events">Events</a></li>
+      <li><a href="/#join">Join Us</a></li>
+    </ul></nav>
+    <div class="switches">
+      <button type="button" class="tool" id="art-toggle">AI art: On</button>
+      <button type="button" class="tool" id="theme-toggle">Dark mode</button>
+      <button type="button" class="tool" id="motion-toggle">Motion: On</button>
+    </div>
+    <p class="motion-note" id="motion-note" role="status" aria-live="polite"></p>
+  </div>
+</header>
+</div>
+<main id="main" class="page">
   <h1>Page not found</h1>
   <div class="panel">
     <p>That page is not here. The link may be old, or it may have a typo.</p>
     <p><a class="button" href="/">Back to the home page</a></p>
+    <p>Want to help? <a href="/playtest.html">Help playtest</a> or <a href="/draw.html">draw for Dustbanners</a>.</p>
     <p>Want news when the game launches? <a href="/#signup">Get email news</a>. Something broken on this site? Email <a href="mailto:hello@dustbanners.com">hello@dustbanners.com</a>.</p>
   </div>
 </main>
+<footer class="site">
+  <div class="gate">
+    <p class="gate-ask"><span class="nw">Something broken or confusing</span> <span class="nw">on this site?</span></p>
+    <a class="gate-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSeLGjetFpVL5vjk9n1kVDnuCJZK04rodNUD4oKncrjfLcybfA/viewform" rel="noopener">Leave Word at the Gate</a>
+  </div>
+  <p><span class="nw">Dustbanners&trade; &middot; &copy; 2026 AminalHungy</span> <span class="nw">&middot; <a href="/privacy.html">Privacy</a></span></p>
+</footer>
+<script src="/js/site.js"></script>
 </body>
 </html>

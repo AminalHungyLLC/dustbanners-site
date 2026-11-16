@@ -1,0 +1,81 @@
+/* Dustbanners site r41: the three switches (AI art, Light/Dark, Motion), the phone menu, and notes and bills that settle in once.
+   Same storage keys as the live site, so a visitor's earlier choices carry over. No outside scripts. */
+(function () {
+  var root = document.documentElement;
+  function $(id) { return document.getElementById(id); }
+  function store(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+
+  // AI art switch (Kyle 2026-10-14): hides every AI-made placeholder picture and shows its art-free twin.
+  var abtn = $("art-toggle");
+  function showArt() { if (abtn) abtn.textContent = root.classList.contains("art-off") ? "AI art: Off" : "AI art: On"; }
+  if (abtn) abtn.addEventListener("click", function () {
+    root.classList.toggle("art-off");
+    store("dustbanners-ai-art", root.classList.contains("art-off") ? "off" : "on");
+    showArt();
+  });
+  showArt();
+
+  // Light/Dark switch: starts from the device setting; a click picks the other look and remembers it on this device.
+  var tbtn = $("theme-toggle"), dark = window.matchMedia("(prefers-color-scheme: dark)");
+  function isDark() {
+    if (root.classList.contains("theme-dark")) return true;
+    if (root.classList.contains("theme-light")) return false;
+    return dark.matches;
+  }
+  function showTheme() { if (tbtn) tbtn.textContent = isDark() ? "Light mode" : "Dark mode"; }
+  if (tbtn) tbtn.addEventListener("click", function () {
+    var next = isDark() ? "light" : "dark";
+    root.classList.remove("theme-light", "theme-dark");
+    root.classList.add("theme-" + next);
+    store("dustbanners-theme", next);
+    showTheme();
+  });
+  if (dark.addEventListener) dark.addEventListener("change", showTheme);
+  showTheme();
+
+  // Motion switch (Kyle's rule: every automatic behavior gets a setting). Phones and "reduce motion" devices always stay still.
+  var mbtn = $("motion-toggle"), mnote = $("motion-note");
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)"), phone = window.matchMedia("(max-width: 699px)");
+  function forcedStill() { return reduce.matches || phone.matches; }
+  function showMotion() {
+    var off = root.classList.contains("motion-off") || forcedStill();
+    root.classList.toggle("anim", !off);
+    if (mbtn) mbtn.textContent = "Motion: " + (off ? "Off" : "On");
+  }
+  if (mbtn) mbtn.addEventListener("click", function () {
+    if (forcedStill()) {
+      if (mnote) mnote.textContent = phone.matches ? "Motion stays off on phones." : "Motion stays off because your device asks for less motion.";
+      return;
+    }
+    root.classList.toggle("motion-off");
+    store("dustbanners-motion", root.classList.contains("motion-off") ? "off" : "on");
+    if (mnote) mnote.textContent = "";
+    showMotion();
+  });
+  [reduce, phone].forEach(function (m) { if (m.addEventListener) m.addEventListener("change", showMotion); });
+  showMotion();
+
+  // Notes in the margin and posted bills settle in once as they come into view (only while motion is on; CSS decides).
+  var settle = [].slice.call(document.querySelectorAll(".scrap, .bill"));
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+    }, { threshold: 0.15 });
+    settle.forEach(function (n) { io.observe(n); });
+  } else {
+    settle.forEach(function (n) { n.classList.add("in"); });
+  }
+
+  // Phone menu: the 3-line button opens and closes the drop-down; a link tap or Escape closes it.
+  var bar = document.querySelector(".bar"), menuBtn = $("menu-btn");
+  function setMenu(open) { if (!bar || !menuBtn) return; bar.classList.toggle("open", open); menuBtn.setAttribute("aria-expanded", open ? "true" : "false"); }
+  if (menuBtn) menuBtn.addEventListener("click", function () { setMenu(!bar.classList.contains("open")); });
+  [].slice.call(document.querySelectorAll("#site-menu nav a")).forEach(function (a) { a.addEventListener("click", function () { setMenu(false); }); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && bar && bar.classList.contains("open")) { setMenu(false); menuBtn.focus(); } });
+
+  // "Get email news" buttons jump to the sign-up and put the cursor in the email box (the page does not scroll again).
+  var em = $("email");
+  if (em) [].slice.call(document.querySelectorAll('a[href="#signup"]')).forEach(function (go) {
+    go.addEventListener("click", function () { setTimeout(function () { try { em.focus({ preventScroll: true }); } catch (e) { em.focus(); } }, 0); });
+  });
+})();

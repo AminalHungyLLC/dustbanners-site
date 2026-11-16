@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-DBpnz6wF+obO8n4OcbYBP2+vZkM7UQlXANzH2lWyuQ4=' 'sha256-D9abhaGQn3eCCK8AMFSsOfHg4OdvKe7pIo733vtjts4='; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-4uFrN+WVLefnMtyZ9+yafXTxBRK6FTpJVmefoC2IF5E='; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Proving Ground | Dustbanners</title>
 <meta name="description" content="How Dustbanners is tested: the computer plays the computer, thousands of times, before people sit down at a table.">
@@ -18,37 +18,14 @@
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" href="img/sun.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preload" href="fonts/GentiumBookPlus-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/site.css">
+<script>try { var r = document.documentElement;
+  if (localStorage.getItem("dustbanners-ai-art") === "off") r.classList.add("art-off");
+  var t = localStorage.getItem("dustbanners-theme"); if (t === "light" || t === "dark") r.classList.add("theme-" + t);
+  if (localStorage.getItem("dustbanners-motion") === "off") r.classList.add("motion-off");
+} catch (e) {}</script>
 <style>
-@font-face { font-family: "Archivo Black"; src: url("fonts/ArchivoBlack-Regular.ttf"); font-display: swap; }
-@font-face { font-family: "Gentium"; src: url("fonts/GentiumBookPlus-Regular.ttf"); font-display: swap; }
-:root {
-  --rust: #8f4421; --rust-dark: #5e2b14; --cream: #e9e2d8; --muted: #cfc5b8; --ochre: #d6aa6e; --night: #1e1813;
-  --card: #2a221b; --line: #6b5643; --on-rust: #e9e2d8; --input-bg: #fbf8f3; --input-ink: #1e1813; --input-line: #8a7660; color-scheme: dark;
-}
-@media (prefers-color-scheme: light) {
-  :root:not(.theme-dark) { --rust-dark: #ead8c3; --cream: #1e1813; --muted: #5a4a3c; --ochre: #7a4e15; --night: #f4ede2;
-    --card: #fffaf3; --line: #b9a58c; --input-bg: #ffffff; color-scheme: light; }
-}
-:root.theme-light { --rust-dark: #ead8c3; --cream: #1e1813; --muted: #5a4a3c; --ochre: #7a4e15; --night: #f4ede2;
-  --card: #fffaf3; --line: #b9a58c; --input-bg: #ffffff; color-scheme: light; }
-* { box-sizing: border-box; }
-h1, h2 { text-transform: uppercase; }
-h1, h2, h3, .mark, .big { font-synthesis: none; }
-html { scroll-behavior: auto; }
-@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
-body { margin: 0; background: var(--night); color: var(--cream); font: 18px/1.6 "Gentium", Georgia, serif; overflow-wrap: break-word; }
-img { max-width: 100%; }
-a { color: var(--ochre); }
-a:focus-visible, button:focus-visible { outline: 3px solid var(--ochre); outline-offset: 2px; }
-.skip { position: absolute; left: -9999px; }
-.skip:focus { left: 16px; top: 8px; background: var(--night); padding: 8px 12px; z-index: 10; }
-header { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 14px 16px; max-width: 1100px; margin: 0 auto; position: relative; }
-header img { width: 36px; height: 36px; }
-header .mark { font-family: "Archivo Black", Impact, sans-serif; letter-spacing: .06em; font-size: 20px; color: var(--cream); text-decoration: none; }
-header nav { margin-left: auto; display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 16px; }
-header nav a { color: var(--cream); text-decoration: none; }
-header nav a:hover { text-decoration: underline; }
-header nav a[aria-current="page"] { color: var(--ochre); }
 section { max-width: 780px; margin: 0 auto; padding: 32px 16px; }
 h1 { font-family: "Archivo Black", Impact, sans-serif; font-weight: 400; letter-spacing: .05em; color: var(--ochre); font-size: 34px; line-height: 1.2; margin: 0 0 4px; }
 h2 { font-family: "Archivo Black", Impact, sans-serif; font-weight: 400; letter-spacing: .05em; color: var(--ochre); font-size: 26px; margin: 0 0 12px; }
@@ -90,108 +67,36 @@ ul.points li { margin: 6px 0; }
 .chart .note { margin: 10px 0 0; font-size: 15px; color: var(--muted); }
 ol.steps { padding-left: 1.3em; }
 ol.steps li { margin: 10px 0; }
-footer { text-align: center; padding: 30px 16px 40px; font-size: 15px; color: var(--muted); }
-footer p { margin: 6px 0; }
-footer .nw { white-space: nowrap; }
-footer .gate { padding-bottom: 22px; margin-bottom: 18px; border-bottom: 1px solid var(--rust); }
-footer .gate-ask { font-size: 17px; color: var(--cream); margin-bottom: 12px; }
-footer .gate-btn { display: inline-block; border: 1px solid var(--ochre); color: var(--ochre); text-decoration: none;
-  padding: 12px 22px; border-radius: 6px; font-size: 17px; }
-footer .gate-btn:hover, footer .gate-btn:focus { background: var(--rust-dark); }
-footer .art-note { font-size: 14px; }
-.art-toggle { font: inherit; font-size: 15px; background: var(--card); color: var(--cream); border: 1px solid var(--line);
-  border-radius: 6px; padding: 6px 12px; cursor: pointer; }
-.art-toggle:hover, .art-toggle:focus-visible { border-color: var(--ochre); }
-html.art-off .ai-art { display: none !important; }
-.site-menu { margin-left: auto; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px; }
-.site-menu .switches { display: flex; gap: 8px; }
-.menu-btn { display: none; margin-left: auto; width: 44px; height: 44px; padding: 10px; border: 1px solid var(--line);
-  border-radius: 6px; background: var(--card); cursor: pointer; flex-direction: column; justify-content: space-between; }
-.menu-btn span { display: block; height: 3px; border-radius: 2px; background: var(--cream); }
-@media (max-width: 800px) {
-  .menu-btn { display: flex; }
-  .site-menu { display: none; position: absolute; top: 100%; left: 0; right: 0; z-index: 20; margin: 0;
-    flex-direction: column; align-items: stretch; gap: 0; background: var(--card); border-bottom: 2px solid var(--line);
-    box-shadow: 0 8px 16px rgba(0,0,0,.35); padding: 4px 16px 14px; }
-  header.open .site-menu { display: flex; }
-  .site-menu nav { flex-direction: column; gap: 0; margin: 0; font-size: 18px; }
-  .site-menu nav a { display: block; padding: 12px 4px; border-bottom: 1px solid var(--line); text-transform: uppercase;
-    letter-spacing: .05em; }
-  .site-menu .switches { padding-top: 12px; flex-wrap: wrap; }
-}
-@media (max-width: 600px) {
-  body { font-size: 17px; }
-  h1 { font-size: 27px; }
-  h2 { font-size: 22px; }
-  .panel { padding: 18px 16px; }
-  .row { grid-template-columns: 1fr minmax(64px, auto); }
-  .row .lbl { grid-column: 1 / span 2; }
-  .row .track { grid-column: 1; }
-}
-/* Sticky top bar: phones and narrow windows only, the width at which the menu becomes the three-line button. The full-width wrapper carries the opaque background. */
-@media (max-width: 800px) {
-  .topbar { position: sticky; top: 0; z-index: 30; background: var(--night); border-bottom: 1px solid var(--line, rgba(128,128,128,.35)); }
-  .skip:focus { z-index: 40; }
-  html { scroll-padding-top: 150px; }
-  .site-menu { max-height: calc(100vh - 150px); max-height: calc(100dvh - 150px); overflow-y: auto; }
-}
-/* end sticky top bar */
-/* r38: three doors tab bar and breadcrumb */
-.doors { max-width: 780px; margin: 0 auto; padding: 0 16px; }
-.doors ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-bottom: 1px solid var(--line, rgba(128,128,128,.35)); }
-.doors a { display: block; min-height: 48px; padding: 10px 6px 8px; text-align: center; text-decoration: none; color: var(--cream);
-  border-bottom: 4px solid transparent; overflow-wrap: anywhere; }
-.doors .d-name { display: block; font-family: "Archivo Black", Impact, sans-serif; text-transform: uppercase; letter-spacing: .04em; font-size: 16px; font-synthesis: none; }
-.doors .d-flavor { display: none; font-size: 14px; line-height: 1.3; color: var(--muted); }
-.doors a:hover .d-name { text-decoration: underline; }
-.doors a:focus-visible { outline: 3px solid var(--ochre); outline-offset: -3px; }
-.doors a[aria-current] { background: color-mix(in srgb, var(--ochre) 14%, transparent); border-bottom-color: var(--ochre); }
-.doors a[aria-current="page"] .d-name::before { content: "\25B8\00a0"; }
-@media (min-width: 700px) { .doors .d-flavor { display: block; } .doors .d-name { font-size: 18px; } }
-@media (forced-colors: active) { .doors a[aria-current] { border-bottom-color: Highlight; } .doors a:focus-visible { outline-color: Highlight; } }
-/* r38c: narrow phones: labels never break inside a word; three tabs on one row from 320 px up */
-.doors .d-name { white-space: nowrap; }
-@media (max-width: 699px) {
-  .doors { padding: 0 8px; }
-  .doors a { padding: 12px 2px 10px; min-height: 48px; }
-  .doors .d-name { font-size: 14px; letter-spacing: .01em; }
-  .doors a[aria-current="page"] .d-name::before { font-size: 9px; content: "\25B8\00a0"; vertical-align: 1px; }
-}
-@media (max-width: 359px) { .doors .d-name { font-size: 12px; } }
-.crumbs { max-width: 780px; margin: 0 auto; padding: 10px 16px 0; font-size: 16px; color: var(--muted); }
+@media (max-width: 600px) { .row { grid-template-columns: 1fr minmax(64px, auto); } .row .lbl { grid-column: 1 / span 2; } .row .track { grid-column: 1; } }
 </style>
-<script>try { var r = document.documentElement;
-  if (localStorage.getItem("dustbanners-ai-art") === "off") r.classList.add("art-off");
-  var t = localStorage.getItem("dustbanners-theme"); if (t === "light" || t === "dark") r.classList.add("theme-" + t);
-} catch (e) {}</script>
 </head>
 <body>
-<a class="skip" href="#what">Skip to the page</a>
+<a class="skip" href="#main">Skip to the page</a>
 <div class="topbar">
-<header>
-  <img src="img/sun.png" alt="" width="36" height="36">
-  <a class="mark" href="index.html">DUSTBANNERS</a>
-  <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="site-menu" aria-label="Menu">
-    <span></span><span></span><span></span></button>
-  <div class="site-menu" id="site-menu">
-    <nav aria-label="Main"><a href="index.html">Home</a><a href="index.html#game">The game</a><a href="playtest.html">Help playtest</a><a href="proving-ground.html" aria-current="page">Proving Ground</a><a href="index.html#signup">Email news</a><a href="index.html#contact">Contact</a></nav>
+<header class="bar">
+  <a class="brand" href="index.html"><img src="img/sun.png" alt="" width="34" height="34">Dustbanners</a>
+  <a class="btn bar-cta" href="index.html#signup">Email news</a>
+  <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="site-menu" aria-label="Menu"><span></span><span></span><span></span></button>
+  <div class="menu" id="site-menu">
+    <nav aria-label="Main"><ul>
+      <li><a href="index.html#game">The Game</a></li>
+      <li><a href="index.html#play">Play It</a></li>
+      <li><a href="index.html#involved" aria-current="true">Get Involved</a></li>
+      <li><a href="index.html#events">Events</a></li>
+      <li><a href="index.html#join">Join Us</a></li>
+    </ul></nav>
     <div class="switches">
-      <button type="button" class="art-toggle" id="art-toggle">AI art: On</button>
-      <button type="button" class="art-toggle" id="theme-toggle">Light mode</button>
+      <button type="button" class="tool" id="art-toggle">AI art: On</button>
+      <button type="button" class="tool" id="theme-toggle">Dark mode</button>
+      <button type="button" class="tool" id="motion-toggle">Motion: On</button>
     </div>
+    <p class="motion-note" id="motion-note" role="status" aria-live="polite"></p>
   </div>
 </header>
-<nav class="doors" aria-label="Three doors">
-  <ul>
-    <li><a href="index.html"><span class="d-name">Game</span><span class="d-flavor" aria-hidden="true">Raise a banner. The valley is still worth holding.</span></a></li>
-    <li><a href="playtest.html" aria-current="true"><span class="d-name">Playtest</span><span class="d-flavor" aria-hidden="true">Every plan breaks on first contact. Help us find where.</span></a></li>
-    <li><a href="draw.html"><span class="d-name">Draw</span><span class="d-flavor" aria-hidden="true">Somebody has to put a face to the Wardens and the Raiders.</span></a></li>
-  </ul>
-</nav>
 </div>
 
-<main>
-<nav class="crumbs" aria-label="Breadcrumb"><a href="playtest.html">Playtest</a> &gt; Proving Ground</nav>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="index.html#involved">Get Involved</a> &gt; <a href="playtest.html">Playtest</a> &gt; Proving Ground</nav>
 <section id="what">
   <h1>Proving Ground</h1>
   <p class="lede">How Dustbanners is being tested before anyone plays it.</p>
@@ -361,47 +266,13 @@ html.art-off .ai-art { display: none !important; }
 </section>
 </main>
 
-<footer>
+<footer class="site">
   <div class="gate">
     <p class="gate-ask"><span class="nw">Something broken or confusing</span> <span class="nw">on this site?</span></p>
     <a class="gate-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSeLGjetFpVL5vjk9n1kVDnuCJZK04rodNUD4oKncrjfLcybfA/viewform" rel="noopener">Leave Word at the Gate</a>
   </div>
   <p><span class="nw">Dustbanners&trade; &middot; &copy; 2026 AminalHungy</span> <span class="nw">&middot; <a href="privacy.html">Privacy</a></span></p>
 </footer>
-<script>
-(function () {
-  var root = document.documentElement, btn = document.getElementById("art-toggle");
-  function show() { btn.textContent = root.classList.contains("art-off") ? "AI art: Off" : "AI art: On"; }
-  btn.addEventListener("click", function () {
-    root.classList.toggle("art-off");
-    try { localStorage.setItem("dustbanners-ai-art", root.classList.contains("art-off") ? "off" : "on"); } catch (e) {}
-    show();
-  });
-  show();
-  var tbtn = document.getElementById("theme-toggle"), mq = window.matchMedia("(prefers-color-scheme: light)");
-  function isLight() {
-    if (root.classList.contains("theme-light")) return true;
-    if (root.classList.contains("theme-dark")) return false;
-    return mq.matches;
-  }
-  function showTheme() { tbtn.textContent = isLight() ? "Dark mode" : "Light mode"; }
-  tbtn.addEventListener("click", function () {
-    var next = isLight() ? "dark" : "light";
-    root.classList.remove("theme-light", "theme-dark");
-    root.classList.add("theme-" + next);
-    try { localStorage.setItem("dustbanners-theme", next); } catch (e) {}
-    showTheme();
-  });
-  if (mq.addEventListener) mq.addEventListener("change", showTheme);
-  showTheme();
-  var header = document.querySelector("header"), mbtn = document.getElementById("menu-btn");
-  function setMenu(open) { header.classList.toggle("open", open); mbtn.setAttribute("aria-expanded", open ? "true" : "false"); }
-  mbtn.addEventListener("click", function () { setMenu(!header.classList.contains("open")); });
-  [].slice.call(document.querySelectorAll("#site-menu nav a")).forEach(function (a) {
-    a.addEventListener("click", function () { setMenu(false); });
-  });
-  document.addEventListener("keydown", function (e) { if (e.key === "Escape") { setMenu(false); } });
-})();
-</script>
+<script src="js/site.js"></script>
 </body>
 </html>

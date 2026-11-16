@@ -3,107 +3,47 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-DBpnz6wF+obO8n4OcbYBP2+vZkM7UQlXANzH2lWyuQ4='; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-4uFrN+WVLefnMtyZ9+yafXTxBRK6FTpJVmefoC2IF5E='; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Help playtest | Dustbanners</title>
 <meta name="description" content="Help test Dustbanners: tell us what worked, what confused you and what you would change.">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" href="img/sun.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<style>
-@font-face { font-family: "Archivo Black"; src: url("fonts/ArchivoBlack-Regular.ttf"); font-display: swap; }
-@font-face { font-family: "Gentium"; src: url("fonts/GentiumBookPlus-Regular.ttf"); font-display: swap; }
-:root { --cream: #e9e2d8; --muted: #cfc5b8; --ochre: #d6aa6e; --night: #1e1813; color-scheme: dark; }
-@media (prefers-color-scheme: light) {
-  :root:not(.theme-dark) { --cream: #1e1813; --muted: #5a4a3c; --ochre: #7a4e15; --night: #f4ede2; color-scheme: light; }
-}
-:root.theme-light { --cream: #1e1813; --muted: #5a4a3c; --ochre: #7a4e15; --night: #f4ede2; color-scheme: light; }
-* { box-sizing: border-box; }
-h1, h2 { text-transform: uppercase; } /* Kyle 2026-10-14: headings in caps like the DUSTBANNERS mark */
-h1, h2, .mark, .button { font-synthesis: none; } /* Archivo Black has one weight; never fake bold */
-body { margin: 0; background: var(--night); color: var(--cream); font: 18px/1.6 "Gentium", Georgia, serif; overflow-wrap: break-word; }
-a { color: var(--ochre); }
-a:focus-visible { outline: 3px solid var(--ochre); outline-offset: 2px; }
-header { max-width: 780px; margin: 0 auto; padding: 14px 16px; display: flex; align-items: center; gap: 12px; }
-header img { width: 36px; height: 36px; }
-header a { color: var(--cream); text-decoration: none; font-family: "Archivo Black", Impact, sans-serif; letter-spacing: .06em; font-size: 20px; }
-main { max-width: 780px; margin: 0 auto; padding: 8px 16px 40px; }
-h1 { font-family: "Archivo Black", Impact, sans-serif; font-weight: 400; letter-spacing: .04em; color: var(--ochre); font-size: 28px; margin: 12px 0; }
-h2 { font-family: "Archivo Black", Impact, sans-serif; font-weight: 400; letter-spacing: .04em; color: var(--ochre); font-size: 20px; margin: 28px 0 6px; }
-.note { color: var(--muted); font-size: 16px; }
-.button { display: inline-block; margin: 8px 0; padding: 12px 24px; font-family: "Archivo Black", Impact, sans-serif; font-size: 18px; letter-spacing: .04em; text-transform: uppercase; text-decoration: none; color: var(--night); background: var(--ochre); border: 2px solid var(--ochre); border-radius: 4px; }
-footer { text-align: center; padding: 20px 16px 40px; font-size: 15px; color: var(--muted); }
-@media (max-width: 600px) { body { font-size: 17px; } h1 { font-size: 24px; } }
-html.art-off .ai-art { display: none !important; }
-@media (max-width: 800px) {
-  .topbar { position: sticky; top: 0; z-index: 30; background: var(--night); border-bottom: 1px solid var(--line, rgba(128,128,128,.35)); }
-  .skip:focus { z-index: 40; }
-  html { scroll-padding-top: 150px; }
-}
-.skip { position: absolute; left: -9999px; }
-.skip:focus { left: 16px; top: 8px; background: var(--night); padding: 8px 12px; z-index: 10; }
-/* r38: three doors tab bar */
-.doors { max-width: 780px; margin: 0 auto; padding: 0 16px; }
-.doors ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-bottom: 1px solid var(--line, rgba(128,128,128,.35)); }
-.doors a { display: block; min-height: 48px; padding: 10px 6px 8px; text-align: center; text-decoration: none; color: var(--cream);
-  border-bottom: 4px solid transparent; overflow-wrap: anywhere; }
-.doors .d-name { display: block; font-family: "Archivo Black", Impact, sans-serif; text-transform: uppercase; letter-spacing: .04em; font-size: 16px; font-synthesis: none; }
-.doors .d-flavor { display: none; font-size: 14px; line-height: 1.3; color: var(--muted); }
-.doors a:hover .d-name { text-decoration: underline; }
-.doors a:focus-visible { outline: 3px solid var(--ochre); outline-offset: -3px; }
-.doors a[aria-current] { background: color-mix(in srgb, var(--ochre) 14%, transparent); border-bottom-color: var(--ochre); }
-.doors a[aria-current="page"] .d-name::before { content: "\25B8\00a0"; }
-@media (min-width: 700px) { .doors .d-flavor { display: block; } .doors .d-name { font-size: 18px; } }
-@media (forced-colors: active) { .doors a[aria-current] { border-bottom-color: Highlight; } .doors a:focus-visible { outline-color: Highlight; } }
-/* r38c: narrow phones: labels never break inside a word; three tabs on one row from 320 px up */
-.doors .d-name { white-space: nowrap; }
-@media (max-width: 699px) {
-  .doors { padding: 0 8px; }
-  .doors a { padding: 12px 2px 10px; min-height: 48px; }
-  .doors .d-name { font-size: 14px; letter-spacing: .01em; }
-  .doors a[aria-current="page"] .d-name::before { font-size: 9px; content: "\25B8\00a0"; vertical-align: 1px; }
-}
-@media (max-width: 359px) { .doors .d-name { font-size: 12px; } }
-.d-banner { margin: 12px 0 0; color: var(--muted); }
-.d-banner .d-bname { font-family: "Archivo Black", Impact, sans-serif; font-synthesis: none; text-transform: uppercase; letter-spacing: .04em; color: var(--cream); }
-.d-banner .d-bflavor { font-style: italic; }
-/* r38: status bars (written at build time, no script) */
-.status { margin: 16px 0 24px; padding: 14px 16px; border: 1px solid var(--line, rgba(128,128,128,.35)); border-radius: 6px; }
-.status h2 { margin: 0 0 6px; font-size: 18px; }
-.status p { margin: 6px 0; }
-.st-bar { position: relative; height: 14px; border-radius: 7px; background: color-mix(in srgb, var(--muted) 35%, transparent); margin: 14px 14px 12px 0; }
-.st-fill { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 7px; background: var(--ochre); }
-.st-tick { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--muted); }
-.st-goal { position: absolute; top: -6px; bottom: -6px; width: 3px; margin-left: -3px; background: var(--cream); }
-.st-goal::before { content: ""; position: absolute; top: 0; left: 3px; border-style: solid; border-width: 5px 0 5px 9px; border-color: transparent transparent transparent var(--cream); }
-.st-nums { display: flex; flex-direction: column; gap: 2px; font-size: 16px; }
-.st-nums span { display: block; }
-.st-trend, .st-asof, .st-steps { font-size: 15px; color: var(--muted); }
-.stat { font-size: 20px; color: var(--ochre); }
-.small { font-size: 16px; color: var(--muted); }
-.links { display: flex; flex-wrap: wrap; gap: 12px; }
-</style>
+<link rel="preload" href="fonts/GentiumBookPlus-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/site.css">
 <script>try { var r = document.documentElement;
   if (localStorage.getItem("dustbanners-ai-art") === "off") r.classList.add("art-off");
   var t = localStorage.getItem("dustbanners-theme"); if (t === "light" || t === "dark") r.classList.add("theme-" + t);
+  if (localStorage.getItem("dustbanners-motion") === "off") r.classList.add("motion-off");
 } catch (e) {}</script>
 </head>
 <body>
-<a class="skip" href="#page">Skip to the page</a>
+<a class="skip" href="#main">Skip to the page</a>
 <div class="topbar">
-<header>
-  <img src="img/sun.png" alt="" width="36" height="36">
-  <a href="index.html">DUSTBANNERS</a>
+<header class="bar">
+  <a class="brand" href="index.html"><img src="img/sun.png" alt="" width="34" height="34">Dustbanners</a>
+  <a class="btn bar-cta" href="index.html#signup">Email news</a>
+  <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="site-menu" aria-label="Menu"><span></span><span></span><span></span></button>
+  <div class="menu" id="site-menu">
+    <nav aria-label="Main"><ul>
+      <li><a href="index.html#game">The Game</a></li>
+      <li><a href="index.html#play">Play It</a></li>
+      <li><a href="index.html#involved" aria-current="true">Get Involved</a></li>
+      <li><a href="index.html#events">Events</a></li>
+      <li><a href="index.html#join">Join Us</a></li>
+    </ul></nav>
+    <div class="switches">
+      <button type="button" class="tool" id="art-toggle">AI art: On</button>
+      <button type="button" class="tool" id="theme-toggle">Dark mode</button>
+      <button type="button" class="tool" id="motion-toggle">Motion: On</button>
+    </div>
+    <p class="motion-note" id="motion-note" role="status" aria-live="polite"></p>
+  </div>
 </header>
-<nav class="doors" aria-label="Three doors">
-  <ul>
-    <li><a href="index.html"><span class="d-name">Game</span><span class="d-flavor" aria-hidden="true">Raise a banner. The valley is still worth holding.</span></a></li>
-    <li><a href="playtest.html" aria-current="page"><span class="d-name">Playtest</span><span class="d-flavor" aria-hidden="true">Every plan breaks on first contact. Help us find where.</span></a></li>
-    <li><a href="draw.html"><span class="d-name">Draw</span><span class="d-flavor" aria-hidden="true">Somebody has to put a face to the Wardens and the Raiders.</span></a></li>
-  </ul>
-</nav>
 </div>
-<main id="page">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="index.html#involved">Get Involved</a> &gt; Playtest</nav>
+<main id="main" class="page">
 <p class="d-banner"><span class="d-bname">Playtest</span> &middot; <span class="d-bflavor">Every plan breaks on first contact. Help us find where.</span></p>
 <h1>Help playtest</h1>
 <p class="small">AI tools help me build the software, test balance and draft text; the ideas and decisions are mine. The card and board pictures shown now are AI placeholders, labeled. Human artists will make the final art, card backs and logo, and a human editor will do the final text pass.</p>
@@ -132,6 +72,13 @@ shaped by what testers tell us.</p>
 <p class="small">The form is on Google Forms. We only use your answers to improve the game. Read our
 <a href="privacy.html">privacy notice</a>.</p>
 </main>
-<footer><a href="index.html">Back to Dustbanners</a> &middot; &copy; 2026 AminalHungy</footer>
+<footer class="site">
+  <div class="gate">
+    <p class="gate-ask"><span class="nw">Something broken or confusing</span> <span class="nw">on this site?</span></p>
+    <a class="gate-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSeLGjetFpVL5vjk9n1kVDnuCJZK04rodNUD4oKncrjfLcybfA/viewform" rel="noopener">Leave Word at the Gate</a>
+  </div>
+  <p><span class="nw">Dustbanners&trade; &middot; &copy; 2026 AminalHungy</span> <span class="nw">&middot; <a href="privacy.html">Privacy</a></span></p>
+</footer>
+<script src="js/site.js"></script>
 </body>
 </html>

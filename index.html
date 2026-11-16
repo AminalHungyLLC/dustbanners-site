@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-DBpnz6wF+obO8n4OcbYBP2+vZkM7UQlXANzH2lWyuQ4=' 'sha256-rssY1Ueb3ByMPqr7kSUPc9SRq3NZmtfM/fEswsAOVk0='; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://app.kit.com https://*.kit.com">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-4uFrN+WVLefnMtyZ9+yafXTxBRK6FTpJVmefoC2IF5E='; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://app.kit.com https://*.kit.com">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Dustbanners</title>
 <meta name="description" content="Dustbanners: a two-player card game of survival on a broken frontier. Win by breaking the enemy Leader, or by holding the map.">
@@ -21,307 +21,103 @@
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" href="img/sun.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<style>
-@font-face { font-family: "Archivo Black"; src: url("fonts/ArchivoBlack-Regular.ttf"); font-display: swap; }
-@font-face { font-family: "Gentium"; src: url("fonts/GentiumBookPlus-Regular.ttf"); font-display: swap; }
-:root {
-  --rust: #8f4421; --rust-dark: #5e2b14; --cream: #e9e2d8; --muted: #cfc5b8; --ochre: #d6aa6e; --night: #1e1813;
-  --card: #2a221b; --line: #6b5643; --on-rust: #e9e2d8; --input-bg: #fbf8f3; --input-ink: #1e1813; --input-line: #8a7660; color-scheme: dark;
-}
-/* Light mode (Kyle 2026-10-14): follows the visitor's device unless they pick one with the switch. All pairs >= 5:1. */
-@media (prefers-color-scheme: light) {
-  :root:not(.theme-dark) { --rust-dark: #ead8c3; --cream: #1e1813; --muted: #5a4a3c; --ochre: #7a4e15; --night: #f4ede2;
-    --card: #fffaf3; --line: #b9a58c; --input-bg: #ffffff; color-scheme: light; }
-}
-:root.theme-light { --rust-dark: #ead8c3; --cream: #1e1813; --muted: #5a4a3c; --ochre: #7a4e15; --night: #f4ede2;
-  --card: #fffaf3; --line: #b9a58c; --input-bg: #ffffff; color-scheme: light; }
-* { box-sizing: border-box; }
-h1, h2 { text-transform: uppercase; } /* Kyle 2026-10-14: headings in caps like the DUSTBANNERS mark */
-h2.sentence { text-transform: none; } /* sentence-length headings in sentence case */
-h1, h2, .mark, .button, form.signup button { font-synthesis: none; } /* Archivo Black has one weight; never fake bold (Kyle saw blurry headings 2026-10-14) */
-html { scroll-behavior: auto; }
-@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
-body { margin: 0; background: var(--night); color: var(--cream); font: 18px/1.6 "Gentium", Georgia, serif; overflow-wrap: break-word; }
-img { max-width: 100%; }
-a { color: var(--ochre); }
-a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid var(--ochre); outline-offset: 2px; }
-.skip { position: absolute; left: -9999px; }
-.skip:focus { left: 16px; top: 8px; background: var(--night); padding: 8px 12px; z-index: 10; }
-header { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 14px 16px; max-width: 1100px; margin: 0 auto; }
-header img { width: 36px; height: 36px; }
-header .mark { font-family: "Archivo Black", Impact, sans-serif; letter-spacing: .06em; font-size: 20px; }
-header h1.mark { margin: 0; font-weight: normal; line-height: inherit; }
-header nav { margin-left: auto; display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 16px; }
-header nav a { color: var(--cream); text-decoration: none; }
-header nav a:hover { text-decoration: underline; }
-/* whole picture, letterboxed and smaller on wider screens; phones are unchanged */
-.hero img { display: block; width: auto; max-width: 100%; height: auto; margin: 0 auto; }
-@media (min-width: 801px) { .hero img { max-height: min(62vh, 600px); } }
-.hero figcaption { max-width: 1100px; margin: 0 auto; padding: 6px 16px 0; font-size: 15px; color: var(--muted); }
-.cta { text-align: center; padding: 28px 16px 8px; }
-.button { display: inline-block; background: var(--rust); color: var(--on-rust); text-decoration: none; padding: 14px 26px;
-  border-radius: 6px; font-family: "Archivo Black", Impact, sans-serif; letter-spacing: .04em; font-size: 18px; border: 2px solid var(--ochre); }
-.cta p { margin: 10px 0 0; color: var(--muted); }
-.cta .status-label { margin: 0 0 14px; font-size: 16px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
-section { max-width: 780px; margin: 0 auto; padding: 40px 16px; }
-h2 { font-family: "Archivo Black", Impact, sans-serif; font-weight: 400; letter-spacing: .05em; color: var(--ochre); font-size: 26px; margin: 0 0 12px; }
-.panel { background: var(--rust-dark); border-left: 6px solid var(--rust); padding: 22px 24px; border-radius: 4px; }
-.panel p:first-child { margin-top: 0; }
-.panel p:last-child { margin-bottom: 0; }
-ul.points { padding-left: 1.2em; }
-ul.points li { margin: 6px 0; }
-.links { display: flex; flex-wrap: wrap; gap: 12px; }
-.links a, .links .soon { background: var(--card); border: 1px solid var(--line); color: var(--cream); padding: 10px 16px; border-radius: 6px; text-decoration: none; }
-.links a:hover { border-color: var(--ochre); }
-.links .soon { border-style: dashed; color: var(--muted); }
-form.signup { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; margin: 16px 0 8px; }
-form.signup .field { flex: 1 1 240px; display: flex; flex-direction: column; gap: 4px; }
-form.signup label { font-size: 16px; }
-form.signup input[type="email"] { font: inherit; padding: 10px 12px; border-radius: 6px; border: 2px solid var(--input-line); background: var(--input-bg); color: var(--input-ink); width: 100%; }
-form.signup button { font-family: "Archivo Black", Impact, sans-serif; font-size: 17px; letter-spacing: .04em; padding: 12px 22px;
-  border-radius: 6px; border: 2px solid var(--ochre); background: var(--rust); color: var(--on-rust); cursor: pointer; }
-.small { font-size: 16px; color: var(--muted); }
-.stat { font-size: 20px; color: var(--ochre); }
-footer { text-align: center; padding: 30px 16px 40px; font-size: 15px; color: var(--muted); }
-footer p { margin: 6px 0; }
-footer .nw { white-space: nowrap; }
-footer .gate { padding-bottom: 22px; margin-bottom: 18px; border-bottom: 1px solid var(--rust); }
-footer .gate-ask { font-size: 17px; color: var(--cream); margin-bottom: 12px; }
-footer .gate-btn { display: inline-block; border: 1px solid var(--ochre); color: var(--ochre); text-decoration: none;
-  padding: 12px 22px; border-radius: 6px; font-size: 17px; }
-footer .gate-btn:hover, footer .gate-btn:focus { background: var(--rust-dark); }
-footer .art-note { font-size: 14px; }
-.contact-mail { font-size: 20px; overflow-wrap: anywhere; }
-.contact-mail a { color: var(--ochre); }
-/* AI art switch (Kyle 2026-10-14): visitors can hide every AI-made placeholder image. */
-.art-toggle { font: inherit; font-size: 15px; background: var(--card); color: var(--cream); border: 1px solid var(--line);
-  border-radius: 6px; padding: 6px 12px; cursor: pointer; }
-.art-toggle:hover, .art-toggle:focus-visible { border-color: var(--ochre); }
-html.art-off .ai-art { display: none !important; }
-/* r27 (Kyle 2026-10-19): the AI art switch hides only the AI art. Each picture has an art-free twin (cards and text stay). */
-.free-art { display: none; }
-html.art-off .free-art { display: block; }
-.card-grid img.free-art { display: none; }
-html.art-off .card-grid img.free-art { display: block; }
-.hero img { max-width: 100%; height: auto; }
-.card-grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 22px; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
-.card-grid li { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 14px; }
-.card-grid img { display: block; width: 100%; max-width: 360px; height: auto; margin: 0 auto 12px; }
-.card-grid h3 { margin: 0 0 10px; font-size: 21px; text-align: center; }
-.card-grid p { margin: 0; font-size: 17px; }
-.card-grid p.pic-note { margin: -4px 0 12px; font-size: 14px; text-align: center; }
-/* Menu (Kyle 2026-10-14): wide screens show everything in one row; phones get a 3-line button that drops the menu down. */
-header { position: relative; }
-.site-menu { margin-left: auto; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px; }
-.site-menu .switches { display: flex; gap: 8px; }
-.menu-btn { display: none; margin-left: auto; width: 44px; height: 44px; padding: 10px; border: 1px solid var(--line);
-  border-radius: 6px; background: var(--card); cursor: pointer; flex-direction: column; justify-content: space-between; }
-.menu-btn span { display: block; height: 3px; border-radius: 2px; background: var(--cream); }
-@media (max-width: 800px) {
-  .menu-btn { display: flex; }
-  .site-menu { display: none; position: absolute; top: 100%; left: 0; right: 0; z-index: 20; margin: 0;
-    flex-direction: column; align-items: stretch; gap: 0; background: var(--card); border-bottom: 2px solid var(--line);
-    box-shadow: 0 8px 16px rgba(0,0,0,.35); padding: 4px 16px 14px; }
-  header.open .site-menu { display: flex; }
-  .site-menu nav { flex-direction: column; gap: 0; margin: 0; font-size: 18px; }
-  .site-menu nav a { display: block; padding: 12px 4px; border-bottom: 1px solid var(--line); text-transform: uppercase;
-    letter-spacing: .05em; }
-  .site-menu .switches { padding-top: 12px; flex-wrap: wrap; }
-}
-@media (max-width: 600px) {
-  body { font-size: 17px; }
-  h2 { font-size: 22px; }
-  .panel { padding: 18px 16px; }
-  .button { padding: 12px 18px; font-size: 16px; }
-}
-/* Sticky top bar: phones and narrow windows only, the width at which the menu becomes the three-line button. The full-width wrapper carries the opaque background. */
-@media (max-width: 800px) {
-  .topbar { position: sticky; top: 0; z-index: 30; background: var(--night); border-bottom: 1px solid var(--line, rgba(128,128,128,.35)); }
-  .skip:focus { z-index: 40; }
-  html { scroll-padding-top: 150px; }
-  .site-menu { max-height: calc(100vh - 150px); max-height: calc(100dvh - 150px); overflow-y: auto; }
-}
-/* end sticky top bar */
-/* r38: three doors tab bar */
-.doors { max-width: 780px; margin: 0 auto; padding: 0 16px; }
-.doors ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-bottom: 1px solid var(--line, rgba(128,128,128,.35)); }
-.doors a { display: block; min-height: 48px; padding: 10px 6px 8px; text-align: center; text-decoration: none; color: var(--cream);
-  border-bottom: 4px solid transparent; overflow-wrap: anywhere; }
-.doors .d-name { display: block; font-family: "Archivo Black", Impact, sans-serif; text-transform: uppercase; letter-spacing: .04em; font-size: 16px; font-synthesis: none; }
-.doors .d-flavor { display: none; font-size: 14px; line-height: 1.3; color: var(--muted); }
-.doors a:hover .d-name { text-decoration: underline; }
-.doors a:focus-visible { outline: 3px solid var(--ochre); outline-offset: -3px; }
-.doors a[aria-current] { background: color-mix(in srgb, var(--ochre) 14%, transparent); border-bottom-color: var(--ochre); }
-.doors a[aria-current="page"] .d-name::before { content: "\25B8\00a0"; }
-@media (min-width: 700px) { .doors .d-flavor { display: block; } .doors .d-name { font-size: 18px; } }
-@media (forced-colors: active) { .doors a[aria-current] { border-bottom-color: Highlight; } .doors a:focus-visible { outline-color: Highlight; } }
-/* r38c: narrow phones: labels never break inside a word; three tabs on one row from 320 px up */
-.doors .d-name { white-space: nowrap; }
-@media (max-width: 699px) {
-  .doors { padding: 0 8px; }
-  .doors a { padding: 12px 2px 10px; min-height: 48px; }
-  .doors .d-name { font-size: 14px; letter-spacing: .01em; }
-  .doors a[aria-current="page"] .d-name::before { font-size: 9px; content: "\25B8\00a0"; vertical-align: 1px; }
-}
-@media (max-width: 359px) { .doors .d-name { font-size: 12px; } }
-/* r38: status bars (written at build time, no script) */
-.status { margin: 16px 0 24px; padding: 14px 16px; border: 1px solid var(--line, rgba(128,128,128,.35)); border-radius: 6px; }
-.status h2, .status h3 { margin: 0 0 6px; font-family: "Archivo Black", Impact, sans-serif; font-weight: 400; font-synthesis: none; text-transform: uppercase; letter-spacing: .04em; color: var(--ochre); font-size: 18px; }
-.status p { margin: 6px 0; }
-.st-bar { position: relative; height: 14px; border-radius: 7px; background: color-mix(in srgb, var(--muted) 35%, transparent); margin: 14px 14px 12px 0; }
-.st-fill { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 7px; background: var(--ochre); }
-.st-tick { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--muted); }
-.st-goal { position: absolute; top: -6px; bottom: -6px; width: 3px; margin-left: -3px; background: var(--cream); }
-.st-goal::before { content: ""; position: absolute; top: 0; left: 3px; border-style: solid; border-width: 5px 0 5px 9px; border-color: transparent transparent transparent var(--cream); }
-.st-nums { display: flex; flex-direction: column; gap: 2px; font-size: 16px; }
-.st-nums span { display: block; }
-.st-trend, .st-asof, .st-steps { font-size: 15px; color: var(--muted); }
-.status.compact { border: 0; padding: 0; margin: 4px 0 0; }
-.status.compact .st-bar { margin-top: 10px; }
-.status.compact .st-nums { font-size: 15px; }
-/* r38: pick your path cards */
-.path-cards { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
-.path-cards li { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; }
-.path-cards h3 { margin: 0; font-family: "Archivo Black", Impact, sans-serif; font-weight: 400; font-synthesis: none; text-transform: uppercase; letter-spacing: .04em; color: var(--ochre); font-size: 20px; }
-.path-cards p { margin: 0; }
-.path-cards .p-flavor { color: var(--muted); font-size: 16px; font-style: italic; }
-.path-cards .p-here { font-size: 15px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
-.path-cards .p-link { margin-top: auto; padding-top: 6px; }
-</style>
+<link rel="preload" href="fonts/GentiumBookPlus-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/site.css">
 <script>try { var r = document.documentElement;
   if (localStorage.getItem("dustbanners-ai-art") === "off") r.classList.add("art-off");
   var t = localStorage.getItem("dustbanners-theme"); if (t === "light" || t === "dark") r.classList.add("theme-" + t);
+  if (localStorage.getItem("dustbanners-motion") === "off") r.classList.add("motion-off");
 } catch (e) {}</script>
 </head>
 <body>
-<a class="skip" href="#game">Skip to the game</a>
+<a class="skip" href="#main">Skip to the page</a>
 <div class="topbar">
-<header>
-  <img src="img/sun.png" alt="" width="36" height="36">
-  <h1 class="mark">DUSTBANNERS</h1>
-  <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="site-menu" aria-label="Menu">
-    <span></span><span></span><span></span></button>
-  <div class="site-menu" id="site-menu">
-    <nav aria-label="On this page"><a href="#signup">Email news</a><a href="#game">The game</a><a href="#cards">The cards</a><a href="playtest.html">Help playtest</a><a href="#creator">Creator</a><a href="#ai">Made by people</a><a href="draw.html">Artists</a><a href="#follow">Follow</a><a href="#contact">Contact</a></nav>
+<header class="bar">
+  <a class="brand" href="index.html"><img src="img/sun.png" alt="" width="34" height="34">Dustbanners</a>
+  <a class="btn bar-cta" href="#signup">Email news</a>
+  <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="site-menu" aria-label="Menu"><span></span><span></span><span></span></button>
+  <div class="menu" id="site-menu">
+    <nav aria-label="Main"><ul>
+      <li><a href="#game">The Game</a></li>
+      <li><a href="#play">Play It</a></li>
+      <li><a href="#involved">Get Involved</a></li>
+      <li><a href="#events">Events</a></li>
+      <li><a href="#join">Join Us</a></li>
+    </ul></nav>
     <div class="switches">
-      <button type="button" class="art-toggle" id="art-toggle">AI art: On</button>
-      <button type="button" class="art-toggle" id="theme-toggle">Light mode</button>
+      <button type="button" class="tool" id="art-toggle">AI art: On</button>
+      <button type="button" class="tool" id="theme-toggle">Dark mode</button>
+      <button type="button" class="tool" id="motion-toggle">Motion: On</button>
     </div>
+    <p class="motion-note" id="motion-note" role="status" aria-live="polite"></p>
   </div>
 </header>
-<nav class="doors" aria-label="Three doors">
-  <ul>
-    <li><a href="index.html" aria-current="page"><span class="d-name">Game</span><span class="d-flavor" aria-hidden="true">Raise a banner. The valley is still worth holding.</span></a></li>
-    <li><a href="playtest.html"><span class="d-name">Playtest</span><span class="d-flavor" aria-hidden="true">Every plan breaks on first contact. Help us find where.</span></a></li>
-    <li><a href="draw.html"><span class="d-name">Draw</span><span class="d-flavor" aria-hidden="true">Somebody has to put a face to the Wardens and the Raiders.</span></a></li>
-  </ul>
-</nav>
 </div>
 
-<main>
-<figure class="hero" style="margin:0">
-  <picture class="ai-art">
-    <source media="(max-width: 1100px)" srcset="img/hero-1024.jpg">
-    <img src="img/hero.jpg" width="1920" height="1080"
-         alt="The Dustbanners title over a painted frontier map, with six placeholder cards fanned out: a Frontier Disaster card, a Leader, a Companion, a Tactic, a Vehicle card and a Unit. Each card shows a generic name and its real rules text. Placeholder art (AI-made). Final art by human artists.">
-  </picture>
-  <picture class="free-art">
-    <source media="(max-width: 1100px)" srcset="img/hero-free-1024.jpg">
-    <img src="img/hero-free.jpg" width="1920" height="1080"
-         alt="The Dustbanners title on a plain dark background, with the same six cards fanned out: a Frontier Disaster card, a Leader, a Companion, a Tactic, a Vehicle card and a Unit. The art boxes are empty.">
-  </picture>
-  <figcaption class="ai-art">Placeholder art (AI-made). Final art by human artists.</figcaption>
-</figure>
-
-<div class="cta">
-  <p class="status-label">Kickstarter: coming soon</p>
-  <a class="button" href="#signup">Get email news</a>
-  <p>Get one email the day it launches.<br>
-  Want to help test the game? <a href="playtest.html">Help playtest</a>.<br>
-  Are you an artist? <a href="draw.html">Draw for Dustbanners</a>.</p>
-</div>
-
-<section id="paths">
-  <h2>Pick your path</h2>
-  <ul class="path-cards">
-    <li>
-      <h3>Game</h3>
-      <p class="p-flavor">Raise a banner. The valley is still worth holding.</p>
-      <p class="p-here">You are here</p>
-      <p>Read about the game, see the cards and get email news.</p>
-      <div class="status compact" role="group" aria-labelledby="st-play-c">
-        <p id="st-play-c"><strong>Where the game stands</strong></p>
-        <div class="st-bar" aria-hidden="true"><span class="st-fill" style="width:40%"></span><span class="st-tick" style="left:0"></span><span class="st-goal" style="left:100%"></span></div>
-        <p class="st-nums"><span><strong>Now: step 3 of 6</strong></span><span>40% of the way to the printed game in your hands.</span></p>
-        <p class="st-asof">As of November 2026. A target, not a promise.</p>
-      </div>
-      <p class="p-link"><a href="#signup">Get email news</a></p>
-    </li>
-    <li>
-      <h3>Playtest</h3>
-      <p class="p-flavor">Every plan breaks on first contact. Help us find where.</p>
-      <p>Help us test the game and tell us what you think.</p>
-      <div class="status compact" role="group" aria-labelledby="st-playtest-c">
-        <p id="st-playtest-c"><strong>Where testing stands</strong></p>
-        <div class="st-bar" aria-hidden="true"><span class="st-fill" style="width:0%"></span><span class="st-tick" style="left:0"></span></div>
-        <p class="st-nums"><span><strong>Now: 0 recorded sessions</strong></span><span>With people we have not met.</span></p>
-        <p class="st-asof">As of November 2026.</p>
-      </div>
-      <p class="p-link"><a href="playtest.html">Go to Playtest</a></p>
-    </li>
-    <li>
-      <h3>Draw</h3>
-      <p class="p-flavor">Somebody has to put a face to the Wardens and the Raiders.</p>
-      <p>Artists: sign up to draw for the game. It will be paid work once the game is funded.</p>
-      <div class="status compact" role="group" aria-labelledby="st-draw-c">
-        <p id="st-draw-c"><strong>Where the art stands</strong></p>
-        <div class="st-bar" aria-hidden="true"><span class="st-fill" style="width:0%"></span><span class="st-tick" style="left:0"></span><span class="st-goal" style="left:100%"></span></div>
-        <p class="st-nums"><span><strong>Now: step 1 of 3</strong></span><span>0% of the way to paid art work beginning.</span></p>
-        <p class="st-asof">As of November 2026. A target, not a promise.</p>
-      </div>
-      <p class="p-link"><a href="draw.html">Go to Draw</a></p>
-    </li>
-  </ul>
-</section>
-
-<section id="teaser">
-  <h2 class="sentence">Eighty years after the fall, the valley still has nine outposts worth holding.</h2>
-  <div class="panel">
-    <p>Dustbanners is a two-player card game set on a broken frontier, about eighty years after the world fell apart. You lead a Banner into a valley of nine places. Every faction flies a banner, and in this game the side you lead is called a Banner. Break the other side&rsquo;s Leader, or hold all nine at the end of a turn. Your rival is not your only trouble. The Frontier throws storms, wild animals and strange finds at both of you, and you have to face them.</p>
-    <p>What&rsquo;s in it for you:</p>
-    <ul class="points">
-      <li><strong>A world that will grow.</strong> Each season will add a chapter of the story, and new cards will come from it.</li>
-      <li><strong>The same box for everyone.</strong> No random packs. Every box has the same cards, and nothing stronger is sold later.</li>
-      <li><strong>Tested before you play.</strong> More than 17,000 simulated games so far, computer against computer, to help balance the cards.</li>
-      <li><strong>Two sides that play nothing alike.</strong> The Wardens ask &ldquo;How do we protect what&rsquo;s ours?&rdquo; The Raiders ask &ldquo;What can we take?&rdquo;</li>
-      <li><strong>Made by people.</strong> AI tools help me build the software, test balance and draft text; the ideas and decisions are mine. The card and board pictures shown now are AI placeholders, labeled. Human artists will make the final art, card backs and logo, and a human editor will do the final text pass.</li>
-    </ul>
-    <p>We only send news, and we never sell your email.</p>
-    <p><a class="button" href="#signup">Get email news</a></p>
+<main id="main">
+<div class="wrap">
+<div class="hero" id="top">
+  <div>
+    <span class="stamp">Working copy</span>
+    <h1>Dustbanners</h1>
+    <p class="hook">Eighty years after the fall, the valley still has nine outposts worth holding.</p>
+    <p class="one">A two-player card game of survival on a broken frontier.</p>
+    <p class="ctas"><a class="btn" href="#signup">Get email news</a> <a class="btn quiet" href="#try">Try one turn</a></p>
+    <p class="status-label">Kickstarter: coming soon. Get one email the day it launches.</p>
   </div>
-</section>
+  <p class="kept">This site is kept like the Sages&rsquo; working copy of the lore book. The Keepers, the elders of the Sages, write down what happens in the valley and tape notes in the margins. Nothing here is final.</p>
+  <figure class="map-fig">
+    <svg class="map" viewBox="0 0 520 400" role="img" aria-labelledby="map-t">
+      <title id="map-t">A hand-drawn sketch of Crosswater Valley. A river winds from the top left to the bottom right. Nine small places with flags sit along it, joined by dotted trails. Two places are labeled with stand-in names: Rusted Track and the Lower Junction.</title>
+      <defs><filter id="wob"><feTurbulence baseFrequency=".035" numOctaves="2" seed="7" result="t"/><feDisplacementMap in="SourceGraphic" in2="t" scale="6"/></filter></defs>
+      <g filter="url(#wob)">
+        <g class="lyr lyr-land"><path class="ink" stroke-width="1.5" d="M30 300 l14 -22 l14 22 M62 310 l16 -26 l16 26 M400 60 l14 -22 l14 22 M436 70 l16 -28 l16 28 M470 62 l12 -18 l12 18 M150 330 l12 -18 l12 18 M20 150 q10 -8 20 0 M30 170 q10 -8 20 0 M455 150 q10 -8 20 0 M476 318 v44 M454 340 h44 M476 318 l-5 10 h10 z"/></g>
+        <g class="lyr lyr-river"><path class="river" pathLength="1" stroke-width="9" d="M-10 40 C80 30 110 110 170 120 S250 70 300 130 S250 240 330 250 S420 230 440 300 S480 370 540 380"/></g>
+        <g class="lyr lyr-trails"><path class="ink" stroke-width="1.5" stroke-dasharray="3 7" d="M70 80 L150 150 L115 230 M150 150 L235 185 L300 215 L250 300 M300 215 L385 290 L430 355 M235 185 L360 95 M385 290 L470 240"/></g>
+        <g class="lyr lyr-places">
+          <g class="place"><circle cx="70" cy="80" r="9"/><circle cx="150" cy="150" r="9"/><circle cx="115" cy="230" r="9"/><circle cx="235" cy="185" r="11"/><circle cx="300" cy="215" r="9"/><circle cx="250" cy="300" r="9"/><circle cx="385" cy="290" r="11"/><circle cx="430" cy="355" r="9"/><circle cx="360" cy="95" r="9"/></g>
+          <path class="ink" stroke-width="2" d="M70 71 v-26 M150 141 v-26 M115 221 v-26 M235 174 v-28 M300 206 v-26 M250 291 v-26 M385 279 v-28 M430 346 v-26 M360 86 v-26"/>
+          <g class="flag"><path d="M70 45 l16 5 l-16 6z"/><path d="M150 115 l16 5 l-16 6z"/><path d="M115 195 l16 5 l-16 6z"/><path d="M235 146 l18 6 l-18 6z"/><path d="M300 180 l16 5 l-16 6z"/><path d="M250 265 l16 5 l-16 6z"/><path d="M385 251 l18 6 l-18 6z"/><path d="M430 320 l16 5 l-16 6z"/><path d="M360 60 l16 5 l-16 6z"/></g>
+        </g>
+      </g>
+      <text x="26" y="388" font-size="24">Crosswater Valley</text>
+      <text x="182" y="214" font-size="15">Rusted Track</text>
+      <text x="318" y="322" font-size="15">the Lower Junction</text>
+      <text x="470" y="312" font-size="13">N</text>
+      <text x="330" y="30" font-size="14">nine places</text>
+    </svg>
+    <figcaption>A sketch drawn for this site, not the game board: the real places do not sit where these do. The two labeled places are stand-in names.</figcaption>
+  </figure>
 
-<section id="signup">
-  <h2>Get email news</h2>
-  <p>Sign up and we will email you Dustbanners news: the day the Kickstarter launches, when the free print-and-play demo is ready, and
-  news from playtests and the world of the game. We only send news, and we never sell your email.</p>
-  <form class="signup" action="https://app.kit.com/forms/10047860/subscriptions" method="post">
-    <div class="field">
-      <label for="email">Your email</label>
-      <input id="email" name="email_address" type="email" autocomplete="email" required placeholder="you@example.com">
-    </div>
-    <button type="submit">Sign up</button>
-  </form>
-  <p class="small">You will get one email first to confirm. Every email has an unsubscribe link at the bottom: one click and you
-  are off the list. Read our <a href="privacy.html">privacy notice</a>.</p>
+<section class="strip" aria-labelledby="strip-h">
+  <h2 id="strip-h">The game in three lines</h2>
+  <ol>
+    <li><span class="t">Two players. Nine places.</span><span class="d">2 players, ages 14 and up. Each of you leads a faction into a valley of nine places.</span></li>
+    <li><span class="t">Two ways to win</span><span class="d">Two ways to win, and both are always open: break the enemy Leader, or hold all 9 places at the end of a turn.</span></li>
+    <li><span class="t">The same start</span><span class="d">Each player draws 5 opening cards, and both players start their first turn with 3 Supply.</span></li>
+  </ol>
+  <p class="more"><a href="#game">How the game works</a></p>
 </section>
+</div>
 
-<section id="game">
-  <h2>The game</h2>
-  <div class="panel">
-    <p>Dustbanners is a two-player card game of survival on a broken frontier. Each of you leads a faction into a valley of
-    nine places. Plan with your own deck, deal with a shared Frontier Deck of storms, finds and trouble, and win by breaking
-    the enemy Leader or holding all nine places.</p>
+<nav id="contents" aria-labelledby="contents-h">
+  <h2 id="contents-h">Contents</h2>
+  <ol>
+    <li><a href="#game"><span class="t">The Game</span><span class="dots"></span><span class="n">Part 1</span></a></li>
+    <li><a href="#play"><span class="t">Play It</span><span class="dots"></span><span class="n">Part 2</span></a></li>
+    <li><a href="#involved"><span class="t">Get Involved</span><span class="dots"></span><span class="n">Part 3</span></a></li>
+    <li><a href="#events"><span class="t">Events</span><span class="dots"></span><span class="n">Part 4</span></a></li>
+    <li><a href="#join"><span class="t">Join Us</span><span class="dots"></span><span class="n">Part 5</span></a></li>
+    <li><a href="#people"><span class="t">Made by people</span><span class="dots"></span><span class="n">About</span></a></li>
+  </ol>
+</nav>
+
+<section class="leaf" id="game" aria-labelledby="game-h">
+  <div class="body">
+    <p class="folio">Part 1</p>
+    <h2 id="game-h">The Game</h2>
+    <p>Dustbanners is a two-player card game set on a broken frontier, about eighty years after the world fell apart. You lead a Banner into a valley of nine places. Every faction flies a banner, and in this game the side you lead is called a Banner. Break the other side&rsquo;s Leader, or hold all nine at the end of a turn. Your rival is not your only trouble. The Frontier throws storms, wild animals and strange finds at both of you, and you have to face them.</p>
+    <h3>How it plays</h3>
     <ul class="points">
       <li>2 players, ages 14 and up.</li>
       <li>The first box has two factions: the Wardens (&ldquo;How do we protect what&rsquo;s ours?&rdquo;) and the Raiders
@@ -331,6 +127,18 @@ header { position: relative; }
       <li>The Frontier Deck turns up something every turn (a storm, a wild animal, a find) that both of you have to deal with.</li>
       <li>No random packs. Every box has the same cards.</li>
       <li>More factions to come.</li>
+    </ul>
+    <div class="sides">
+      <div class="side"><h3>Wardens</h3><p>&ldquo;How do we protect what&rsquo;s ours?&rdquo;</p><p class="small">Their word is <strong>Guard</strong>. A Guard protects your things where it stands: your Units, Companions and Leader there, and the place itself if you hold it.</p></div>
+      <div class="side"><h3>Raiders</h3><p>&ldquo;What can we take?&rdquo;</p><p class="small">Their word is <strong>Ambush</strong>. Its card words are still being tested, so they are not shown yet.</p></div>
+    </div>
+    <h3>What&rsquo;s in it for you</h3>
+    <ul class="points">
+      <li><strong>A world that will grow.</strong> Each season will add a chapter of the story, and new cards will come from it.</li>
+      <li><strong>The same box for everyone.</strong> No random packs. Every box has the same cards, and nothing stronger is sold later.</li>
+      <li><strong>Tested before you play.</strong> More than 17,000 simulated games so far, computer against computer, to help balance the cards.</li>
+      <li><strong>Two sides that play nothing alike.</strong> The Wardens ask &ldquo;How do we protect what&rsquo;s ours?&rdquo; The Raiders ask &ldquo;What can we take?&rdquo;</li>
+      <li><strong>Made by people.</strong> AI tools help me build the software, test balance and draft text; the ideas and decisions are mine. The card and board pictures shown now are AI placeholders, labeled. Human artists will make the final art, card backs and logo, and a human editor will do the final text pass.</li>
     </ul>
     <div class="comparables">
       <h3>If you like&hellip;</h3>
@@ -344,15 +152,7 @@ header { position: relative; }
       </ul>
       <p class="small">Those games belong to their makers. Dustbanners is not connected to any of them.</p>
     </div>
-    <p>A printed test copy is being made. A free print-and-play demo is coming too: two starter decks and the core rules,
-    ready to print at home. It is a demo, not the full game, and each sheet says so.</p>
-    <p class="small">The demo download is not ready yet. <a href="#signup">Get email news</a> to hear when it is.</p>
-  </div>
-</section>
-
-<section id="cards">
-  <h2>The cards</h2>
-  <div class="panel">
+    <h3 id="cards">The cards</h3>
     <p>Every card in the first box is one of these eight kinds. Here is one of each, with its real rules text. The names are
     plain stand-ins for now. When the AI art is on, the pictures in the cards are AI-made placeholders. Use the
     &ldquo;AI art&rdquo; button at the top to swap them for empty boxes. The final art is coming from human artists.</p>
@@ -416,110 +216,240 @@ header { position: relative; }
     </ul>
     <p class="small ai-art">Placeholder art (AI-made). Final art by human artists.</p>
   </div>
-</section>
-
-<section id="playtest">
-  <h2>Help playtest</h2>
-  <p>Want to help test? The Playtest page has how.</p>
-  <div class="links">
-    <a href="playtest.html">Go to the Playtest page</a>
+  <div class="margin">
+    <div class="scrap" role="note">
+      <p class="who">A Keeper&rsquo;s note</p>
+      <p>Every banner says its colors flew first. We wrote down every story.</p>
+      <details class="lead"><summary>A lead (it hints, it never answers)</summary>
+        <p>Some trail marks are meant for one people only. Don&rsquo;t follow a mark you can&rsquo;t read.</p></details>
+    </div>
   </div>
 </section>
 
-<section id="creator">
-  <h2>The creator</h2>
-  <div class="panel">
+<section class="leaf" id="play" aria-labelledby="play-h">
+  <div class="body">
+    <p class="folio">Part 2</p>
+    <h2 id="play-h">Play It</h2>
+    <p>Where each way to play stands today, and one turn you can try right here.</p>
+    <div class="status compact" role="group" aria-labelledby="st-play-c">
+      <p id="st-play-c"><strong>Where the game stands</strong></p>
+      <div class="st-bar" aria-hidden="true"><span class="st-fill" style="width:40%"></span><span class="st-tick" style="left:0"></span><span class="st-goal" style="left:100%"></span></div>
+      <p class="st-nums"><span><strong>Now: step 3 of 6</strong></span><span>40% of the way to the printed game in your hands.</span></p>
+      <p class="st-asof">As of November 2026. A target, not a promise.</p>
+    </div>
+    <h3 id="try">Try one turn</h3>
+    <div class="demo">
+      <p class="taste"><strong>A taste of one turn, not the full game. The steps are simplified stand-ins, not the real rules.</strong></p>
+      <p>Your goal: take Rusted Track and keep it through the storm that comes next. Use the buttons. Tab and Enter work too.</p>
+      <p>Supply left: <strong id="d-supply">3</strong></p>
+      <div class="d-hand" role="group" aria-label="Your hand">
+        <button type="button" id="d-unit"><span class="k">Unit</span> Stand-in Unit. Costs 2 Supply.</button>
+        <button type="button" id="d-tactic"><span class="k">Tactic</span> Stand-in Tactic. Costs 1 Supply. Your Unit digs in.</button>
+      </div>
+      <div class="d-map" role="group" aria-label="Three places on the river">
+        <button type="button" class="d-place" data-i="0"><span class="pn">Your depot</span><span class="po"></span></button>
+        <button type="button" class="d-place" data-i="1"><span class="pn">Rusted Track</span><span class="po"></span></button>
+        <button type="button" class="d-place" data-i="2"><span class="pn">The Lower Junction</span><span class="po"></span></button>
+      </div>
+      <button type="button" class="d-act" id="d-end">End turn</button>
+      <button type="button" class="d-act" id="d-reset">Start over</button>
+      <p id="d-status" role="status" aria-live="polite"></p>
+    </div>
+    <p class="small">The real game has nine places, two full decks and a Frontier Deck that does not care who is winning.</p>
+    <h3 id="digital">The digital game</h3>
+    <p class="big">A digital version of Dustbanners exists for testers.</p>
+    <div class="fact">
+      <p><strong>Friends and family play first.</strong> Strangers come later.</p>
+      <p><strong>There is no public download yet.</strong></p>
+    </div>
+    <p><a href="#signup">Get email news</a> to hear when that changes.</p>
+    <h3 id="physical">The physical game</h3>
+    <p>A printed test copy is being made. A free print-and-play demo is coming too: two starter decks and the core rules,
+    ready to print at home. It is a demo, not the full game, and each sheet says so.</p>
+    <div class="fact">
+      <p><strong>Printed test copy:</strong> being made.</p>
+      <p><strong>Free print-and-play demo:</strong> coming. Not ready to download yet.</p>
+      <p><strong>Kickstarter:</strong> coming soon.</p>
+    </div>
+    <p class="small">The demo download is not ready yet. <a href="#signup">Get email news</a> to hear when it is.</p>
+  </div>
+  <div class="margin">
+    <div class="scrap" role="note">
+      <p class="who">A Keeper&rsquo;s note</p>
+      <p>The wind takes no side. Plan for it anyway.</p>
+    </div>
+    <div class="scrap" role="note">
+      <p class="who">A Keeper&rsquo;s note</p>
+      <p>A page you can hold is harder to lose than a story you were told.</p>
+    </div>
+  </div>
+</section>
+</div>
+
+<section class="board" id="involved" aria-labelledby="involved-h">
+  <div class="wrap">
+    <p class="folio">Part 3</p>
+    <h2 id="involved-h">Get Involved</h2>
+    <p>Dustbanners is made by people, and it will need more of them. Four calls are posted here. Each one starts a list. It is not a job offer.</p>
+    <ul class="bills">
+      <li><article class="bill float" id="call-playtest" aria-labelledby="call-playtest-h">
+        <p class="no">Call 1 &middot; playtesters</p>
+        <h3 id="call-playtest-h">Playtest</h3>
+        <p class="note">Every plan breaks on first contact. Help us find where.</p>
+        <p><strong>Now: 0 recorded sessions with people we have not met.</strong></p>
+        <p>Send feedback any time through the form. Table sessions start when the next test version is ready.</p>
+        <p class="small">More than 17,000 simulated games so far, computer against computer. <a href="proving-ground.html">See what they show</a>.</p>
+        <p class="go"><a class="btn" href="playtest.html">Go to Playtest</a></p>
+      </article></li>
+      <li><article class="bill float" id="call-draw" aria-labelledby="call-draw-h">
+        <p class="no">Call 2 &middot; artists</p>
+        <h3 id="call-draw-h">Draw</h3>
+        <p class="note">Somebody has to put a face to the Wardens and the Raiders.</p>
+        <p>Artists: sign up to draw for the game. It will be paid work once the game is funded.</p>
+        <p>Nothing is promised yet; for now we&rsquo;re building a list.</p>
+        <div class="status compact" role="group" aria-labelledby="st-draw-c">
+          <p id="st-draw-c"><strong>Where the art stands</strong></p>
+          <div class="st-bar" aria-hidden="true"><span class="st-fill" style="width:0%"></span><span class="st-tick" style="left:0"></span><span class="st-goal" style="left:100%"></span></div>
+          <p class="st-nums"><span><strong>Now: step 1 of 3</strong></span><span>0% of the way to paid art work beginning.</span></p>
+          <p class="st-asof">As of November 2026. A target, not a promise.</p>
+        </div>
+        <p class="go"><a class="btn" href="draw.html">Go to Draw</a></p>
+      </article></li>
+      <li><article class="bill float" id="call-narrate" aria-labelledby="call-narrate-h">
+        <p class="no">Call 3 &middot; voices and editors</p>
+        <h3 id="call-narrate-h">Narrate and edit</h3>
+        <p>Later chapters of the story will need people. We are keeping a list of:</p>
+        <ul>
+          <li>narrators, to read the story out loud;</li>
+          <li>editors, for the rules and story words players see;</li>
+          <li>other helpers who make games better.</li>
+        </ul>
+        <p>It is a list, not a job offer. Signing up does not promise any work, pay or date.</p>
+        <p class="go"><a class="btn" href="mailto:hello@dustbanners.com?subject=Narrate%20and%20edit">Email us</a></p>
+        <p class="small">Write to <a href="mailto:hello@dustbanners.com">hello@dustbanners.com</a> with one line about what you do.</p>
+      </article></li>
+      <li><article class="bill float" id="call-host" aria-labelledby="call-host-h">
+        <p class="no">Call 4 &middot; stores and groups</p>
+        <h3 id="call-host-h">Host a game</h3>
+        <p>Run a game store, a club or a game group? When the game is ready for tables, we would like to know you are out there.</p>
+        <p>Not yet: there is nothing to host today. It is a list, and nothing is promised.</p>
+        <p class="go"><a class="btn" href="mailto:hello@dustbanners.com?subject=Host%20a%20game">Email us</a></p>
+        <p class="small">Write to <a href="mailto:hello@dustbanners.com">hello@dustbanners.com</a> with one line about your store or group.</p>
+      </article></li>
+    </ul>
+  </div>
+</section>
+
+<div class="wrap">
+<section class="leaf" id="events" aria-labelledby="events-h">
+  <div class="body">
+    <p class="folio">Part 4</p>
+    <h2 id="events-h">Events</h2>
+    <p>Game nights and conventions, in one place.</p>
+    <ul class="bills events-bills">
+      <li><article class="bill empty" aria-labelledby="ev-nights-h">
+        <h3 id="ev-nights-h">Game nights</h3>
+        <p class="big">None are scheduled yet.</p>
+        <p class="small">A bill goes up here when one is real, and not before.</p>
+      </article></li>
+      <li><article class="bill empty" aria-labelledby="ev-cons-h">
+        <h3 id="ev-cons-h">Conventions</h3>
+        <p class="big">None are announced.</p>
+        <p class="small">This page will list each one when it is real, and not before.</p>
+      </article></li>
+    </ul>
+    <p><a href="#signup">Get email news</a> to hear first.</p>
+  </div>
+</section>
+
+<section class="leaf" id="join" aria-labelledby="join-h">
+  <div class="body">
+    <p class="folio">Part 5</p>
+    <h2 id="join-h">Join Us</h2>
+    <div class="join-block" id="signup">
+      <h3>Get email news</h3>
+      <p>Sign up and we will email you Dustbanners news: the day the Kickstarter launches, when the free print-and-play demo is ready, and
+      news from playtests and the world of the game. We only send news, and we never sell your email.</p>
+      <form class="signup" action="https://app.kit.com/forms/10047860/subscriptions" method="post">
+        <div class="field">
+          <label for="email">Your email</label>
+          <input id="email" name="email_address" type="email" autocomplete="email" required placeholder="you@example.com">
+        </div>
+        <button type="submit" class="btn">Sign up</button>
+      </form>
+      <p class="small">You will get one email first to confirm. Every email has an unsubscribe link at the bottom: one click and you
+      are off the list. Read our <a href="privacy.html">privacy notice</a>.</p>
+    </div>
+    <div class="camp" id="follow">
+      <h3>Join the Discord</h3>
+      <p>The Dustbanners Discord is the main place to talk about the game.</p>
+      <p><a class="btn" href="https://discord.gg/zSj3zy4yQ6" rel="noopener">Join the Discord</a></p>
+      <p>Or follow along:</p>
+      <ul class="links">
+        <li><a href="https://www.instagram.com/dustbanners" rel="noopener">Instagram</a></li>
+        <li><a href="https://bsky.app/profile/dustbanners.bsky.social" rel="noopener">Bluesky</a></li>
+        <li><a href="https://www.reddit.com/r/Dustbanners/" rel="noopener">Reddit</a></li>
+        <li><span class="soon">Kickstarter (coming soon)</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="margin">
+    <div class="scrap" role="note">
+      <p class="who">A Keeper&rsquo;s note</p>
+      <p>Leave your name here. We write when there is news, and not otherwise.</p>
+    </div>
+  </div>
+</section>
+
+<section class="leaf" id="people" aria-labelledby="people-h">
+  <div class="body">
+    <p class="folio">About</p>
+    <h2 id="people-h">Made by people</h2>
+    <h3 id="creator">The creator</h3>
     <p>I&rsquo;m Kyle. I make games as AminalHungy, a one-person studio in Colorado. I grew up on Sierra adventures, SimCity,
     Fallout and early Magic: The Gathering.</p>
     <p>Dustbanners began on a hike in Boulder: my friend Ross and I climbed a trail, and the next morning I woke up wanting to
     build the world I had seen from near the top. It is a two-player card game for people who like to plan with a deck and
     then get surprised by one they can only guess.</p>
+    <h3 id="ai">How AI is used</h3>
+    <div class="panel">
+      <p><strong>The finished game will be made by people: the art by paid human artists, the final words by a paid human
+      editor.</strong></p>
+      <p>I use AI tools to help make Dustbanners. The world, the rules and every final decision are mine. AI tools helped build and
+      test the digital version of the game, run its balance simulations, and draft some of the text, which I edit and approve. A
+      paid human editor will do the final pass on every word players see. The pictures on the cards, the board and the game
+      screens shown now are AI-made placeholder art, and they are labeled. The final card art, box art, card backs and logo
+      will be made by paid human artists. AI art is used only for our own placeholders.</p>
+      <p>Are you an artist? <a href="draw.html">Sign up to draw for Dustbanners</a>. It will be paid work once the game is funded.</p>
+    </div>
+  </div>
+  <div class="margin">
+    <div class="scrap" role="note">
+      <p class="who">A Keeper&rsquo;s note</p>
+      <p>We have the words for these people. We do not have their faces yet.</p>
+    </div>
   </div>
 </section>
 
-<section id="ai">
-  <h2>Made by people</h2>
-  <div class="panel">
-    <p><strong>The finished game will be made by people: the art by paid human artists, the final words by a paid human
-    editor.</strong></p>
-    <p>I use AI tools to help make Dustbanners. The world, the rules and every final decision are mine. AI tools helped build and
-    test the digital version of the game, run its balance simulations, and draft some of the text, which I edit and approve. A
-    paid human editor will do the final pass on every word players see. The pictures on the cards, the board and the game
-    screens shown now are AI-made placeholder art, and they are labeled. The final card art, box art, card backs and logo
-    will be made by paid human artists. AI art is used only for our own placeholders.</p>
-    <p>Are you an artist? <a href="draw.html">Sign up to draw for Dustbanners</a>. It will be paid work once the game is funded.</p>
+<section class="leaf" id="contact" aria-labelledby="contact-h">
+  <div class="body">
+    <h2 id="contact-h">Contact AminalHungy</h2>
+    <p>Questions about the game, an order, or how to play? Bought it and haven&rsquo;t played yet? Game feedback you&rsquo;d rather
+    not put in a form? Email us. A real human named Kyle reads every message.</p>
+    <p class="contact-mail"><a href="mailto:hello@dustbanners.com">hello@dustbanners.com</a></p>
   </div>
 </section>
-
-
-<section id="follow">
-  <h2>Follow along</h2>
-  <div class="links">
-    <a href="https://www.instagram.com/dustbanners" rel="noopener">Instagram</a>
-    <a href="https://bsky.app/profile/dustbanners.bsky.social" rel="noopener">Bluesky</a>
-    <a href="https://discord.gg/zSj3zy4yQ6" rel="noopener">Discord</a>
-    <a href="https://www.reddit.com/r/Dustbanners/" rel="noopener">Reddit</a>
-    <span class="soon">Kickstarter (coming soon)</span>
-  </div>
-</section>
-
-<section id="contact">
-  <h2>Contact AminalHungy</h2>
-  <p>Questions about the game, an order, or how to play? Bought it and haven&rsquo;t played yet? Game feedback you&rsquo;d rather
-  not put in a form? Email us. A real human named Kyle reads every message.</p>
-  <p class="contact-mail"><a href="mailto:hello@dustbanners.com">hello@dustbanners.com</a></p>
-</section>
+</div>
 </main>
 
-<footer>
+<footer class="site">
   <div class="gate">
     <p class="gate-ask"><span class="nw">Something broken or confusing</span> <span class="nw">on this site?</span></p>
     <a class="gate-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSeLGjetFpVL5vjk9n1kVDnuCJZK04rodNUD4oKncrjfLcybfA/viewform" rel="noopener">Leave Word at the Gate</a>
   </div>
   <p><span class="nw">Dustbanners&trade; &middot; &copy; 2026 AminalHungy</span> <span class="nw">&middot; <a href="privacy.html">Privacy</a></span></p>
 </footer>
-<script>
-(function () {
-  var root = document.documentElement, btn = document.getElementById("art-toggle");
-  function show() {
-    var off = root.classList.contains("art-off");
-    btn.textContent = off ? "AI art: Off" : "AI art: On";
-  }
-  btn.addEventListener("click", function () {
-    root.classList.toggle("art-off");
-    try { localStorage.setItem("dustbanners-ai-art", root.classList.contains("art-off") ? "off" : "on"); } catch (e) {}
-    show();
-  });
-  show();
-  // Light/dark switch: starts from the device setting; a click picks the other look and remembers it on this device.
-  var tbtn = document.getElementById("theme-toggle"), mq = window.matchMedia("(prefers-color-scheme: light)");
-  function isLight() {
-    if (root.classList.contains("theme-light")) return true;
-    if (root.classList.contains("theme-dark")) return false;
-    return mq.matches;
-  }
-  function showTheme() { tbtn.textContent = isLight() ? "Dark mode" : "Light mode"; }
-  tbtn.addEventListener("click", function () {
-    var next = isLight() ? "dark" : "light";
-    root.classList.remove("theme-light", "theme-dark");
-    root.classList.add("theme-" + next);
-    try { localStorage.setItem("dustbanners-theme", next); } catch (e) {}
-    showTheme();
-  });
-  if (mq.addEventListener) mq.addEventListener("change", showTheme);
-  showTheme();
-  // Phone menu: the 3-line button opens and closes the drop-down; a link tap or Escape closes it.
-  var header = document.querySelector("header"), mbtn = document.getElementById("menu-btn");
-  function setMenu(open) { header.classList.toggle("open", open); mbtn.setAttribute("aria-expanded", open ? "true" : "false"); }
-  mbtn.addEventListener("click", function () { setMenu(!header.classList.contains("open")); });
-  [].slice.call(document.querySelectorAll("#site-menu nav a")).forEach(function (a) {
-    a.addEventListener("click", function () { setMenu(false); });
-  });
-  document.addEventListener("keydown", function (e) { if (e.key === "Escape") { setMenu(false); } });
-  // The "Get email news" button in the story section jumps to the sign-up and puts the cursor in the email box (the page does not scroll again).
-  var go = document.querySelector('a.button[href="#signup"]'), em = document.getElementById("email");
-  if (go && em) { go.addEventListener("click", function () { setTimeout(function () { try { em.focus({ preventScroll: true }); } catch (e) { em.focus(); } }, 0); }); }
-})();
-</script>
+<script src="js/try-turn.js"></script>
+<script src="js/site.js"></script>
 </body>
 </html>
