@@ -217,7 +217,7 @@
     <div class="scrap" role="note">
       <p class="who">A Keeper&rsquo;s note</p>
       <p>Every banner says its colors flew first. We wrote down every story.</p>
-      <details class="lead"><summary>A lead (it hints, it never answers)</summary>
+      <details class="lead"><summary>A lead</summary>
         <p>Some trail marks are meant for one people only. Don&rsquo;t follow a mark you can&rsquo;t read.</p></details>
     </div>
   </div>
@@ -235,22 +235,24 @@
       <p class="st-asof">As of November 2026. A target, not a promise.</p>
     </div>
     <h3 id="try">Try one turn</h3>
-    <div class="demo">
-      <p class="taste"><strong>A taste of one turn, not the full game. The steps are simplified stand-ins, not the real rules.</strong></p>
-      <p>Your goal: take Rusted Track and keep it through the storm that comes next. Use the buttons. Tab and Enter work too.</p>
-      <p>Supply left: <strong id="d-supply">3</strong></p>
-      <div class="d-hand" role="group" aria-label="Your hand">
-        <button type="button" id="d-unit"><span class="k">Unit</span> Stand-in Unit. Costs 2 Supply.</button>
-        <button type="button" id="d-tactic"><span class="k">Tactic</span> Stand-in Tactic. Costs 1 Supply. Your Unit digs in.</button>
+    <div class="demo" id="demo">
+      <p class="taste"><strong>A simplified taste of one turn.</strong> <span id="d-goal">Your goal: get your Unit to Rusted Track and keep it there through a storm.</span></p>
+      <div class="d-map" role="group" aria-label="The map: three places in a row">
+        <div class="d-place mine" id="d-p0"><span class="pn">Your depot</span><span class="po">Yours</span><span class="pt"></span><span class="pt"></span></div>
+        <div class="d-place open" id="d-p1"><span class="pn">Rusted Track</span><span class="po">Open</span><span class="pt"></span><span class="pt"></span></div>
+        <div class="d-place theirs" id="d-p2"><span class="pn">The Lower Junction</span><span class="po">Theirs</span><span class="pt enemy">Enemy Unit</span><span class="pt"></span></div>
       </div>
-      <div class="d-map" role="group" aria-label="Three places on the river">
-        <button type="button" class="d-place" data-i="0"><span class="pn">Your depot</span><span class="po"></span></button>
-        <button type="button" class="d-place" data-i="1"><span class="pn">Rusted Track</span><span class="po"></span></button>
-        <button type="button" class="d-place" data-i="2"><span class="pn">The Lower Junction</span><span class="po"></span></button>
+      <div class="d-say">
+        <div id="d-status" role="status" aria-live="polite"><p class="d-step">Example 1 of 6. Next, step 1 of 4: Play your Unit.</p><p class="d-what">You have 3 Supply to spend. Supply pays for cards.</p><p class="d-why">A Unit card puts one of your people on the map.</p></div>
       </div>
-      <button type="button" class="d-act" id="d-end">End turn</button>
-      <button type="button" class="d-act" id="d-reset">Start over</button>
-      <p id="d-status" role="status" aria-live="polite"></p>
+      <div class="d-front" id="d-front" hidden>
+        <div class="d-storm"><p class="d-deck">Frontier</p><svg viewBox="0 0 48 48" width="36" height="36" aria-hidden="true" focusable="false"><path d="M6 16h22a5 5 0 1 0-5-5M6 24h30a5 5 0 1 1-5 5M6 32h16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg><p class="d-sname">Wall of Wind</p></div>
+        <p class="d-stext">The Frontier Deck turns up something every turn, and both players must deal with it.</p>
+      </div>
+      <p class="d-go-wrap"><button type="button" class="d-go" id="d-go">Click: Play your Unit</button></p>
+      <p class="d-more" id="d-more" hidden>Liked it? <a href="#signup">Get email news</a> or <a href="#call-playtest">help us playtest</a>.</p>
+      <p class="d-acts"><button type="button" class="d-act" id="d-reset">Start over</button> <button type="button" class="d-act" id="d-other">Try another example</button></p>
+      <p class="d-keys">Tab and Enter work too.</p>
     </div>
     <p class="small">The real game has nine places, two full decks and a Frontier Deck that does not care who is winning.</p>
     <h3 id="digital">The digital game</h3>

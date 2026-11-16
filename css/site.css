@@ -219,22 +219,65 @@ html.art-off .card-grid img.free-art { display: block; }
 .card-grid p { margin: 0; font-size: 17px; }
 .card-grid p.pic-note { margin: -4px 0 12px; font-size: 14px; text-align: center; }
 
-/* ---------- Try one turn ---------- */
-.demo { border: 2px solid var(--rule); background: var(--panel); padding: 16px; }
-.taste { margin: 0 0 8px; }
-.d-hand, .d-map { display: grid; gap: 10px; margin: 12px 0; }
-.d-map { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.d-hand button, .d-place, .d-act { font: inherit; color: var(--ink); background: var(--bg); border: 2px solid var(--rule); border-radius: 2px; padding: 10px; cursor: pointer; text-align: left; min-height: 48px; }
-.d-hand button[aria-disabled="true"] { opacity: .8; border-style: dashed; }
-.d-place { text-align: center; padding: 12px 4px; min-height: 100px; border-radius: 50% 46% 52% 48% / 46% 52% 48% 54%; }
-.d-place .pn { display: block; font-family: "Archivo Black", Impact, sans-serif; font-size: 13px; letter-spacing: .02em; text-transform: uppercase; }
-.d-place .po { display: block; font-size: 15px; font-style: italic; }
+/* ---------- Try one turn (r41h): six short guided examples, a new one on each visit. Places keep one size; the message box
+   sits under the map; the one button to press next sits right under it. That button is big, has its own bright color (--go,
+   used for nothing else), says "Tap:" or "Click:" and what to do, and has an arrow and a thick outline, so color is never the
+   only signal. It pulses only where the site allows motion. Every state also has words (Yours, Open, Theirs). ---------- */
+.demo { --go: #0b7a52; --go-ink: #ffffff; border: 2px solid var(--rule); background: var(--panel); padding: 16px; }
+@media (prefers-color-scheme: dark) { :root:not(.theme-light) .demo { --go: #43e0a0; --go-ink: #10261c; } }
+:root.theme-dark .demo { --go: #43e0a0; --go-ink: #10261c; }
+.demo [hidden] { display: none !important; }
+.taste { margin: 0; }
+.d-map { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 18px 0 12px; }
+.d-map::before { content: ""; position: absolute; left: 12%; right: 12%; top: 50%; border-top: 3px dotted var(--line); }
+.d-place { position: relative; height: 136px; padding: 6px 4px; color: var(--ink); background: var(--bg); border: 2px solid var(--rule); border-radius: 20px 16px 22px 18px / 18px 22px 16px 20px; display: grid; grid-template-rows: 32px 24px 30px 30px; align-content: center; justify-items: center; text-align: center; }
+.d-place.open { border-style: dashed; }
 .d-place.mine { background: var(--scrap); color: var(--scrap-ink); border-width: 3px; }
-.d-place.here .po::before { content: "\25B8\00a0"; font-style: normal; }
-.k { font-family: "Archivo Black", Impact, sans-serif; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }
-#d-status { min-height: 3.2em; border-top: 1px dotted var(--rule); padding-top: 10px; margin-bottom: 0; font-size: 19px; }
-.d-act { display: inline-block; text-align: center; padding: 10px 18px; margin: 0 8px 8px 0; }
-@media (max-width: 420px) { .d-place .pn { font-size: 11px; } .d-place { min-height: 112px; } }
+.d-place.here { box-shadow: 0 0 0 3px var(--panel), 0 0 0 5px var(--accent); }
+.d-place .pn { align-self: end; font-family: "Archivo Black", Impact, sans-serif; font-size: 12px; line-height: 1.25; letter-spacing: .02em; text-transform: uppercase; }
+.d-place .po { font-size: 15px; font-style: italic; line-height: 24px; }
+.d-place .pt { align-self: center; font-size: 13px; line-height: 1; padding: 5px 8px; border-radius: 999px; white-space: nowrap; background: var(--btn); color: var(--btn-ink); }
+.d-place .pt:empty { visibility: hidden; }
+.d-place .pt.enemy { background: var(--ink); color: var(--bg); }
+.d-place .pt.hurt { background: var(--panel); color: var(--ink); box-shadow: inset 0 0 0 1px var(--rule); }
+.d-say { margin: 0; padding: 8px 12px; min-height: 194px; background: var(--bg); border: 2px solid var(--rule); border-left-width: 6px; }
+.d-say p { margin: 0; }
+.d-step { font-family: "Archivo Black", Impact, sans-serif; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }
+.d-what { font-size: 17px; line-height: 1.45; }
+.d-why { font-size: 17px; line-height: 1.45; margin-top: 4px !important; color: var(--muted); }
+.d-say.over .d-step { font-size: 17px; line-height: 1.3; letter-spacing: .02em; text-transform: none; color: var(--ink); margin-bottom: 2px; }
+.d-front { display: grid; grid-template-columns: 104px minmax(0, 1fr); gap: 12px; align-items: center; margin: 12px 0 0; }
+.d-storm { height: 120px; padding: 7px 6px; border-radius: 8px; background: var(--river); color: var(--panel); text-align: center; display: grid; grid-template-rows: auto 1fr auto; justify-items: center; align-items: center; }
+.d-storm p { margin: 0; }
+.d-deck { font: 11px/1.2 "Archivo Black", Impact, sans-serif; letter-spacing: .06em; text-transform: uppercase; }
+.d-sname { font: 13px/1.15 "Archivo Black", Impact, sans-serif; text-transform: uppercase; }
+.d-stext { margin: 0; font-size: 16px; line-height: 1.45; }
+.d-go-wrap { margin: 16px 0 0; }
+.d-go { position: relative; display: block; width: 100%; min-height: 68px; margin: 0; padding: 10px 14px 10px 44px; border: 0; border-radius: 10px; background: var(--go); color: var(--go-ink); font: 17px/1.3 "Archivo Black", Impact, sans-serif; letter-spacing: .02em; text-align: left; cursor: pointer; outline: 4px solid var(--go); outline-offset: 3px; box-shadow: 0 4px 0 var(--rule); }
+.d-go::before { content: "\25B8"; content: "\25B8" / ""; position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-size: 24px; line-height: 1; }
+.d-go:focus-visible { outline: 4px solid var(--ink); outline-offset: 3px; }
+.d-act { min-height: 48px; padding: 10px 18px; font: inherit; color: var(--ink); background: var(--bg); border: 2px solid var(--rule); border-radius: 2px; text-align: center; cursor: pointer; }
+.d-acts { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 0; }
+.d-more { margin: 16px 0 0; }
+.d-keys { margin: 12px 0 0; font-size: 15px; color: var(--muted); }
+@media (max-width: 420px) { .demo { padding: 12px; } .d-say { min-height: 216px; } .d-map { gap: 8px; } .d-place .pn { font-size: 11px; } }
+@media (max-width: 359px) { .demo { padding: 10px; } .d-map { gap: 6px; } .d-place { grid-template-rows: 40px 22px 30px 30px; height: 142px; padding: 6px 2px; }
+  .d-place .pn { font-size: 10px; } .d-place .pt { font-size: 11px; padding: 4px 5px; } .d-say { min-height: 262px; } .d-go { font-size: 15px; } }
+/* Motion, on phones too, only when the device allows it and the Motion switch is on (html.anim, set by site.js): the big
+   button pulses; after each tap the new words and markers arrive (a short wait, then a slow ease-in, staggered); the storm
+   card turns over once. Without motion the outline and arrow stay, just as clear, and everything simply shows. */
+@media (prefers-reduced-motion: no-preference) {
+  html.anim .d-go { animation: d-pulse 1.6s ease-in-out infinite; }
+  html.anim .d-in { animation: d-arrive .7s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 150ms) both; }
+  html.anim .d-storm { animation: d-turn .8s cubic-bezier(0.22, 1, 0.36, 1) .25s both; }
+  @keyframes d-pulse { 0%, 100% { outline-offset: 3px; } 50% { outline-offset: 9px; } }
+  @keyframes d-arrive { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  @keyframes d-turn { from { opacity: 0; transform: perspective(500px) rotateY(-90deg); } to { opacity: 1; transform: none; } }
+}
+@media (forced-colors: active) {
+  .d-place .pt, .d-storm, .d-say { border: 1px solid CanvasText; }
+  .d-go { border: 3px solid ButtonText; }
+}
 
 /* ---------- Get Involved: posted bills on a board (from direction C) ---------- */
 .board { background: var(--board) url("../img/board-grain.svg"); color: var(--board-ink); padding: 40px 0 46px; border-top: 2px solid var(--rule); border-bottom: 2px solid var(--rule); }
@@ -347,10 +390,11 @@ footer.site .gate-btn:hover, footer.site .gate-btn:focus { background: var(--pan
   .bill, .scrap, .strip li { border: 1px solid CanvasText; }
 }
 
-/* ---------- Motion: only when the device allows it, on wider screens, and the Motion switch is on (html.anim is set by script).
+/* ---------- Motion: only when the device allows it and the Motion switch is on (html.anim is set by script). Phones get motion
+   too (Kyle, 2026-11-16). Arrivals wait a moment, then ease in slowly, moving only opacity and a small translate.
    The words never move while you read them. What moves: the map's art layers float a little; notes and bills settle in once;
    a posted bill's corner and shadow lift a little, like paper in a draft. ---------- */
-@media (prefers-reduced-motion: no-preference) and (min-width: 700px) {
+@media (prefers-reduced-motion: no-preference) {
   html.anim { scroll-behavior: smooth; }
   html.anim .map .lyr { transform-box: view-box; }
   html.anim .map .lyr-land { animation: drift-a 13s ease-in-out infinite alternate; }
@@ -359,10 +403,8 @@ footer.site .gate-btn:hover, footer.site .gate-btn:focus { background: var(--pan
   html.anim .map .lyr-places { animation: drift-d 8s ease-in-out infinite alternate; }
   html.anim .map .river { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 3.2s ease .3s forwards; }
   html.anim .map .flag path { animation: flap 3s ease-in-out infinite alternate; transform-box: fill-box; transform-origin: left center; }
-  html.anim .scrap { transition: opacity .5s ease, transform .5s ease; }
-  html.anim .scrap:not(.in) { opacity: 0; transform: rotate(-7deg) translateY(-14px); }
-  html.anim .bill { transition: opacity .45s ease, transform .45s ease; }
-  html.anim .bill:not(.in):not(.empty) { opacity: 0; transform: rotate(-3deg) scale(1.04); }
+  html.anim .scrap, html.anim .bill { transition: opacity .8s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 200ms), translate .8s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 200ms); }
+  html.anim .scrap:not(.in), html.anim .bill:not(.in):not(.empty) { opacity: 0; translate: 0 16px; }
   html.anim .bill.float { animation: shade 4.5s ease-in-out infinite alternate; }
   html.anim .bill.float::after { animation: curl 4.5s ease-in-out infinite alternate; }
   html.anim .bills > li:nth-child(2n) .bill.float, html.anim .bills > li:nth-child(2n) .bill.float::after { animation-delay: -2s; }

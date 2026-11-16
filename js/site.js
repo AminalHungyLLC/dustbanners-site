@@ -33,10 +33,11 @@
   if (dark.addEventListener) dark.addEventListener("change", showTheme);
   showTheme();
 
-  // Motion switch (Kyle's rule: every automatic behavior gets a setting). Phones and "reduce motion" devices always stay still.
+  // Motion switch (Kyle's rule: every automatic behavior gets a setting). Phones get motion too (Kyle, 2026-11-16);
+  // only a device or browser that asks for reduced motion, or the switch set to Off, stays still.
   var mbtn = $("motion-toggle"), mnote = $("motion-note");
-  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)"), phone = window.matchMedia("(max-width: 699px)");
-  function forcedStill() { return reduce.matches || phone.matches; }
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+  function forcedStill() { return reduce.matches; }
   function showMotion() {
     var off = root.classList.contains("motion-off") || forcedStill();
     root.classList.toggle("anim", !off);
@@ -44,7 +45,7 @@
   }
   if (mbtn) mbtn.addEventListener("click", function () {
     if (forcedStill()) {
-      if (mnote) mnote.textContent = phone.matches ? "Motion stays off on phones." : "Motion stays off because your device asks for less motion.";
+      if (mnote) mnote.textContent = "Motion stays off because your device asks for less motion.";
       return;
     }
     root.classList.toggle("motion-off");
@@ -52,14 +53,21 @@
     if (mnote) mnote.textContent = "";
     showMotion();
   });
-  [reduce, phone].forEach(function (m) { if (m.addEventListener) m.addEventListener("change", showMotion); });
+  if (reduce.addEventListener) reduce.addEventListener("change", showMotion);
   showMotion();
 
-  // Notes in the margin and posted bills settle in once as they come into view (only while motion is on; CSS decides).
+  // Notes in the margin and posted bills arrive once as they come into view (only while motion is on; CSS decides).
+  // Items that come into view together start one after another: 200 ms, then 150 ms apart (at most 800 ms).
   var settle = [].slice.call(document.querySelectorAll(".scrap, .bill"));
   if ("IntersectionObserver" in window) {
     var io = new IntersectionObserver(function (es) {
-      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+      var n = 0;
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.style.setProperty("--d", Math.min(200 + 150 * n++, 800) + "ms");
+        e.target.classList.add("in");
+        io.unobserve(e.target);
+      });
     }, { threshold: 0.15 });
     settle.forEach(function (n) { io.observe(n); });
   } else {
