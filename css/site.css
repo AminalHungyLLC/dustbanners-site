@@ -1,5 +1,5 @@
 /* Dustbanners site r41 (Kyle's Tent picks 2026-11-16: rulings/kyle-tent-answers-seven-2026-11-16-0720.md).
-   Main look: direction A, the working copy of the lore book (paper, ink, taped notes).
+   Main look: direction A, the working copy of the lore book (paper, ink, notes pinned to a cork board).
    C's posted bills carry the Get Involved calls. A gentle float on the map layers. Motion switch; phones get motion too, and reduced-motion settings turn it off.
    Light/Dark: follows the device unless the visitor picks with the switch (same key and classes as the live site). */
 
@@ -187,10 +187,83 @@ ul.points li { margin: 6px 0; }
 .side h3 { margin-top: 0; }
 .side p { margin: 4px 0; }
 .scrap { position: relative; align-self: start; background: var(--scrap); color: var(--scrap-ink); padding: 22px 16px 14px; font-style: italic; font-size: 17px; line-height: 1.45;
-  box-shadow: 1px 2px 0 var(--shadow); transform: rotate(-1.2deg); max-width: 420px; margin: 6px 4px; }
+  box-shadow: 1px 2px 0 var(--shadow); transform: rotate(var(--tilt, -1.2deg)); max-width: 420px; margin: 6px 4px; }
 .margin { display: flex; flex-direction: column; gap: 34px; align-self: start; }
-.margin .scrap:nth-child(even) { transform: rotate(1.3deg); }
-.scrap::before { content: ""; position: absolute; top: -9px; left: 50%; width: 84px; height: 20px; margin-left: -42px; background: var(--tape); transform: rotate(-2deg); }
+/* r41l: every Keeper's note hangs from a nail, not tape (Kyle, 2026-11-16: "a nail instead of tape might be better"). The nail
+   spot and the tilt change a little from note to note, so no two hang the same way. */
+.margin .scrap:nth-child(2) { --tilt: 1.3deg; --nx: -11px; }
+.margin .scrap:nth-child(3) { --tilt: -.5deg; --nx: 8px; }
+#play .margin .scrap:first-child { --tilt: -1.7deg; --nx: 6px; }
+#events .margin .scrap:first-child { --tilt: .8deg; --nx: -4px; }
+#join .margin .scrap:first-child { --tilt: -.7deg; --nx: -6px; }
+#people .margin .scrap:first-child { --tilt: 1deg; --nx: 3px; }
+#contact .margin .scrap:first-child { --tilt: -1.5deg; --nx: 9px; }
+/* Hammered silver tacks (Kyle: "Like a well hammered silvery one?"): a dented, uneven round head, a soft highlight, a dark rim
+   and a small shadow. Shape, highlight, facets and dent change a little per note. The dark rim reads on light paper, the silver on dark. */
+.scrap::before, .tag-note > details::before { content: ""; position: absolute; top: 6px; left: calc(50% + var(--nx, 0px)); width: var(--nw, 14px);
+  height: calc(var(--nw, 14px) - 1px); margin-left: calc(var(--nw, 14px) / -2); border: 1px solid #3f4448; box-sizing: border-box;
+  border-radius: var(--nr, 53% 47% 51% 49% / 48% 54% 46% 52%);
+  background: radial-gradient(circle at var(--nd, 66% 64%), rgba(40,44,48,.35) 0 10%, transparent 16%),
+    radial-gradient(circle at var(--nh, 34% 30%), #fdfdfb 0 9%, #d9dcde 24%, #a3a8ac 52%, #6b7176 88%),
+    conic-gradient(from var(--na, 20deg), #e6e8ea, #8d9296 18%, #d4d7d9 37%, #7c8186 58%, #c9ccce 79%, #e6e8ea);
+  background-blend-mode: normal, overlay, normal;
+  box-shadow: 1px 2px 1px rgba(0,0,0,.45), inset -1px -1px 1px rgba(0,0,0,.3), inset 1px 1px 0 rgba(255,255,255,.55); }
+.margin .scrap:nth-child(2) { --nr: 46% 54% 50% 50% / 55% 47% 53% 45%; --nh: 40% 28%; --na: 75deg; --nd: 30% 68%; }
+.margin .scrap:nth-child(3) { --nr: 51% 49% 44% 56% / 50% 46% 54% 50%; --nh: 30% 36%; --na: 140deg; --nd: 70% 30%; }
+#game .tag-note > details { --nr: 55% 45% 49% 51% / 47% 52% 48% 53%; --nh: 38% 32%; --na: 200deg; }
+#join .tag-note > details { --nr: 48% 52% 56% 44% / 52% 48% 50% 50%; --na: 290deg; --nd: 64% 70%; }
+#people .tag-note > details, #contact .margin .scrap:first-child { --nr: 44% 56% 52% 48% / 49% 55% 45% 51%; --nh: 28% 40%; --na: 110deg; }
+#play .margin .scrap:first-child, #events .tag-note > details { --nr: 50% 50% 46% 54% / 53% 49% 51% 47%; --na: 250deg; --nd: 40% 72%; }
+/* Desktop: the notes hang on a strip of old cork (Kyle: "Make the side look more cork board, maybe kinda cracked but together").
+   CSS grain, hairline cracks held by staples, a worn frame. The notes are paper, so no cork shows under text. No motion. */
+:root { --cork: #c49a6c; --cork-frame: #6e4a2d; --cork-ink: rgba(58,32,12,.55); }
+@media (prefers-color-scheme: dark) { :root:not(.theme-light) { --cork: #5e4430; --cork-frame: #4a3524; --cork-ink: rgba(12,6,2,.7); } }
+:root.theme-dark { --cork: #5e4430; --cork-frame: #4a3524; --cork-ink: rgba(12,6,2,.7); }
+@media (min-width: 900px) {
+  .leaf > .margin { position: relative; padding: 24px 14px 22px; border: 7px solid var(--cork-frame); border-radius: 5px 3px 6px 4px;
+    background: radial-gradient(rgba(60,32,10,.3) .8px, transparent 1.4px) 1px 2px / 5px 7px,
+      radial-gradient(rgba(255,232,196,.2) .9px, transparent 1.5px) 3px 1px / 9px 6px,
+      radial-gradient(rgba(45,22,6,.24) 1.3px, transparent 2.1px) 4px 5px / 11px 13px,
+      radial-gradient(rgba(70,40,15,.18) 1.8px, transparent 2.8px) 7px 3px / 17px 19px,
+      radial-gradient(ellipse at 30% 40%, rgba(255,226,180,.16), transparent 60%) 0 0 / 37px 29px,
+      radial-gradient(ellipse at 60% 50%, rgba(40,20,5,.14), transparent 60%) 11px 7px / 43px 31px,
+      url("../img/paper-grain.svg"), var(--cork);
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,236,206,.25), inset 0 0 16px rgba(30,15,4,.4), 1px 2px 0 var(--shadow); }
+  .leaf > .margin .scrap { margin: 6px 0; z-index: 1; }
+  .margin > .cracks { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; filter: drop-shadow(.6px .7px 0 rgba(255,236,206,.3)); }
+  .cracks .c { fill: none; stroke: var(--cork-ink); stroke-width: 1.1; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+  .cracks .s { fill: none; stroke: #a7acb0; stroke-width: 2; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+}
+@media print { .leaf > .margin { background: none; border: 0; box-shadow: none; } .margin > .cracks { display: none; } }
+/* Phones: one small nailed tag per section, right after the paragraph its note fits (Kyle: "the tiny posted note with the nail
+   was small, but it wiggled so people can tap it"; "it can have a little icon on it"). A tap opens the note in place. */
+.tag-note { margin: 18px 0 22px; }
+.tag-note > details { --tilt: -1.6deg; position: relative; display: inline-block; vertical-align: top; max-width: min(100%, 420px);
+  background: var(--scrap); color: var(--scrap-ink); box-shadow: 1px 2px 0 var(--shadow); padding: 20px 14px 4px;
+  transform: rotate(var(--tilt)); transform-origin: calc(50% + var(--nx, 0px)) 12px; }
+#game .tag-note > details { --sw: 3.4deg; }
+#play .tag-note > details { --tilt: 1.4deg; --nx: -14px; --nw: 13px; --sw: -2.8deg; padding: 19px 16px 4px; }
+#events .tag-note > details { --tilt: -.9deg; --nx: 5px; --nw: 15px; --sw: 4deg; }
+#join .tag-note > details { --tilt: 2.6deg; --nx: 3px; --sw: -3.2deg; padding: 21px 12px 5px; }
+#people .tag-note > details { --tilt: -1.2deg; --nx: -4px; --nw: 13px; --sw: 2.6deg; }
+#contact .tag-note > details { --tilt: .9deg; --nx: 9px; --nw: 15px; --sw: -3.6deg; padding: 20px 15px 3px; }
+#join .margin .scrap:nth-child(2) { --nw: 15px; }
+#play .margin .scrap:nth-child(3) { --nw: 13px; }
+.tag-note > details > summary { list-style: none; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 9px; min-height: 44px; cursor: pointer;
+  font-size: 14px; letter-spacing: .08em; text-transform: uppercase; color: var(--scrap-muted); }
+.tag-note > details > summary::-webkit-details-marker { display: none; }
+.tag-note > details > summary::marker { content: ""; }
+.tag-note > details > summary:focus-visible { outline: 3px solid var(--scrap-ink); outline-offset: 3px; }
+.tag-note .tag-ic { flex: none; color: var(--scrap-ink); }
+.tag-note .tag-hint { font-size: 15px; letter-spacing: 0; text-transform: none; font-style: italic; }
+.tag-note .t-click { display: none; }
+@media (pointer: fine) { .tag-note .t-tap { display: none; } .tag-note .t-click { display: inline; } }
+.tag-note > details[open] .tag-hint { display: none; }  /* the hint stays while closed, so the cue never depends on the swing */
+.tag-note .tag-text { margin: 2px 0 10px; font-style: italic; font-size: 17px; line-height: 1.45; }
+.tag-note details.lead { margin: 0 0 10px; }
+@media (max-width: 899px) { .leaf > .margin { display: none; } }
+@media (min-width: 900px) { .tag-note { display: none; } }
+@media print { .tag-note { display: none; } .leaf > .margin { display: flex; } }
 .scrap p { margin: 0 0 8px; }
 .scrap .who { font-style: normal; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; color: var(--scrap-muted); }
 .scrap a { color: inherit; }
@@ -207,14 +280,15 @@ details.lead summary { cursor: pointer; font-style: normal; min-height: 32px; }
 }
 
 /* ---------- The cards (kept as on the live site until 0.6 seals) ---------- */
-html.art-off .ai-art { display: none !important; }
-.free-art { display: none; }
-html.art-off .free-art { display: block; }
+/* r41l: AI art is off unless the visitor switches it on (Kyle, Tent site-human-made-line-01: art-free cards by default). */
+html:not(.art-on) .ai-art { display: none !important; }
+.free-art { display: block; }
+html.art-on .free-art { display: none; }
 .card-grid { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); }
 .card-grid li { background: var(--panel); border: 1px solid var(--line); padding: 14px; }
 .card-grid img { display: block; width: 100%; max-width: 360px; height: auto; margin: 0 auto 12px; }
-.card-grid img.free-art { display: none; }
-html.art-off .card-grid img.free-art { display: block; }
+.card-grid img.free-art { display: block; }
+html.art-on .card-grid img.free-art { display: none; }
 .card-grid h3 { margin: 0 0 10px; font-size: 18px; text-align: center; text-transform: uppercase; }
 .card-grid p { margin: 0; font-size: 17px; }
 .card-grid p.pic-note { margin: -4px 0 12px; font-size: 14px; text-align: center; }
@@ -255,7 +329,29 @@ html.art-off .card-grid img.free-art { display: block; }
 .d-what { font-size: 17px; line-height: 1.45; }
 .d-why { font-size: 17px; line-height: 1.45; margin-top: 4px !important; color: var(--muted); }
 .d-say.over .d-step { font-size: 17px; line-height: 1.3; letter-spacing: .02em; text-transform: none; color: var(--ink); margin-bottom: 2px; }
-.d-front { display: grid; grid-template-columns: 104px minmax(0, 1fr); gap: 12px; align-items: center; margin: 12px 0 0; }
+.d-front { display: grid; grid-template-columns: 104px minmax(0, 1fr); gap: 12px; align-items: center; margin: 12px 0 0; min-height: 120px; }
+/* r41l: every example starts with the top Frontier card face down; step 1 turns it up (rule book r10: Recovery, then Frontier). */
+.d-front.down .d-storm { outline: 2px dashed var(--on-sand); outline-offset: -6px; }
+.d-front.down .d-sname { font: italic 15px/1.2 "Gentium", Georgia, serif; text-transform: none; }
+/* r41l: the header: who you are, the round as a Keeper's tally and a stamp, and the six phases (passed ones struck through,
+   the current one circled in ink). No motion. */
+.d-head { margin: 0 0 12px; }
+.d-sides { display: flex; flex-wrap: wrap; gap: 6px 10px; margin: 0 0 8px; }
+.d-side { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px 3px 7px; border-radius: 4px 8px 5px 7px; font-size: 15px; line-height: 1.35; color: var(--on-card); }
+.d-side.you { background: var(--warden); }
+.d-side.them { background: var(--raider); }
+.d-side.now { outline: 2px solid var(--ink); outline-offset: 2px; }
+.d-side svg { flex: none; }
+.d-when { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; margin: 0 0 8px; }
+.d-tally { flex: none; color: var(--ink); }
+.d-stamp { display: inline-block; font: 13px/1 "Archivo Black", Impact, sans-serif; letter-spacing: .08em; text-transform: uppercase; color: var(--ink);
+  border: 2px solid currentColor; border-radius: 3px 6px 4px 5px; padding: 5px 8px 4px; transform: rotate(-3deg); box-shadow: inset 0 0 0 2px var(--panel), inset 0 0 0 3px currentColor; }
+.d-turn { font-style: italic; font-size: 16px; }
+.d-phases { list-style: none; display: flex; flex-wrap: wrap; gap: 2px 4px; margin: 0; padding: 0; font-size: 14px; color: var(--muted); }
+.d-phases li { padding: 1px 6px; border: 2px solid transparent; border-radius: 10px 7px 11px 8px; }
+.d-phases li.done { color: var(--ink); text-decoration: line-through; text-decoration-thickness: 2px; }
+.d-phases li.now { color: var(--ink); border-color: var(--ink); }
+@media (max-width: 359px) { .d-front { min-height: 140px; } }  /* measured: the longest card text is 139 px at 320 wide */
 .d-storm { height: 120px; padding: 7px 6px; border-radius: 8px; background: var(--frontier); color: var(--on-sand); text-align: center; display: grid; grid-template-rows: auto 1fr auto; justify-items: center; align-items: center; }
 .d-storm p { margin: 0; }
 .d-deck { font: 11px/1.2 "Archivo Black", Impact, sans-serif; letter-spacing: .06em; text-transform: uppercase; }
@@ -383,6 +479,7 @@ form.signup input[type="email"] { font: inherit; padding: 11px 12px; border-radi
 /* ---------- Footer ---------- */
 footer.site { text-align: center; padding: 30px 16px 40px; font-size: 15px; color: var(--muted); }
 footer.site p { margin: 6px 0; }
+.hero .status-label.made { margin-top: 4px; }  /* "Human made. AI assisted." said once, short (Kyle) */
 footer.site .gate { padding-bottom: 22px; margin-bottom: 18px; border-bottom: 1px solid var(--line); }
 footer.site .gate-ask { font-size: 17px; color: var(--ink); margin-bottom: 12px; }
 footer.site .gate-btn { display: inline-block; border: 1px solid var(--accent); color: var(--accent); text-decoration: none; padding: 12px 22px; border-radius: 3px; font-size: 17px; }
@@ -397,7 +494,12 @@ footer.site .gate-btn:hover, footer.site .gate-btn:focus { background: var(--pan
 }
 @media (forced-colors: active) {
   .menu nav a[aria-current] { border-color: Highlight; }
-  .bill, .scrap, .strip li { border: 1px solid CanvasText; }
+  .bill, .scrap, .strip li, .tag-note > details { border: 1px solid CanvasText; }
+  .scrap::before, .tag-note > details::before { background: CanvasText; forced-color-adjust: none; }
+  .margin > .cracks { display: none; }
+  .leaf > .margin { background: none; border-color: CanvasText; box-shadow: none; }
+  .d-side { border: 1px solid CanvasText; }
+  .d-phases li.now { border-color: Highlight; }
 }
 
 /* ---------- Motion: only when the device allows it and the Motion switch is on (html.anim is set by script). Phones get motion
@@ -417,6 +519,9 @@ footer.site .gate-btn:hover, footer.site .gate-btn:focus { background: var(--pan
   html.anim .scrap, html.anim .bill { transition: opacity .8s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 200ms), translate .8s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 200ms); }
   html.anim .scrap:not(.in), html.anim .bill:not(.in):not(.empty) { opacity: 0; translate: 0 16px; }
   html.anim .bill.float { animation: shade 4.5s ease-in-out infinite alternate; }
+  html.anim .tag-note > details.swing { animation: tag-swing 2.2s ease-in-out 1; }  /* one swing on its nail that dies down; the script spaces them out */
+  @keyframes tag-swing { 0%, 100% { rotate: 0deg; } 16% { rotate: var(--sw, 3deg); } 38% { rotate: calc(var(--sw, 3deg) * -.65); }
+    60% { rotate: calc(var(--sw, 3deg) * .35); } 80% { rotate: calc(var(--sw, 3deg) * -.12); } }
   html.anim .bill.float::after { animation: curl 4.5s ease-in-out infinite alternate; }
   html.anim .bills > li:nth-child(2n) .bill.float, html.anim .bills > li:nth-child(2n) .bill.float::after { animation-delay: -2s; }
   @keyframes drift-a { from { transform: translate(0, 0); } to { transform: translate(-6px, 4px); } }

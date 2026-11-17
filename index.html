@@ -45,7 +45,7 @@
       <li><a href="#join">Join Us</a></li>
     </ul></nav>
     <div class="switches">
-      <button type="button" class="tool" id="art-toggle">AI art: On</button>
+      <button type="button" class="tool" id="art-toggle">AI art: Off</button>
       <button type="button" class="tool" id="theme-toggle">Dark mode</button>
       <button type="button" class="tool" id="motion-toggle">Motion: On</button>
     </div>
@@ -64,8 +64,9 @@
     <p class="one">A two-player card game of survival on a broken frontier.</p>
     <p class="ctas"><a class="btn" href="#signup">Get email news</a> <a class="btn quiet" href="#try">Try one turn</a></p>
     <p class="status-label">Kickstarter: coming soon. Get one email the day it launches.</p>
+    <p class="status-label made">Human made. AI assisted. <a href="#ai">Read how</a></p>
   </div>
-  <p class="kept">This site is kept like the Sages&rsquo; working copy of the lore book. The Keepers, the elders of the Sages, write down what happens in the valley and tape notes in the margins. Nothing here is final.</p>
+  <p class="kept">This site is kept like the Sages&rsquo; working copy of the lore book. The Keepers, the elders of the Sages, write down what happens in the valley and pin notes to the board. Nothing here is final.</p>
   <figure class="map-fig">
     <svg class="map" viewBox="0 0 520 400" role="img" aria-labelledby="map-t">
       <title id="map-t">A hand-drawn sketch of Crosswater Valley. A river winds from the top left to the bottom right. Nine small places with flags sit along it, joined by dotted trails. Two places are labeled with stand-in names: Rusted Track and the Lower Junction.</title>
@@ -117,6 +118,14 @@
     <p class="folio">Part 1</p>
     <h2 id="game-h">The Game</h2>
     <p>Dustbanners is a two-player card game set on a broken frontier, about eighty years after the world fell apart. You lead a Banner into a valley of nine places. Every faction flies a banner, and in this game the side you lead is called a Banner.</p>
+    <div class="tag-note">
+      <details>
+        <summary><svg class="tag-ic" viewBox="0 0 40 40" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M11 36C10.6 26 10.2 15 10.8 4.5M11 6C16 4.8 20.5 8.2 27 6.4C25 9.6 25.4 13 28.6 16.4C22 18.2 17 15.2 11.2 17"/></svg><span class="tag-l">A Keeper&rsquo;s note</span> <span class="tag-hint"><span class="t-tap">Tap to read</span><span class="t-click">Click to read</span></span></summary>
+        <p class="tag-text">Every banner says its colors flew first. We wrote down every story.</p>
+        <details class="lead"><summary>Sage advice</summary>
+        <p>Some trail marks are meant for one banner only. Don&rsquo;t follow a mark you can&rsquo;t read.</p></details>
+      </details>
+    </div>
     <h3>How it plays</h3>
     <ul class="points">
       <li>2 players, ages 14 and up.</li>
@@ -135,7 +144,7 @@
       <li><strong>A world that will grow.</strong> Each season will add a chapter of the story, and new cards will come from it.</li>
       <li><strong>The same box for everyone.</strong> No random packs. Every box has the same cards, and nothing stronger is sold later.</li>
       <li><strong>Tested before you play.</strong> More than 17,000 simulated games so far, computer against computer, to help balance the cards.</li>
-      <li><strong>Made by people.</strong> AI tools help me build the software, test balance and draft text; the ideas and decisions are mine. The card and board pictures shown now are AI placeholders, labeled. Human artists will make the final art, card backs and logo, and a human editor will do the final text pass.</li>
+      <li><strong>Made by people.</strong> The ideas and decisions are mine. Human artists will make the final art, card backs and logo, and a human editor will do the final text pass.</li>
     </ul>
     <div class="comparables">
       <h3>If you like&hellip;</h3>
@@ -151,75 +160,70 @@
     </div>
     <h3 id="cards">The cards</h3>
     <p>Every card in the first box is one of these eight kinds. Here is one of each, with its real rules text. The names are
-    plain stand-ins for now. When the AI art is on, the pictures in the cards are AI-made placeholders. Use the
-    &ldquo;AI art&rdquo; button at the top to swap them for empty boxes. The final art is coming from human artists.</p>
+    plain stand-ins for now. The final art will come from human artists.</p>
     <ul class="card-grid">
       <li>
         <h3>Leader</h3>
-        <img class="ai-art" src="img/card-leader.webp" width="480" height="672" loading="lazy" alt="A Leader card named Warden Leader. HP 12. Its rules say: [1/Opp Turn] The first time a Unit or Companion you control would take damage, you may pay 1 Supply: prevent 1 damage. [1/Opp Turn] After your Unit Guards, prevents damage, or survives combat while defending, give one of your ready Units +1 Attack through your next turn. This bonus cannot stack with itself on one Unit. The picture in the card is AI-made. Placeholder art (AI-made).">
+        <img class="ai-art" src="img/card-leader.webp" width="480" height="672" loading="lazy" alt="A Leader card named Warden Leader. HP 12. Its rules say: [1/Opp Turn] The first time a Unit or Companion you control would take damage, you may pay 1 Supply: prevent 1 damage. [1/Opp Turn] After your Unit Guards, prevents damage, or survives combat while defending, give one of your ready Units +1 Attack through your next turn. This bonus cannot stack with itself on one Unit. Placeholder art (AI-made).">
         <img class="free-art" src="img/card-leader-free.webp" width="480" height="672" loading="lazy" alt="A Leader card named Warden Leader. HP 12. Its rules say: [1/Opp Turn] The first time a Unit or Companion you control would take damage, you may pay 1 Supply: prevent 1 damage. [1/Opp Turn] After your Unit Guards, prevents damage, or survives combat while defending, give one of your ready Units +1 Attack through your next turn. This bonus cannot stack with itself on one Unit. The art box is empty.">
-        <p class="small ai-art pic-note">Placeholder art (AI-made). Final art by human artists.</p>
         <p>Your Leader leads your Banner. If your Leader is defeated, you lose.</p>
       </li>
       <li>
         <h3>Companion</h3>
-        <img class="ai-art" src="img/card-companion.webp" width="480" height="672" loading="lazy" alt="A Companion card named Guard Pig. ATK 1, RET 3, HP 6. Its rules say: Guard Pig may Guard a Unit, Companion, or your Leader at Guard Pig&#x27;s Location. [1/Opp Turn] After combat ends, if Guard Pig Guarded and remains in play, ready one other Unit you control at that Location. The picture in the card is AI-made. Placeholder art (AI-made).">
+        <img class="ai-art" src="img/card-companion.webp" width="480" height="672" loading="lazy" alt="A Companion card named Guard Pig. ATK 1, RET 3, HP 6. Its rules say: Guard Pig may Guard a Unit, Companion, or your Leader at Guard Pig&#x27;s Location. [1/Opp Turn] After combat ends, if Guard Pig Guarded and remains in play, ready one other Unit you control at that Location. Placeholder art (AI-made).">
         <img class="free-art" src="img/card-companion-free.webp" width="480" height="672" loading="lazy" alt="A Companion card named Guard Pig. ATK 1, RET 3, HP 6. Its rules say: Guard Pig may Guard a Unit, Companion, or your Leader at Guard Pig&#x27;s Location. [1/Opp Turn] After combat ends, if Guard Pig Guarded and remains in play, ready one other Unit you control at that Location. The art box is empty.">
-        <p class="small ai-art pic-note">Placeholder art (AI-made). Final art by human artists.</p>
         <p>A Companion is an animal or a person who fights beside your Leader. If it is defeated, you can bring it back.</p>
       </li>
       <li>
         <h3>Unit</h3>
-        <img class="ai-art" src="img/card-unit.webp" width="480" height="672" loading="lazy" alt="A Unit card named Warden Healer. Cost 2. ATK 1, RET 2, HP 3. Its rules say: Once each turn after a Unit or Companion is dealt damage and remains in play, you may exhaust Warden Healer to Restore 1 damage from it. The picture in the card is AI-made. Placeholder art (AI-made).">
+        <img class="ai-art" src="img/card-unit.webp" width="480" height="672" loading="lazy" alt="A Unit card named Warden Healer. Cost 2. ATK 1, RET 2, HP 3. Its rules say: Once each turn after a Unit or Companion is dealt damage and remains in play, you may exhaust Warden Healer to Restore 1 damage from it. Placeholder art (AI-made).">
         <img class="free-art" src="img/card-unit-free.webp" width="480" height="672" loading="lazy" alt="A Unit card named Warden Healer. Cost 2. ATK 1, RET 2, HP 3. Its rules say: Once each turn after a Unit or Companion is dealt damage and remains in play, you may exhaust Warden Healer to Restore 1 damage from it. The art box is empty.">
-        <p class="small ai-art pic-note">Placeholder art (AI-made). Final art by human artists.</p>
         <p>Units are your Banner&rsquo;s people. They move, attack, defend and capture places.</p>
       </li>
       <li>
         <h3>Tactic</h3>
-        <img class="ai-art" src="img/card-tactic.webp" width="480" height="672" loading="lazy" alt="A Tactic card named Fall Back. Cost 1. Its rules say: After attackers are declared, move one damaged Unit or Companion you control to an adjacent Location you control. Prevent the next 1 damage that would be dealt to it this turn. The picture in the card is AI-made. Placeholder art (AI-made).">
+        <img class="ai-art" src="img/card-tactic.webp" width="480" height="672" loading="lazy" alt="A Tactic card named Fall Back. Cost 1. Its rules say: After attackers are declared, move one damaged Unit or Companion you control to an adjacent Location you control. Prevent the next 1 damage that would be dealt to it this turn. Placeholder art (AI-made).">
         <img class="free-art" src="img/card-tactic-free.webp" width="480" height="672" loading="lazy" alt="A Tactic card named Fall Back. Cost 1. Its rules say: After attackers are declared, move one damaged Unit or Companion you control to an adjacent Location you control. Prevent the next 1 damage that would be dealt to it this turn. The art box is empty.">
-        <p class="small ai-art pic-note">Placeholder art (AI-made). Final art by human artists.</p>
         <p>A Tactic is a one-time action. Do what it says, then put it in your discard pile, the Ditch.</p>
       </li>
       <li>
         <h3>Equipment</h3>
-        <img class="ai-art" src="img/card-equipment.webp" width="480" height="672" loading="lazy" alt="An Equipment card named Warden Shield. Cost 2. DUR 3. Its rules say: The attached Unit may Guard. While Guarding, prevent the first 1 combat damage dealt to it each turn. The picture in the card is AI-made. Placeholder art (AI-made).">
+        <img class="ai-art" src="img/card-equipment.webp" width="480" height="672" loading="lazy" alt="An Equipment card named Warden Shield. Cost 2. DUR 3. Its rules say: The attached Unit may Guard. While Guarding, prevent the first 1 combat damage dealt to it each turn. Placeholder art (AI-made).">
         <img class="free-art" src="img/card-equipment-free.webp" width="480" height="672" loading="lazy" alt="An Equipment card named Warden Shield. Cost 2. DUR 3. Its rules say: The attached Unit may Guard. While Guarding, prevent the first 1 combat damage dealt to it each turn. The art box is empty.">
-        <p class="small ai-art pic-note">Placeholder art (AI-made). Final art by human artists.</p>
         <p>Equipment is gear. It goes on a card it names, or it sits at a place you control.</p>
       </li>
       <li>
         <h3>Structure</h3>
-        <img class="ai-art" src="img/card-structure.webp" width="480" height="672" loading="lazy" alt="A Structure card named Field Clinic. Cost 3. DUR 4. Its rules say: [1/Turn: After Combat] After combat ends at this Location during your turn, you may pay 1 Supply. Restore 1 damage from one surviving Unit or Companion you control there. The picture in the card is AI-made. Placeholder art (AI-made).">
+        <img class="ai-art" src="img/card-structure.webp" width="480" height="672" loading="lazy" alt="A Structure card named Field Clinic. Cost 3. DUR 4. Its rules say: [1/Turn: After Combat] After combat ends at this Location during your turn, you may pay 1 Supply. Restore 1 damage from one surviving Unit or Companion you control there. Placeholder art (AI-made).">
         <img class="free-art" src="img/card-structure-free.webp" width="480" height="672" loading="lazy" alt="A Structure card named Field Clinic. Cost 3. DUR 4. Its rules say: [1/Turn: After Combat] After combat ends at this Location during your turn, you may pay 1 Supply. Restore 1 damage from one surviving Unit or Companion you control there. The art box is empty.">
-        <p class="small ai-art pic-note">Placeholder art (AI-made). Final art by human artists.</p>
         <p>A Structure is something you build at a place you control.</p>
       </li>
       <li>
         <h3>Battlefield Location</h3>
-        <img class="ai-art" src="img/card-location.webp" width="480" height="672" loading="lazy" alt="A Battlefield Location card named Mountain Road. DUR 4. Its rules say: Capture Reward - When a player Captures Mountain Road, that player draws 1 card, then discards 1 card. Routes: the West Yard; the Upper Junction. The picture in the card is AI-made. Placeholder art (AI-made).">
+        <img class="ai-art" src="img/card-location.webp" width="480" height="672" loading="lazy" alt="A Battlefield Location card named Mountain Road. DUR 4. Its rules say: Capture Reward - When a player Captures Mountain Road, that player draws 1 card, then discards 1 card. Routes: the West Yard; the Upper Junction. Placeholder art (AI-made).">
         <img class="free-art" src="img/card-location-free.webp" width="480" height="672" loading="lazy" alt="A Battlefield Location card named Mountain Road. DUR 4. Its rules say: Capture Reward - When a player Captures Mountain Road, that player draws 1 card, then discards 1 card. Routes: the West Yard; the Upper Junction. The art box is empty.">
-        <p class="small ai-art pic-note">Placeholder art (AI-made). Final art by human artists.</p>
         <p>A Location is one of the nine places on the map. Hold all 9 at the end of a turn to win.</p>
       </li>
       <li>
         <h3>Frontier card</h3>
-        <img class="ai-art" src="img/card-frontier.webp" width="480" height="672" loading="lazy" alt="A Frontier card named Hidden Supplies. Its rules say: Resolve - Each player Generates 1 Supply this turn. The reveal controller Generates 1 additional Supply. The picture in the card is AI-made. Placeholder art (AI-made).">
+        <img class="ai-art" src="img/card-frontier.webp" width="480" height="672" loading="lazy" alt="A Frontier card named Hidden Supplies. Its rules say: Resolve - Each player Generates 1 Supply this turn. The reveal controller Generates 1 additional Supply. Placeholder art (AI-made).">
         <img class="free-art" src="img/card-frontier-free.webp" width="480" height="672" loading="lazy" alt="A Frontier card named Hidden Supplies. Its rules say: Resolve - Each player Generates 1 Supply this turn. The reveal controller Generates 1 additional Supply. The art box is empty.">
-        <p class="small ai-art pic-note">Placeholder art (AI-made). Final art by human artists.</p>
         <p>Frontier cards come from the shared deck. Storms, finds, animals and trouble happen to both of you.</p>
       </li>
     </ul>
-    <p class="small ai-art">Placeholder art (AI-made). Final art by human artists.</p>
   </div>
   <div class="margin">
     <div class="scrap" role="note">
       <p class="who">A Keeper&rsquo;s note</p>
       <p>Every banner says its colors flew first. We wrote down every story.</p>
-      <details class="lead"><summary>A lead</summary>
-        <p>Some trail marks are meant for one people only. Don&rsquo;t follow a mark you can&rsquo;t read.</p></details>
+      <details class="lead"><summary>Sage advice</summary>
+        <p>Some trail marks are meant for one banner only. Don&rsquo;t follow a mark you can&rsquo;t read.</p></details>
     </div>
+    <div class="scrap" role="note">
+      <p class="who">A Keeper&rsquo;s note</p>
+      <p>Everybody wants the Valley. Nobody can keep it.</p>
+    </div>
+    <svg class="cracks" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="c" d="M3 0L4.1 3.5L3.2 5L4.9 8.6L2.6 12.2L3.4 14L2.1 17.5L4.4 21.8L3.6 24L5.2 28.5L3.1 32L4.6 36.2L3.9 39M4.4 21.8L5.9 23.1L5.6 24.9L7.2 26.4M2.6 12.2L1.2 13.9"/><path class="s" d="M1.2 9.6L6.6 10.4M1.4 29.4L6.8 30.6"/></svg>
   </div>
 </section>
 
@@ -237,6 +241,11 @@
     <h3 id="try">Try one turn</h3>
     <div class="demo" id="demo">
       <p class="taste"><strong>A simplified example of one turn.</strong> <span id="d-goal">Your goal: get your Unit to Rusted Track and keep it there through a storm.</span></p>
+      <div class="d-head" id="d-head">
+        <p class="d-sides"><span class="d-side you" id="d-you-s"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 15V1.5M3.8 2.2h8.4l-2 3l2 3H3.8"/></svg><span id="d-you">You: Player 2, the Wardens</span></span> <span class="d-side them" id="d-them-s"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 15V1.5M3.8 2.2h8.4l-2 3l2 3H3.8"/></svg><span id="d-them">Them: Player 1, the Raiders</span></span></p>
+        <p class="d-when"><svg class="d-tally" id="d-tally" viewBox="0 0 34 20" width="34" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M4 3l1.5 14"/></svg><span class="d-stamp" id="d-round">Round 1</span><span class="d-turn" id="d-turn">Your turn</span></p>
+        <ol class="d-phases" id="d-phases" aria-label="The six phases of a turn"><li>Recovery</li><li>Frontier</li><li>Draw</li><li>Operations</li><li>Conflict</li><li>End</li></ol>
+      </div>
       <div class="d-map" role="group" aria-label="The map: three places in a row">
         <div class="d-place mine" id="d-p0"><span class="pn">Your depot</span><span class="po">Yours</span><span class="pt"></span><span class="pt"></span></div>
         <div class="d-place open" id="d-p1"><span class="pn">Rusted Track</span><span class="po">Open</span><span class="pt"></span><span class="pt"></span></div>
@@ -255,6 +264,12 @@
       <p class="d-keys">Tab and Enter work too.</p>
     </div>
     <p class="small">The real game has nine places, two full decks and a Frontier Deck that does not care who is winning.</p>
+    <div class="tag-note">
+      <details>
+        <summary><svg class="tag-ic" viewBox="0 0 40 40" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 14.5C11 15.2 17 14.4 23 14.8C28 15 29.6 9.6 25.8 8.4C23.4 7.7 21.8 9.4 22.4 11M4.6 21.4C13 21 22 22 29.5 21.6C35 21.4 35.6 28.4 30.8 29C28.2 29.3 27 27.4 27.8 25.8M6.4 28.4C9.6 28.8 13 28.2 16.4 28.6"/></svg><span class="tag-l">A Keeper&rsquo;s note</span> <span class="tag-hint"><span class="t-tap">Tap to read</span><span class="t-click">Click to read</span></span></summary>
+        <p class="tag-text">The wind takes no side. Plan for it anyway.</p>
+      </details>
+    </div>
     <h3 id="digital">The digital game</h3>
     <p class="big">A digital version of Dustbanners exists for testers.</p>
     <div class="fact">
@@ -276,6 +291,11 @@
       <p class="who">A Keeper&rsquo;s note</p>
       <p>A page you can hold is harder to lose than a story you were told.</p>
     </div>
+    <div class="scrap" role="note">
+      <p class="who">A Keeper&rsquo;s note</p>
+      <p>The map can&rsquo;t see in the fog. The person who drew it can.</p>
+    </div>
+    <svg class="cracks" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="c" d="M96.9 33L95.6 36.4L96.4 38.8L94.8 42.6L97.3 46.1L96.1 49.4L97.6 53.8L95.2 57L96.5 61.3L95.1 65.7L96.2 70.4M95.2 57L93.4 58.8L93.9 60.6M96.4 38.8L98.4 40.1"/><path class="s" d="M93.4 44.2L98.9 45.4M93.1 63L98.6 64.1"/></svg>
   </div>
 </section>
 </div>
@@ -352,6 +372,19 @@
       </article></li>
     </ul>
     <p><a href="#signup">Get email news</a> to hear first.</p>
+    <div class="tag-note">
+      <details>
+        <summary><svg class="tag-ic" viewBox="0 0 40 40" width="27" height="27" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 34C12 30 13 24 18.5 21.5C24 19 26 14 28.6 9.4" stroke-dasharray="1 5.2"/><path d="M24.4 8.6L30 7.2L31 13"/></svg><span class="tag-l">A Keeper&rsquo;s note</span> <span class="tag-hint"><span class="t-tap">Tap to read</span><span class="t-click">Click to read</span></span></summary>
+        <p class="tag-text">The road behind is somebody&rsquo;s story. The road ahead is yours and mine.</p>
+      </details>
+    </div>
+  </div>
+  <div class="margin">
+    <div class="scrap" role="note">
+      <p class="who">A Keeper&rsquo;s note</p>
+      <p>The road behind is somebody&rsquo;s story. The road ahead is yours and mine.</p>
+    </div>
+    <svg class="cracks" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="c" d="M2.3 100L3.7 96.4L2.9 93.1L4.6 89.2L2.4 85.6L4.1 81.9L3.2 78.4L5.1 74.6L3.6 70.8L4.4 67.2M4.6 89.2L6.4 87.6"/><path class="s" d="M0.9 83.6L6.4 84.8"/></svg>
   </div>
 </section>
 
@@ -373,6 +406,12 @@
       <p class="small">You will get one email first to confirm. Every email has an unsubscribe link at the bottom: one click and you
       are off the list. Read our <a href="privacy.html">privacy notice</a>.</p>
     </div>
+    <div class="tag-note">
+      <details>
+        <summary><svg class="tag-ic" viewBox="0 0 40 40" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10.6 5.4L24.6 4.6L30.8 10.6L31.2 31.4L28.4 33.6L25.2 31.8L22 34.4L18.6 32L15 34.6L12.2 32.2L9.8 33.8ZM24.6 4.8L25 10.8L30.6 10.6M14.4 18.6C16 16.4 17.6 20.4 19.4 18.2C21 16.4 22.6 20.2 24.8 18.4"/></svg><span class="tag-l">A Keeper&rsquo;s note</span> <span class="tag-hint"><span class="t-tap">Tap to read</span><span class="t-click">Click to read</span></span></summary>
+        <p class="tag-text">Leave your name here. We write when there is news, and not otherwise.</p>
+      </details>
+    </div>
     <div class="camp" id="follow">
       <h3>Join the Discord</h3>
       <p>The Dustbanners Discord is the main place to talk about the game.</p>
@@ -391,6 +430,11 @@
       <p class="who">A Keeper&rsquo;s note</p>
       <p>Leave your name here. We write when there is news, and not otherwise.</p>
     </div>
+    <div class="scrap" role="note">
+      <p class="who">Warden oath, older form</p>
+      <p>A people without a banner are just people, and people alone don&rsquo;t last a season.</p>
+    </div>
+    <svg class="cracks" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="c" d="M98.1 0L96.6 3.3L97.9 6.4L95.9 9.8L98.3 13.2L96.4 16.4L97.6 20.2L95.8 23.7L96.9 27.2M95.9 9.8L93.8 11.1L94.4 12.9M96.4 16.4L93.2 18.8"/><path class="s" d="M93.6 4.6L99 5.6M93.9 21.2L99.2 22.4"/></svg>
   </div>
 </section>
 
@@ -411,9 +455,16 @@
       <p>I use AI tools to help make Dustbanners. The world, the rules and every final decision are mine. AI tools helped build and
       test the digital version of the game, run its balance simulations, and draft some of the text, which I edit and approve. A
       paid human editor will do the final pass on every word players see. The pictures on the cards, the board and the game
-      screens shown now are AI-made placeholder art, and they are labeled. The final card art, box art, card backs and logo
+      screens shown now are AI-made placeholder art. They stay hidden unless you switch AI art on, and each picture&rsquo;s
+      description says it is AI-made. The final card art, box art, card backs and logo
       will be made by paid human artists. AI art is used only for our own placeholders.</p>
       <p>Are you an artist? <a href="draw.html">Sign up to draw for Dustbanners</a>. It will be paid work once the game is funded.</p>
+    </div>
+    <div class="tag-note">
+      <details>
+        <summary><svg class="tag-ic" viewBox="0 0 40 40" width="29" height="29" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.2 3.6L20 8.2M14.6 11.6L20 8.2L25.6 11.4M20.4 12.2C27 12.4 30.2 18.4 30 24.2C29.6 30.6 25.4 35.4 19.8 35.2C13.6 35 9.8 29.8 10.2 23.4C10.6 17.2 14.4 12 20.4 12.2Z"/></svg><span class="tag-l">A Keeper&rsquo;s note</span> <span class="tag-hint"><span class="t-tap">Tap to read</span><span class="t-click">Click to read</span></span></summary>
+        <p class="tag-text">We have the words for these people. We do not have their faces yet.</p>
+      </details>
     </div>
   </div>
   <div class="margin">
@@ -421,6 +472,11 @@
       <p class="who">A Keeper&rsquo;s note</p>
       <p>We have the words for these people. We do not have their faces yet.</p>
     </div>
+    <div class="scrap" role="note">
+      <p class="who">A Keeper&rsquo;s note</p>
+      <p>Drink clean water, watch the sky, and bring your people home.</p>
+    </div>
+    <svg class="cracks" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="c" d="M3.4 51L2.1 54.6L3.9 57.4L2.4 61.2L4.7 64.6L3.1 68.1L4.2 71.4L2.6 75.2L4.4 78.9L3.2 82.6L4.1 85.4M4.7 64.6L6.6 66.4M2.4 61.2L0.9 62.6"/><path class="s" d="M0.7 56.4L6.2 57.6M0.9 73L6.4 74.2"/></svg>
   </div>
 </section>
 
@@ -430,6 +486,19 @@
     <p>Questions about the game, an order, or how to play? Bought it and haven&rsquo;t played yet? Game feedback you&rsquo;d rather
     not put in a form? Email us. A real human named Kyle reads every message.</p>
     <p class="contact-mail"><a href="mailto:hello@dustbanners.com">hello@dustbanners.com</a></p>
+    <div class="tag-note">
+      <details>
+        <summary><svg class="tag-ic" viewBox="0 0 40 40" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M32.4 5.2C24 8 16.4 15 12 25.6L9.6 31.6M32.4 5.2C31.6 13 26.4 19.6 15.6 22.8M20.2 17.4L24.8 17.2M6.8 34.6C8.4 33.6 9.2 32.6 9.6 31.6"/></svg><span class="tag-l">A Keeper&rsquo;s note</span> <span class="tag-hint"><span class="t-tap">Tap to read</span><span class="t-click">Click to read</span></span></summary>
+        <p class="tag-text">Arguing is how you know people are still alive to argue.</p>
+      </details>
+    </div>
+  </div>
+  <div class="margin">
+    <div class="scrap" role="note">
+      <p class="who">A Keeper&rsquo;s note</p>
+      <p>Arguing is how you know people are still alive to argue.</p>
+    </div>
+    <svg class="cracks" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="c" d="M96.4 100L97.9 96.6L95.9 93.2L97.6 89.6L95.4 86.1L97.2 82.4L96.1 78.6M95.4 86.1L93.6 84.8"/><path class="s" d="M93.4 91.6L98.9 92.8"/></svg>
   </div>
 </section>
 </div>
@@ -440,6 +509,7 @@
     <p class="gate-ask"><span class="nw">Something broken or confusing</span> <span class="nw">on this site?</span></p>
     <a class="gate-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSeLGjetFpVL5vjk9n1kVDnuCJZK04rodNUD4oKncrjfLcybfA/viewform" rel="noopener">Leave Word at the Gate</a>
   </div>
+  <p class="made">Human made. AI assisted.</p>
   <p><span class="nw">Dustbanners&trade; &middot; &copy; 2026 AminalHungy</span> <span class="nw">&middot; <a href="privacy.html">Privacy</a></span></p>
 </footer>
 <script src="js/try-turn.js"></script>

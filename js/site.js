@@ -5,12 +5,15 @@
   function $(id) { return document.getElementById(id); }
   function store(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
 
-  // AI art switch (Kyle 2026-10-14): hides every AI-made placeholder picture and shows its art-free twin.
+  // AI art switch (Kyle 2026-10-14): hides every AI-made placeholder picture and shows its art-free twin. Since r41l it starts Off:
+  // the art-free cards show unless this visitor chose "on" before (Kyle, Tent site-human-made-line-01). Same storage key as before.
   var abtn = $("art-toggle");
-  function showArt() { if (abtn) abtn.textContent = root.classList.contains("art-off") ? "AI art: Off" : "AI art: On"; }
+  try { if (localStorage.getItem("dustbanners-ai-art") === "on") root.classList.add("art-on"); } catch (e) {}
+  function showArt() { if (abtn) abtn.textContent = root.classList.contains("art-on") ? "AI art: On" : "AI art: Off"; }
   if (abtn) abtn.addEventListener("click", function () {
-    root.classList.toggle("art-off");
-    store("dustbanners-ai-art", root.classList.contains("art-off") ? "off" : "on");
+    root.classList.toggle("art-on");
+    root.classList.remove("art-off");
+    store("dustbanners-ai-art", root.classList.contains("art-on") ? "on" : "off");
     showArt();
   });
   showArt();
@@ -56,16 +59,18 @@
   if (reduce.addEventListener) reduce.addEventListener("change", showMotion);
   showMotion();
 
-  // Notes in the margin and posted bills arrive once as they come into view (only while motion is on; CSS decides).
+  // Keeper's notes and posted bills arrive once as they come into view (only while motion is on; CSS decides).
   // Items that come into view together start one after another: 200 ms, then 150 ms apart (at most 800 ms).
   // The hero map's river draws once the map is a quarter in view, so a phone sees it (Kyle, 2026-11-16).
-  var settle = [].slice.call(document.querySelectorAll(".scrap, .bill, .map"));
+  var settle = [].slice.call(document.querySelectorAll(".scrap, .bill, .map")), quietAt = 0;
   if ("IntersectionObserver" in window) {
     var io = new IntersectionObserver(function (es) {
       var n = 0;
       es.forEach(function (e) {
         if (!e.isIntersecting || e.intersectionRatio < (e.target.classList.contains("map") ? 0.25 : 0.15)) return;
-        e.target.style.setProperty("--d", Math.min(200 + 150 * n++, 800) + "ms");
+        var wait = Math.min(200 + 150 * n++, 800);
+        e.target.style.setProperty("--d", wait + "ms");
+        quietAt = Math.max(quietAt, Date.now() + wait + 900);  // a phone tag never swings while something is arriving
         e.target.classList.add("in");
         io.unobserve(e.target);
       });
@@ -73,6 +78,35 @@
     settle.forEach(function (n) { io.observe(n); });
   } else {
     settle.forEach(function (n) { n.classList.add("in"); });
+  }
+
+  // Phone tags (r41l). Kyle: "what if the tiny posted note with the nail was small, but it wiggled so people can tap it".
+  // Only one thing moves at a time: a tag in view swings once, only while motion is on, while nothing is arriving, and while
+  // no looping motion is in view (the map, a floating bill, the demo's next button). At most one swing every 6 to 10 seconds,
+  // two per tag, never again once it has been opened, and only on narrow screens; the loop stops when no tag can swing.
+  // The tap itself needs no script (it is a details element).
+  var tags = [].slice.call(document.querySelectorAll(".tag-note > details"));
+  var loopers = [].slice.call(document.querySelectorAll(".map, .bill.float, #d-go"));
+  if (tags.length && "IntersectionObserver" in window) {
+    var seen = new IntersectionObserver(function (es) { es.forEach(function (e) { e.target._v = e.isIntersecting && e.intersectionRatio >= 0.6; }); }, { threshold: [0, 0.6] });
+    var near = new IntersectionObserver(function (es) { es.forEach(function (e) { e.target._v = e.isIntersecting; }); });
+    tags.forEach(function (t) { seen.observe(t); t.addEventListener("toggle", function () { if (t.open) t._read = true; }); });
+    loopers.forEach(function (n) { near.observe(n); });
+    var narrow = window.matchMedia("(max-width: 899px)"), running = false;
+    var left = function (x) { return !x._read && (x._n || 0) < 2; };
+    var swing = function () {
+      if (!narrow.matches || !tags.some(left)) { running = false; return; }
+      setTimeout(swing, 6000 + Math.random() * 4000);
+      if (!root.classList.contains("anim") || Date.now() < quietAt || loopers.some(function (n) { return n._v; })) return;
+      var t = tags.filter(function (x) { return x._v && !x.open && left(x); })[0];
+      if (!t) return;
+      t._n = (t._n || 0) + 1;
+      t.classList.add("swing");
+      setTimeout(function () { t.classList.remove("swing"); }, 2300);
+    };
+    var start = function () { if (narrow.matches && !running) { running = true; setTimeout(swing, 4000); } };
+    if (narrow.addEventListener) narrow.addEventListener("change", start);
+    start();
   }
 
   // Phone menu: the 3-line button opens and closes the drop-down; a link tap or Escape closes it.
