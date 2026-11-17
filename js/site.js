@@ -58,17 +58,18 @@
 
   // Notes in the margin and posted bills arrive once as they come into view (only while motion is on; CSS decides).
   // Items that come into view together start one after another: 200 ms, then 150 ms apart (at most 800 ms).
-  var settle = [].slice.call(document.querySelectorAll(".scrap, .bill"));
+  // The hero map's river draws once the map is a quarter in view, so a phone sees it (Kyle, 2026-11-16).
+  var settle = [].slice.call(document.querySelectorAll(".scrap, .bill, .map"));
   if ("IntersectionObserver" in window) {
     var io = new IntersectionObserver(function (es) {
       var n = 0;
       es.forEach(function (e) {
-        if (!e.isIntersecting) return;
+        if (!e.isIntersecting || e.intersectionRatio < (e.target.classList.contains("map") ? 0.25 : 0.15)) return;
         e.target.style.setProperty("--d", Math.min(200 + 150 * n++, 800) + "ms");
         e.target.classList.add("in");
         io.unobserve(e.target);
       });
-    }, { threshold: 0.15 });
+    }, { threshold: [0.15, 0.25] });
     settle.forEach(function (n) { io.observe(n); });
   } else {
     settle.forEach(function (n) { n.classList.add("in"); });

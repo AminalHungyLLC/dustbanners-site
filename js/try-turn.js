@@ -9,6 +9,27 @@
   var L = { step: st.querySelector(".d-step"), what: st.querySelector(".d-what"), why: st.querySelector(".d-why") };
   var KEY = "dustbanners-try-example", Y = "Yours", O = "Open", T = "Theirs";
   var NAMES = ["Your depot", "Rusted Track", "The Lower Junction"];
+  // r41k: a small card beside every step: its type, a simple icon, and a keyword where one matters. No names, no art.
+  var ICON = {"bolt": "M13.5 2.5L5.5 13h6l-1 8.5l8-10.5h-6z", "cart": "M3 15h18M5 15V9h10l4 6M5.5 18.5a2 2 0 1 0 4 0a2 2 0 1 0-4 0M14.5 18.5a2 2 0 1 0 4 0a2 2 0 1 0-4 0", "flag": "M6 21V3.5M6 4h11l-2.5 4l2.5 4H6", "person": "M12 3.5a3 3 0 1 1 0 6a3 3 0 1 1 0-6M5.5 20.5c0-4 2.9-6.5 6.5-6.5s6.5 2.5 6.5 6.5", "shield": "M12 3l7 2.8v5.2c0 4.6-3 7.9-7 10c-4-2.1-7-5.4-7-10V5.8z", "wind": "M3 8h11a3 3 0 1 0-3-3M3 12h15a3 3 0 1 1-3 3M3 16h8"};
+  var KIND = { unit: ["Unit", "person", ""], guard: ["Unit", "shield", "Guard"], overrun: ["Unit", "person", "Overrun"], tactic: ["Tactic", "bolt", ""], location: ["Location", "flag", ""], vehicle: ["Vehicle", "cart", ""], frontier: ["Frontier", "wind", ""], eguard: ["Unit", "shield", "Enemy Guard"] };
+  // Colors: your cards Warden indigo, enemy cards Raider wine red (with the word Enemy), places plain, Frontier sand.
+  // One row per example: the card for each screen before the end, then the end screen (null: the big storm card shows).
+  var CARDS = [["unit", "unit", "unit", "tactic", null], ["unit", "location", "location", "location"], ["guard", "guard", "guard", "guard"],
+    ["unit", "unit", "unit", "unit"], ["overrun", "location", "eguard", "location", "location"], ["vehicle", "vehicle", "location", "location"]];
+  var mini = $("d-mini"), miniKind = "";
+  function showMini(kind) {
+    mini.hidden = !kind;
+    if (!kind || kind === miniKind) { miniKind = kind || miniKind; return; }
+    var c = KIND[kind];
+    miniKind = kind;
+    mini.className = "d-mini k-" + kind;
+    mini.querySelector(".d-mk").textContent = c[0];
+    mini.querySelector("path").setAttribute("d", ICON[c[1]]);
+    mini.querySelector(".d-mw").textContent = c[2];
+    void mini.offsetWidth;
+    mini.style.setProperty("--d", "150ms");
+    mini.classList.add("d-in");
+  }
   function B(own, toks, at) { return { own: own, toks: toks, at: at }; }
   var X = [
     { goal: "Your goal: get your Unit to Rusted Track and keep it there through a storm.", storm: true,
@@ -111,6 +132,7 @@
     var s = X[x], n = s.steps.length, end = done();
     wait = 150;
     board(end ? s.steps[n - 1].b : k ? s.steps[k - 1].b : s.b, s.names || NAMES);
+    showMini(CARDS[x][end ? n : k]);
     set($("d-goal"), s.goal);
     if (end) {
       set(L.step, s.head); set(L.what, s.steps[n - 1].what); set(L.why, s.end);
