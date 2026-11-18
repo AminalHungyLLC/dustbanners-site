@@ -280,7 +280,7 @@ details.lead summary { cursor: pointer; font-style: normal; min-height: 32px; }
 }
 
 /* ---------- The cards (kept as on the live site until 0.6 seals) ---------- */
-/* r41l: AI art is off unless the visitor switches it on (Kyle, Tent site-human-made-line-01: art-free cards by default). */
+/* r41l: AI art is off unless the visitor switches it on (Kyle, Tent site-human-made-line-01: art-free cards by default). r41m: those cards now carry Kyle's adjusted photos. */
 html:not(.art-on) .ai-art { display: none !important; }
 .free-art { display: block; }
 html.art-on .free-art { display: none; }

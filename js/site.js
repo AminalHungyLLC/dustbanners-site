@@ -5,8 +5,9 @@
   function $(id) { return document.getElementById(id); }
   function store(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
 
-  // AI art switch (Kyle 2026-10-14): hides every AI-made placeholder picture and shows its art-free twin. Since r41l it starts Off:
-  // the art-free cards show unless this visitor chose "on" before (Kyle, Tent site-human-made-line-01). Same storage key as before.
+  // AI art switch (Kyle 2026-10-14): hides every AI-made placeholder picture and shows its twin. Since r41l it starts Off:
+  // the twin cards show unless this visitor chose "on" before (Kyle, Tent site-human-made-line-01). Same storage key as before.
+  // Since r41m the twins carry Kyle's own adjusted photos, not an empty art box (Kyle, 2026-11-17: "For AI Art Off, can you replace it with my photos?").
   var abtn = $("art-toggle");
   try { if (localStorage.getItem("dustbanners-ai-art") === "on") root.classList.add("art-on"); } catch (e) {}
   function showArt() { if (abtn) abtn.textContent = root.classList.contains("art-on") ? "AI art: On" : "AI art: Off"; }
