@@ -533,3 +533,28 @@ footer.site .gate-btn:hover, footer.site .gate-btn:focus { background: var(--pan
   @keyframes shade { from { box-shadow: 3px 5px 0 rgba(0,0,0,.35); } to { box-shadow: 7px 11px 2px rgba(0,0,0,.26); } }
   @keyframes curl { from { width: 16px; height: 16px; } to { width: 30px; height: 30px; } }
 }
+
+/* r42c: Try one turn, Advanced (Kyle, 2026-11-18). A Simple / Advanced switch (Simple is the default); five places in one row when
+   wide, and on phones a road that turns (3 places, then 2 under them); choices with no prompt; a Hint button. */
+.d-mode { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; }
+.d-mode .d-act[aria-pressed="true"] { border-color: var(--ink); box-shadow: inset 0 -4px 0 var(--accent); font-weight: bold; }
+.a-map { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.a-map .d-place .po { font-size: 14px; }
+@media (max-width: 640px) { .a-map .d-place .pt { font-size: 12px; padding: 4px 5px; } }  /* pills fit a 375 px tile */
+@media (max-width: 359px) { .a-map .d-place .pt { font-size: 11px; padding: 4px 3px; } }  /* and a 320 px tile */
+.a-map .d-place { z-index: 1; }  /* the places sit above the dotted roads drawn behind them */
+.a-map::before, .a-map::after { z-index: 0; }
+@media (max-width: 640px) {
+  .a-map { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .a-map::before { top: 25%; }
+  .a-map::after { content: ""; position: absolute; left: 50%; right: 16.7%; top: 25%; bottom: 25%; border-right: 3px dotted var(--line); border-bottom: 3px dotted var(--line); }
+  #a-p3 { grid-column: 3; grid-row: 2; }
+  #a-p4 { grid-column: 2; grid-row: 2; }
+}
+.a-say { min-height: 0; }
+.a-note { font-weight: bold; margin-bottom: 6px !important; }
+.a-choices { display: grid; gap: 8px; margin: 12px 0 0; }
+.a-choices .d-act { text-align: left; }
+.a-choices .d-act[disabled] { opacity: .6; text-decoration: line-through; cursor: default; }
+.a-hint-text { margin: 12px 0 0; font-style: italic; }
+.a-hint-text:empty { margin: 0; }
