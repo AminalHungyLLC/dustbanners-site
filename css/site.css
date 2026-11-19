@@ -132,15 +132,16 @@ figure { margin: 0; }
 .map .place circle { fill: var(--panel); stroke: var(--ink); stroke-width: 2; }
 .map .flag { fill: var(--flag); }
 figcaption { font-size: 15px; color: var(--muted); padding-top: 6px; }
-/* Phones: words, then the game in three lines, then the map (so the three lines reach the first screen). Wide: words and map side by side. */
-.hero { grid-template-areas: "text" "strip" "kept" "map"; gap: 14px; }
+/* Phones: words, then the game in three lines, then the map, then the Keepers box (r42: the visitor learns what the game is before the
+   lore frame). Wide: words and map side by side, the three lines under both, the Keepers box last. */
+.hero { grid-template-areas: "text" "strip" "map" "kept"; gap: 14px; }
 .hero > div:first-child { grid-area: text; }
-.hero .kept { grid-area: kept; margin: 0; }
+.hero .kept-box { grid-area: kept; }
+.hero .kept { margin: 8px 0 0; }
 .hero .map-fig { grid-area: map; }
 .hero .strip { grid-area: strip; margin: 4px 0 0; }
 @media (min-width: 900px) {
-  .hero { grid-template-columns: 1.05fr .95fr; grid-template-areas: "text map" "kept map" "strip strip"; column-gap: 28px; row-gap: 10px; padding-top: 28px; }
-  .hero .kept { align-self: start; }
+  .hero { grid-template-columns: 1.05fr .95fr; grid-template-areas: "text map" "strip strip" "kept kept"; column-gap: 28px; row-gap: 10px; padding-top: 28px; }
   .hero .strip { margin-top: 14px; }
 }
 
@@ -194,7 +195,7 @@ ul.points li { margin: 6px 0; }
 .margin .scrap:nth-child(2) { --tilt: 1.3deg; --nx: -11px; }
 .margin .scrap:nth-child(3) { --tilt: -.5deg; --nx: 8px; }
 #play .margin .scrap:first-child { --tilt: -1.7deg; --nx: 6px; }
-#events .margin .scrap:first-child { --tilt: .8deg; --nx: -4px; }
+#join .margin .scrap:nth-child(3) { --tilt: .8deg; --nx: -4px; }
 #join .margin .scrap:first-child { --tilt: -.7deg; --nx: -6px; }
 #people .margin .scrap:first-child { --tilt: 1deg; --nx: 3px; }
 #contact .margin .scrap:first-child { --tilt: -1.5deg; --nx: 9px; }
@@ -213,7 +214,7 @@ ul.points li { margin: 6px 0; }
 #game .tag-note > details { --nr: 55% 45% 49% 51% / 47% 52% 48% 53%; --nh: 38% 32%; --na: 200deg; }
 #join .tag-note > details { --nr: 48% 52% 56% 44% / 52% 48% 50% 50%; --na: 290deg; --nd: 64% 70%; }
 #people .tag-note > details, #contact .margin .scrap:first-child { --nr: 44% 56% 52% 48% / 49% 55% 45% 51%; --nh: 28% 40%; --na: 110deg; }
-#play .margin .scrap:first-child, #events .tag-note > details { --nr: 50% 50% 46% 54% / 53% 49% 51% 47%; --na: 250deg; --nd: 40% 72%; }
+#play .margin .scrap:first-child, #join .tag-note.road > details { --nr: 50% 50% 46% 54% / 53% 49% 51% 47%; --na: 250deg; --nd: 40% 72%; }
 /* Desktop: the notes hang on a strip of old cork (Kyle: "Make the side look more cork board, maybe kinda cracked but together").
    CSS grain, hairline cracks held by staples, a worn frame. The notes are paper, so no cork shows under text. No motion. */
 :root { --cork: #c49a6c; --cork-frame: #6e4a2d; --cork-ink: rgba(58,32,12,.55); }
@@ -243,7 +244,7 @@ ul.points li { margin: 6px 0; }
   transform: rotate(var(--tilt)); transform-origin: calc(50% + var(--nx, 0px)) 12px; }
 #game .tag-note > details { --sw: 3.4deg; }
 #play .tag-note > details { --tilt: 1.4deg; --nx: -14px; --nw: 13px; --sw: -2.8deg; padding: 19px 16px 4px; }
-#events .tag-note > details { --tilt: -.9deg; --nx: 5px; --nw: 15px; --sw: 4deg; }
+#join .tag-note.road > details { --tilt: -.9deg; --nx: 5px; --nw: 15px; --sw: 4deg; }
 #join .tag-note > details { --tilt: 2.6deg; --nx: 3px; --sw: -3.2deg; padding: 21px 12px 5px; }
 #people .tag-note > details { --tilt: -1.2deg; --nx: -4px; --nw: 13px; --sw: 2.6deg; }
 #contact .tag-note > details { --tilt: .9deg; --nx: 9px; --nw: 15px; --sw: -3.6deg; padding: 20px 15px 3px; }
@@ -413,7 +414,6 @@ html.art-on .card-grid img.free-art { display: none; }
 .bill.empty .no, .bill.empty .small { color: var(--muted); }
 .bill.empty a { color: var(--accent); }
 .bill.empty :focus-visible { outline-color: var(--accent); }
-.events-bills { margin-top: 14px; }
 @media (min-width: 800px) {
   .bills > li:nth-child(3n+1) .bill { transform: rotate(-.7deg); }
   .bills > li:nth-child(3n+2) .bill { transform: rotate(.5deg); }

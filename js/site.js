@@ -82,9 +82,10 @@
   }
 
   // Phone tags (r41l). Kyle: "what if the tiny posted note with the nail was small, but it wiggled so people can tap it".
-  // Only one thing moves at a time: a tag in view swings once, only while motion is on, while nothing is arriving, and while
-  // no looping motion is in view (the map, a floating bill, the demo's next button). At most one swing every 6 to 10 seconds,
-  // two per tag, never again once it has been opened, and only on narrow screens; the loop stops when no tag can swing.
+  // r42 (Kyle, 2026-11-18: "I kind of wish the things on the small pin tags just kind of wiggled every few seconds rather than once"):
+  // a tag in view swings every 4 to 6 seconds, with no cap, until it has been opened. Still only one thing moves at a time: only
+  // while motion is on (the Motion switch and reduced-motion settings both turn it off), while nothing is arriving, while no
+  // looping motion is in view (the map, a floating bill, the demo's next button), and only on narrow screens.
   // The tap itself needs no script (it is a details element).
   var tags = [].slice.call(document.querySelectorAll(".tag-note > details"));
   var loopers = [].slice.call(document.querySelectorAll(".map, .bill.float, #d-go"));
@@ -94,10 +95,10 @@
     tags.forEach(function (t) { seen.observe(t); t.addEventListener("toggle", function () { if (t.open) t._read = true; }); });
     loopers.forEach(function (n) { near.observe(n); });
     var narrow = window.matchMedia("(max-width: 899px)"), running = false;
-    var left = function (x) { return !x._read && (x._n || 0) < 2; };
+    var left = function (x) { return !x._read; };
     var swing = function () {
       if (!narrow.matches || !tags.some(left)) { running = false; return; }
-      setTimeout(swing, 6000 + Math.random() * 4000);
+      setTimeout(swing, 4000 + Math.random() * 2000);
       if (!root.classList.contains("anim") || Date.now() < quietAt || loopers.some(function (n) { return n._v; })) return;
       var t = tags.filter(function (x) { return x._v && !x.open && left(x); })[0];
       if (!t) return;
