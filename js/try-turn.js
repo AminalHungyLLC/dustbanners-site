@@ -1,7 +1,7 @@
 /* Try one turn (site r41i; r41l: each turn starts with a Frontier card; r42: only real moves): six short guided examples of a turn, a
    new one on each visit. Simplified only in size (three places, not nine). Every move is in rule book r7l, and every Frontier card is a
    real card's effect in plain words under a stand-in name (Kyle, 2026-11-18: no made-up actions or terms; the replaced words are
-   listed in site-r42a-c/CHANGES-r42a-c.md). Keyboard: Tab and Enter. No timers.
+   listed in site-r42a-c/CHANGES-r42a-c.md). Keyboard: Tab and Enter. No timers (r47: apart from the one-time dust-in of the Frontier card).
    The last example seen is kept in this browser only (dustbanners-try-example); if storage fails, a random one is shown. */
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -73,18 +73,21 @@
   var X = [
     { goal: "Your goal: Capture Rusted Track. Your Unit has been there since last turn.",
       front: { name: "Wall of Wind", icon: "wind", text: "A storm. Each player must exhaust one of their ready Units or Companions. A player with none loses 1 Supply instead." },
+      // r47 (M6): the Companion shows in its own Campsite row under the map (the Campsite is beside your gate yard, not a place on
+      // the map: rule book r7m draft r11e, Campsite), with one entry per screen: start, steps 1 to 5. "~" = exhausted.
+      camp: ["Companion", "Companion", "~Companion", "~Companion", "~Companion", "~Companion"],
       b: B([Y, O, T], [[], ["Your Unit"], ["Enemy Unit"]]),
       what: "Your turn starts. Your Supply refills to 4. Your Unit at Rusted Track is ready.", why: "First, the top Frontier card is revealed. It can change your plan.",
       steps: [
         { btn: "Reveal the Frontier card", b: B([Y, O, T], [[], ["Your Unit"], ["Enemy Unit"]], 1),
           what: "A storm, Wall of Wind. Each player must exhaust one of their ready Units or Companions.", why: "An exhausted card cannot act until it readies on your next turn. To Capture, a Unit must be ready." },
-        { btn: "Exhaust your Companion", b: B([Y, O, T], [[], ["Your Unit"], ["Enemy Unit"]], 1),
+        { btn: "Exhaust your Companion", b: B([Y, O, T], [[], ["Your Unit"], ["Enemy Unit"]], -1),
           what: "You pick your Companion in your Campsite, not your Unit. Your Unit stays ready.", why: "The enemy must exhaust one of theirs too." },
         { btn: "Play a Unit", b: B([Y, O, T], [["Your Unit"], ["Your Unit"], ["Enemy Unit"]], 0),
           what: "You pay 2 Supply. A new Unit arrives at your gate yard.", why: "A new Unit can arrive in your Campsite, or at a place you control that a road of your places joins to your gate yard." },
-        { btn: "Capture Rusted Track", b: B([Y, Y, T], [["Your Unit"], ["Your Unit"], ["Enemy Unit"]], 1),
+        { btn: "Capture Rusted Track", b: B([Y, Y, T], [["Your Unit"], ["~Your Unit"], ["Enemy Unit"]], 1),
           what: "Your Unit exhausts and takes Rusted Track. It is yours now, and you get its Capture Reward.", why: "A Unit can Capture only if it is ready, did not move there this turn, and no enemy Unit is there." },
-        { btn: "End your turn", b: B([Y, Y, T], [["Your Unit"], ["Your Unit"], ["Enemy Unit"]]),
+        { btn: "End your turn", b: B([Y, Y, T], [["Your Unit"], ["~Your Unit"], ["Enemy Unit"]]),
           what: "Your turn ends. You keep your 2 unused Supply for their turn." }],
       head: "Rusted Track is yours!", end: "If the storm had taken your Unit, it could not have Captured. Picking your Companion saved the Capture." },
     { goal: "Your goal: take Mountain Road and keep it. Nobody controls it yet.", names: ["The West Yard", "Mountain Road", "The Upper Junction"],
@@ -180,18 +183,30 @@
   }
   function done() { return k >= X[x].steps.length; }
   function label() { fill(go, (coarse && coarse.matches ? "Tap" : "Click") + ": " + (done() ? "Try another example" : X[x].steps[k].btn)); }
-  function board(b, names) {
+  // r47 (UX review r46, M6): a marker that starts with "~" is exhausted: it shows a small card turned sideways and says so to
+  // screen readers ("Companion, exhausted").
+  function token(el, s, cls) {
+    var ex = s.charAt(0) === "~", lab = ex ? s.slice(1) : s;
+    el.className = cls + (/^Enemy/.test(lab) ? " enemy" : /damage/.test(lab) ? " hurt" : "") + (ex ? " ex" : "");
+    if (el._v === s) return;
+    el._v = s;
+    set(el, lab);  // after the class, so a new marker keeps its arrival
+    if (ex) { var v = document.createElement("span"); v.className = "vh"; v.textContent = ", exhausted"; el.appendChild(v); }
+  }
+  var camp = $("d-camp"), campPt = $("d-camp-pt");
+  function board(b, names, c) {
     P.forEach(function (p, i) {
       var t = p.querySelectorAll(".pt"), own = b.own[i];
       set(p.querySelector(".pn"), names[i]);
       set(p.querySelector(".po"), own);
       p.className = "d-place " + (own === Y ? "mine" : own === O ? "open" : "theirs") + (b.at === i ? " here" : "");
-      for (var j = 0; j < 2; j++) {
-        var s = b.toks[i][j] || "";
-        t[j].className = "pt" + (/^Enemy/.test(s) ? " enemy" : /damage/.test(s) ? " hurt" : "");
-        set(t[j], s);  // after the class, so a new marker keeps its arrival
-      }
+      for (var j = 0; j < 2; j++) token(t[j], b.toks[i][j] || "", "pt");
     });
+    if (camp) {
+      camp.hidden = !c;
+      camp.classList.toggle("here", b.at === -1);
+      if (c) token(campPt, c, "pt");
+    }
   }
   // r41l: who you are, the round, and the phase (Kyle: "make sure it's clear if you're player 1 or 2, make sure it's clear what
   // round it is in the game. Give it character"). Rounds fit rule book r7l: Supply 4 is Round 2, 5 is Round 3. The deck controller
@@ -218,9 +233,26 @@
   }
   // r41l: the Frontier card shows for the whole example: face down first, then the card step 1 reveals (it turns over once).
   var front = $("d-front"), storm = front.querySelector(".d-storm"), frontKey = "";
+  // r47 (S4 + S2): the face-down Frontier card blows in on a dusty wind once per page view, when the whole card is on screen and
+  // scrolling has stopped for about 1 second (window.DBN.whenSettled in site.js). Step 1 then turns it over, as before. A press first,
+  // or motion off, shows it at once.
+  var dust = null;
+  function frontDust() {
+    if (!window.DBN || dust) return;
+    front.classList.add("dust-wait");
+    dust = window.DBN.whenSettled(front, function (moving) {  // front never moves; the card inside it does
+      if (!front.classList.contains("dust-wait")) return;
+      front.classList.remove("dust-wait");
+      if (!moving || !front.classList.contains("down")) return;
+      window.DBN.hold(1500); demo.classList.add("dusting"); front.classList.add("dust-go");
+      setTimeout(function () { front.classList.remove("dust-go"); demo.classList.remove("dusting"); }, 1150);
+    });
+  }
+  function stopDust() { if (dust) dust.cancel(); front.classList.remove("dust-wait", "dust-go"); demo.classList.remove("dusting"); }
   function showFront(s, up) {
     var f = up ? s.front : DOWN, key = x + (up ? "u" : "d");
     front.hidden = false;
+    if (up) stopDust();
     if (key === frontKey) return;
     frontKey = key;
     front.classList.toggle("down", !up);
@@ -233,7 +265,7 @@
   function draw() {
     var s = X[x], n = s.steps.length, end = done();
     wait = 150;
-    board(end ? s.steps[n - 1].b : k ? s.steps[k - 1].b : s.b, s.names || NAMES);
+    board(end ? s.steps[n - 1].b : k ? s.steps[k - 1].b : s.b, s.names || NAMES, s.camp ? s.camp[end ? n : k] : "");
     showMini(CARDS[x][end ? n : k]);
     set($("d-goal"), s.goal);
     if (end) {
@@ -262,4 +294,5 @@
   var first;
   try { var v = parseInt(localStorage.getItem(KEY), 10); first = isNaN(v) ? 0 : v + 1; } catch (e) { first = Math.floor(Math.random() * X.length); }
   pick(first);
+  if (window.DBN) frontDust(); else document.addEventListener("DOMContentLoaded", frontDust);  // site.js (DBN) loads after this file
 })();

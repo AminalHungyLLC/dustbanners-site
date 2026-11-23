@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-4uFrN+WVLefnMtyZ9+yafXTxBRK6FTpJVmefoC2IF5E='; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://app.kit.com https://*.kit.com">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://app.kit.com https://*.kit.com">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Dustbanners</title>
 <meta name="description" content="Dustbanners: a two-player card game of survival on a broken frontier. Win by breaking the enemy Leader, or by holding the map.">
@@ -22,11 +22,8 @@
 <link rel="icon" type="image/png" href="img/sun.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preload" href="fonts/GentiumBookPlus-Regular.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/site.css?v=r46">
-<script>try { var r = document.documentElement;
-  var t = localStorage.getItem("dustbanners-theme"); if (t === "light" || t === "dark") r.classList.add("theme-" + t);
-  if (localStorage.getItem("dustbanners-motion") === "off") r.classList.add("motion-off");
-} catch (e) {}</script>
+<link rel="stylesheet" href="css/site.css?v=r47b">
+<script src="js/prefs.js?v=r47b"></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to the page</a>
@@ -149,16 +146,29 @@
       </ul>
       <p class="small">Those games belong to their makers. Dustbanners is not connected to any of them.</p>
     </div>
+  </div>
+  <div class="margin">
+    <div class="scrap" role="note">
+      <p class="who">A Keeper&rsquo;s note</p>
+      <p>Every banner says its colors flew first. We wrote down every story.</p>
+      <details class="lead"><summary>Sage advice</summary>
+        <p>Some trail marks are meant for one banner only. Don&rsquo;t follow a mark you can&rsquo;t read.</p></details>
+    </div>
+    <svg class="cracks" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="c" d="M3 0L4.1 3.5L3.2 5L4.9 8.6L2.6 12.2L3.4 14L2.1 17.5L4.4 21.8L3.6 24L5.2 28.5L3.1 32L4.6 36.2L3.9 39M4.4 21.8L5.9 23.1L5.6 24.9L7.2 26.4M2.6 12.2L1.2 13.9"/><path class="s" d="M1.2 9.6L6.6 10.4M1.4 29.4L6.8 30.6"/></svg>
+  </div>
+  <div class="leaf-wide">
     <h3 id="cards">The cards</h3>
     <p>Every card in the first box is one of these nine kinds. Pick a Banner to see one of each kind, with its real rules text. The names are
     plain stand-ins for now. The pictures are my own photos, and a plain box means that card has no photo yet. The final art will come
     from human artists.</p>
+    <p class="small">On a card: the number in the circle is its cost in Supply. ATK is Attack, RET is Retaliation, DUR is Durability and CAP is Capacity.</p>
+    <p class="small gc-how" hidden><span class="t-tap">Tap a card</span><span class="t-click">Click a card</span> to exhaust it: it turns sideways, as in the game. Do it again to ready it. Press Flip to read what the words on a card mean.</p>
     <div class="d-mode f-switch" role="group" aria-label="Show the cards of one Banner" hidden>
       <button type="button" class="d-act f-pick" data-faction="wardens" aria-pressed="true">Wardens</button>
       <button type="button" class="d-act f-pick" data-faction="raiders" aria-pressed="false">Raiders</button>
     </div>
     <div class="card-set" data-faction="wardens" role="group" aria-label="Wardens cards">
-    <ul class="card-grid">
+    <ul class="card-grid" data-carousel="x" tabindex="0" aria-label="Wardens cards">
       <li>
         <h3>Leader</h3>
         <article class="gc fac-w" aria-label="Warden Leader, Leader">
@@ -177,7 +187,7 @@
           <p class="gc-line"><span class="gc-fac"><svg class="gc-ic" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14V2M4 3h8l-2 3 2 3H4"/></svg>Wardens</span><span>Companion</span></p>
           <figure class="gc-art"><img src="img/card-photo-w-companion.webp" width="480" height="553" loading="lazy" alt="Photo by Kyle (stand-in art): a bare field below a line of trees and a blue summer sky."></figure>
           <div class="gc-rules"><p>May Guard.</p><p>Their turn, after combat, if this Guarded and survived - Ready another Unit of yours.</p></div>
-          <ul class="gc-stats" aria-label="Stats"><li><b>1</b><span>ATK</span></li><li><b>3</b><span>RET</span></li><li><b>6</b><span>Health</span></li></ul>
+          <ul class="gc-stats" aria-label="Stats"><li><b>1</b><span aria-hidden="true">ATK</span><span class="vh">Attack</span></li><li><b>3</b><span aria-hidden="true">RET</span><span class="vh">Retaliation</span></li><li><b>6</b><span>Health</span></li></ul>
         </article>
         <p>A Companion is an animal or a person who fights beside your Leader. If it is defeated, you can bring it back.</p>
       </li>
@@ -188,7 +198,7 @@
           <p class="gc-line"><span class="gc-fac"><svg class="gc-ic" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14V2M4 3h8l-2 3 2 3H4"/></svg>Wardens</span><span>Unit</span></p>
           <figure class="gc-art"><img src="img/card-photo-w-unit.webp" width="480" height="553" loading="lazy" alt="Photo by Kyle (stand-in art): a camp fire burning in a ring of stones in a forest clearing."></figure>
           <div class="gc-rules"><p>After a Companion of yours is damaged and survives - Exhaust - Restore 1 to it.</p></div>
-          <ul class="gc-stats" aria-label="Stats"><li><b>1</b><span>ATK</span></li><li><b>2</b><span>RET</span></li><li><b>3</b><span>Health</span></li></ul>
+          <ul class="gc-stats" aria-label="Stats"><li><b>1</b><span aria-hidden="true">ATK</span><span class="vh">Attack</span></li><li><b>2</b><span aria-hidden="true">RET</span><span class="vh">Retaliation</span></li><li><b>3</b><span>Health</span></li></ul>
         </article>
         <p>Units are your Banner&rsquo;s people. They move, attack, defend and <strong>Capture</strong> places.</p>
       </li>
@@ -210,7 +220,7 @@
           <p class="gc-line"><span class="gc-fac"><svg class="gc-ic" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14V2M4 3h8l-2 3 2 3H4"/></svg>Wardens</span><span>Equipment</span></p>
           <figure class="gc-art"><img src="img/card-photo-w-equipment.webp" width="480" height="553" loading="lazy" alt="Photo by Kyle (stand-in art): a dark blue banner in the brush below a sunlit hill."></figure>
           <div class="gc-rules"><p>Its Unit may Guard. While Guarding, it prevents the first 1 combat damage to it each turn.</p></div>
-          <ul class="gc-stats" aria-label="Stats"><li><b>3</b><span>DUR</span></li></ul>
+          <ul class="gc-stats" aria-label="Stats"><li><b>3</b><span aria-hidden="true">DUR</span><span class="vh">Durability</span></li></ul>
         </article>
         <p>Equipment is gear. It goes on a card it names, or it sits at a place you control.</p>
       </li>
@@ -221,7 +231,7 @@
           <p class="gc-line"><span class="gc-fac"><svg class="gc-ic" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14V2M4 3h8l-2 3 2 3H4"/></svg>Wardens</span><span>Structure</span></p>
           <figure class="gc-art"><img src="img/card-photo-w-structure.webp" width="480" height="553" loading="lazy" alt="Photo by Kyle (stand-in art): sheds and rail cars at the foot of a green hill."></figure>
           <div class="gc-rules"><p>Your turn, after combat here - 1 Supply - Restore 1 to a surviving Companion of yours here.</p></div>
-          <ul class="gc-stats" aria-label="Stats"><li><b>4</b><span>DUR</span></li></ul>
+          <ul class="gc-stats" aria-label="Stats"><li><b>4</b><span aria-hidden="true">DUR</span><span class="vh">Durability</span></li></ul>
         </article>
         <p>A Structure is something you build at a place you control.</p>
       </li>
@@ -232,14 +242,14 @@
           <p class="gc-line"><span class="gc-fac"><svg class="gc-ic" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14V2M4 3h8l-2 3 2 3H4"/></svg>Wardens</span><span>Vehicle</span></p>
           <figure class="gc-art"><div class="gc-ph">Placeholder: no photo yet</div></figure>
           <div class="gc-rules"><p>Can be driven only to a Location you control.</p><p>First drive carrying fighters there - One of them stays ready, but can't attack this turn.</p></div>
-          <ul class="gc-stats" aria-label="Stats"><li><b>4</b><span>DUR</span></li><li><b>2</b><span>CAP</span></li></ul>
+          <ul class="gc-stats" aria-label="Stats"><li><b>4</b><span aria-hidden="true">DUR</span><span class="vh">Durability</span></li><li><b>2</b><span aria-hidden="true">CAP</span><span class="vh">Capacity</span></li></ul>
         </article>
         <p>A Vehicle is a ride. It sits at a place you control. A Unit drives it, and it can carry your other ready Units, your Companions or your Leader, up to its Capacity. It is not Equipment.</p>
       </li>
     </ul>
     </div>
     <div class="card-set" data-faction="raiders" role="group" aria-label="Raiders cards">
-    <ul class="card-grid">
+    <ul class="card-grid" data-carousel="x" tabindex="0" aria-label="Raiders cards">
       <li>
         <h3>Leader</h3>
         <article class="gc fac-r" aria-label="Raider Leader, Leader">
@@ -258,7 +268,7 @@
           <p class="gc-line"><span class="gc-fac"><svg class="gc-ic" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14V2M4 3h8l-2 3 2 3H4"/></svg>Raiders</span><span>Companion</span></p>
           <figure class="gc-art"><div class="gc-ph">Placeholder: no photo yet</div></figure>
           <div class="gc-rules"><p>After this enters a contested or enemy Location - 1 damage to this - If it survives, ready it. If that readied it, an enemy fighter gets -1 Retaliation.</p></div>
-          <ul class="gc-stats" aria-label="Stats"><li><b>3</b><span>ATK</span></li><li><b>1</b><span>RET</span></li><li><b>5</b><span>Health</span></li></ul>
+          <ul class="gc-stats" aria-label="Stats"><li><b>3</b><span aria-hidden="true">ATK</span><span class="vh">Attack</span></li><li><b>1</b><span aria-hidden="true">RET</span><span class="vh">Retaliation</span></li><li><b>5</b><span>Health</span></li></ul>
         </article>
         <p>A Companion is an animal or a person who fights beside your Leader. If it is defeated, you can bring it back.</p>
       </li>
@@ -269,7 +279,7 @@
           <p class="gc-line"><span class="gc-fac"><svg class="gc-ic" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14V2M4 3h8l-2 3 2 3H4"/></svg>Raiders</span><span>Unit</span></p>
           <figure class="gc-art"><img src="img/card-photo-r-unit.webp" width="480" height="553" loading="lazy" alt="Photo by Kyle (stand-in art): a tall red sandstone cliff with a shadowed alcove and green shrubs on its ledges."></figure>
           <div class="gc-rules"><p>Gets +1 Attack when attacking a damaged fighter.</p></div>
-          <ul class="gc-stats" aria-label="Stats"><li><b>2</b><span>ATK</span></li><li><b>1</b><span>RET</span></li><li><b>2</b><span>Health</span></li></ul>
+          <ul class="gc-stats" aria-label="Stats"><li><b>2</b><span aria-hidden="true">ATK</span><span class="vh">Attack</span></li><li><b>1</b><span aria-hidden="true">RET</span><span class="vh">Retaliation</span></li><li><b>2</b><span>Health</span></li></ul>
         </article>
         <p>Units are your Banner&rsquo;s people. They move, attack, defend and <strong>Capture</strong> places.</p>
       </li>
@@ -291,7 +301,7 @@
           <p class="gc-line"><span class="gc-fac"><svg class="gc-ic" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14V2M4 3h8l-2 3 2 3H4"/></svg>Raiders</span><span>Equipment</span></p>
           <figure class="gc-art"><div class="gc-ph">Placeholder: no photo yet</div></figure>
           <div class="gc-rules"><p>Its Unit gets +1 Attack when attacking a damaged or Isolated target.</p></div>
-          <ul class="gc-stats" aria-label="Stats"><li><b>2</b><span>DUR</span></li></ul>
+          <ul class="gc-stats" aria-label="Stats"><li><b>2</b><span aria-hidden="true">DUR</span><span class="vh">Durability</span></li></ul>
         </article>
         <p>Equipment is gear. It goes on a card it names, or it sits at a place you control.</p>
       </li>
@@ -302,7 +312,7 @@
           <p class="gc-line"><span class="gc-fac"><svg class="gc-ic" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14V2M4 3h8l-2 3 2 3H4"/></svg>Raiders</span><span>Structure</span></p>
           <figure class="gc-art"><img src="img/card-photo-r-structure.webp" width="480" height="553" loading="lazy" alt="Photo by Kyle (stand-in art): a rocky gap in sandy cliffs that opens onto a green valley and snow-capped peaks under a blue sky."></figure>
           <div class="gc-rules"><p>After your Raider Unit leaves a contested Location without Capturing it - Look at your top 2 cards. Put 1 in your hand &amp; 1 on the bottom.</p></div>
-          <ul class="gc-stats" aria-label="Stats"><li><b>3</b><span>DUR</span></li></ul>
+          <ul class="gc-stats" aria-label="Stats"><li><b>3</b><span aria-hidden="true">DUR</span><span class="vh">Durability</span></li></ul>
         </article>
         <p>A Structure is something you build at a place you control.</p>
       </li>
@@ -313,15 +323,19 @@
           <p class="gc-line"><span class="gc-fac"><svg class="gc-ic" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14V2M4 3h8l-2 3 2 3H4"/></svg>Raiders</span><span>Vehicle</span></p>
           <figure class="gc-art"><div class="gc-ph">Placeholder: no photo yet</div></figure>
           <div class="gc-rules"><p>First drive into a contested or enemy Location - Its driver gets <strong>Momentum</strong>.</p></div>
-          <ul class="gc-stats" aria-label="Stats"><li><b>3</b><span>DUR</span></li><li><b>1</b><span>CAP</span></li></ul>
+          <ul class="gc-stats" aria-label="Stats"><li><b>3</b><span aria-hidden="true">DUR</span><span class="vh">Durability</span></li><li><b>1</b><span aria-hidden="true">CAP</span><span class="vh">Capacity</span></li></ul>
         </article>
         <p>A Vehicle is a ride. It sits at a place you control. A Unit drives it, and it can carry your other ready Units, your Companions or your Leader, up to its Capacity. It is not Equipment.</p>
       </li>
     </ul>
     </div>
+    <div class="d-mode f-switch f-switch-end" role="group" aria-label="Show the cards of one Banner" hidden>
+      <button type="button" class="d-act f-pick-end" data-faction="wardens" aria-pressed="true">Wardens</button>
+      <button type="button" class="d-act f-pick-end" data-faction="raiders" aria-pressed="false">Raiders</button>
+    </div>
     <div class="card-set card-shared" role="group" aria-label="Cards both Banners share">
     <p class="small">Both Banners share these two: the places on the map and the Frontier Deck.</p>
-    <ul class="card-grid">
+    <ul class="card-grid" data-carousel="x" tabindex="0" aria-label="Shared cards">
       <li>
         <h3>Battlefield Location</h3>
         <article class="gc fac-n" aria-label="Mountain Road, Battlefield Location">
@@ -329,7 +343,7 @@
           <p class="gc-line"><span class="gc-fac">Shared</span><span>Battlefield Location</span></p>
           <figure class="gc-art"><img src="img/card-photo-location.webp" width="480" height="553" loading="lazy" alt="Photo by Kyle (stand-in art): a paved road that leads into the mountains."></figure>
           <div class="gc-rules"><p>Capture Reward - <strong>Rethink</strong>.</p><p>Routes: the West Yard; the Upper Junction.</p></div>
-          <ul class="gc-stats" aria-label="Stats"><li><b>4</b><span>DUR</span></li></ul>
+          <ul class="gc-stats" aria-label="Stats"><li><b>4</b><span aria-hidden="true">DUR</span><span class="vh">Durability</span></li></ul>
         </article>
         <p>A Location is one of the nine places on the map.</p>
       </li>
@@ -347,22 +361,12 @@
     </ul>
     </div>
     <p><strong>Words on these cards</strong></p>
-    <ul class="points">
-      <li>Fighter: a Unit or Companion. A card that also means your Leader says &ldquo;fighter or Leader&rdquo;.</li>
-      <li><strong>Fortify N:</strong> prevent the next N damage to that card this turn, unless the card says longer. That card is the one the line names, or the one damage is about to hit. It can be any card you control. If Fortify happens because damage is about to hit, it stops only that damage.</li>
-      <li><strong>Momentum:</strong> it gets +1 Attack through your next turn, even if it moves. Momentum from different cards adds up. One card&rsquo;s Momentum doesn&rsquo;t add to itself.</li>
-      <li><strong>Rethink:</strong> draw 1, then discard 1.</li>
+    <ul class="points gc-words">
+      <li data-word="fighter">Fighter: a Unit or Companion. A card that also means your Leader says &ldquo;fighter or Leader&rdquo;.</li>
+      <li data-word="fortify"><strong>Fortify N:</strong> prevent the next N damage to that card this turn, unless the card says longer. That card is the one the line names, or the one damage is about to hit. It can be any card you control. If Fortify happens because damage is about to hit, it stops only that damage.</li>
+      <li data-word="momentum"><strong>Momentum:</strong> it gets +1 Attack through your next turn, even if it moves. Momentum from different cards adds up. One card&rsquo;s Momentum doesn&rsquo;t add to itself.</li>
+      <li data-word="rethink"><strong>Rethink:</strong> draw 1, then discard 1.</li>
     </ul>
-    <p class="small">On a card: the number in the circle is its cost in Supply. ATK is Attack, RET is Retaliation, DUR is Durability and CAP is Capacity.</p>
-  </div>
-  <div class="margin">
-    <div class="scrap" role="note">
-      <p class="who">A Keeper&rsquo;s note</p>
-      <p>Every banner says its colors flew first. We wrote down every story.</p>
-      <details class="lead"><summary>Sage advice</summary>
-        <p>Some trail marks are meant for one banner only. Don&rsquo;t follow a mark you can&rsquo;t read.</p></details>
-    </div>
-    <svg class="cracks" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="c" d="M3 0L4.1 3.5L3.2 5L4.9 8.6L2.6 12.2L3.4 14L2.1 17.5L4.4 21.8L3.6 24L5.2 28.5L3.1 32L4.6 36.2L3.9 39M4.4 21.8L5.9 23.1L5.6 24.9L7.2 26.4M2.6 12.2L1.2 13.9"/><path class="s" d="M1.2 9.6L6.6 10.4M1.4 29.4L6.8 30.6"/></svg>
   </div>
 </section>
 
@@ -398,14 +402,15 @@
         <div class="d-place open" id="d-p1"><span class="pn">Rusted Track</span><span class="po">Nobody</span><span class="pt">Your Unit</span><span class="pt"></span></div>
         <div class="d-place theirs" id="d-p2"><span class="pn">The Lower Junction</span><span class="po">Theirs</span><span class="pt enemy">Enemy Unit</span><span class="pt"></span></div>
       </div>
+      <p class="d-camp" id="d-camp" hidden><span class="dc-l">Your Campsite, beside your gate yard:</span> <span class="pt" id="d-camp-pt"></span></p>
       <div class="d-say">
         <div id="d-status" role="status" aria-live="polite"><p class="d-step">Example 1 of 6 &middot; Step 1 of 5</p><div class="d-mini k-unit" id="d-mini" aria-hidden="true"><p class="d-mk">Unit</p><svg viewBox="0 0 24 24" width="30" height="30" focusable="false"><path d="M12 3.5a3 3 0 1 1 0 6a3 3 0 1 1 0-6M5.5 20.5c0-4 2.9-6.5 6.5-6.5s6.5 2.5 6.5 6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><p class="d-mw"></p></div><p class="d-what">Your turn starts. Your Supply refills to 4. Your Unit at Rusted Track is ready.</p><p class="d-why">First, the top Frontier card is revealed. It can change your plan.</p></div>
       </div>
+      <p class="d-go-wrap"><button type="button" class="d-go" id="d-go">Click: Play your Unit</button></p>
       <div class="d-front" id="d-front" hidden>
         <div class="d-storm"><p class="d-deck">Frontier</p><svg viewBox="0 0 48 48" width="36" height="36" aria-hidden="true" focusable="false"><path d="M6 16h22a5 5 0 1 0-5-5M6 24h30a5 5 0 1 1-5 5M6 32h16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg><p class="d-sname">Wall of Wind</p></div>
         <p class="d-stext">The Frontier Deck turns up something every turn, and both players must deal with it.</p>
       </div>
-      <p class="d-go-wrap"><button type="button" class="d-go" id="d-go">Click: Play your Unit</button></p>
       <p class="d-more" id="d-more" hidden>Liked it? <a href="#signup">Get email news</a> or <a href="#call-playtest">help us playtest</a>.</p>
       <p class="d-acts"><button type="button" class="d-act" id="d-reset">Start over</button> <button type="button" class="d-act" id="d-other">Try another example</button></p>
       <p class="d-keys">Tab and Enter work too.</p>
@@ -612,8 +617,9 @@
   <p class="made">Human made. AI assisted.</p>
   <p><span class="nw">Dustbanners&trade; &middot; &copy; 2026 AminalHungy</span> <span class="nw">&middot; <a href="privacy.html">Privacy</a></span></p>
 </footer>
-<script src="js/try-turn.js?v=r46"></script>
-<script src="js/try-advanced.js?v=r46"></script>
-<script src="js/site.js?v=r46"></script>
+<script src="js/try-turn.js?v=r47b"></script>
+<script src="js/try-advanced.js?v=r47b"></script>
+<script src="js/site.js?v=r47b"></script>
+<script src="js/cards.js?v=r47b"></script>
 </body>
 </html>

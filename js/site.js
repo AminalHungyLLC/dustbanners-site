@@ -1,5 +1,6 @@
 /* Dustbanners site r43: the two switches (Light/Dark, Motion), the card faction switch, the phone menu, and notes and bills that settle in once.
-   Same storage keys as the live site, so a visitor's earlier choices carry over. No outside scripts. */
+   Same storage keys as the live site, so a visitor's earlier choices carry over. No outside scripts.
+   r47: the saved choices are put back by js/prefs.js in <head>; the faction switch also sits below the cards; whenSettled (window.DBN). */
 (function () {
   var root = document.documentElement;
   function $(id) { return document.getElementById(id); }
@@ -7,15 +8,23 @@
 
   // Card faction switch (r43, Kyle 2026-11-22: a Raider switch): the cards section shows one Banner at a time, Wardens first. Without script both
   // lists show and the switch stays hidden. Nothing is stored.
-  var sets = [].slice.call(document.querySelectorAll(".card-set[data-faction]")), picks = [].slice.call(document.querySelectorAll(".f-pick"));
+  // r47 (UX review r46, M1): the same two buttons repeat below the card list (.f-pick-end), so nobody has to scroll back up to switch.
+  // A press on the lower switch brings the top of the card section back into view when it is above the screen.
+  var sets = [].slice.call(document.querySelectorAll(".card-set[data-faction]")), picks = [].slice.call(document.querySelectorAll(".f-pick, .f-pick-end"));
   function showFaction(f) {
-    sets.forEach(function (s) { s.hidden = s.getAttribute("data-faction") !== f; });
+    sets.forEach(function (s) {
+      s.hidden = s.getAttribute("data-faction") !== f;
+      var row = s.querySelector(".card-grid"); if (row) row.scrollLeft = 0;
+    });
     picks.forEach(function (p) { p.setAttribute("aria-pressed", p.getAttribute("data-faction") === f ? "true" : "false"); });
   }
   if (sets.length && picks.length) {
-    picks.forEach(function (p) { p.addEventListener("click", function () { showFaction(p.getAttribute("data-faction")); }); });
-    var sw = document.querySelector(".f-switch");
-    if (sw) sw.hidden = false;
+    picks.forEach(function (p) { p.addEventListener("click", function () {
+      showFaction(p.getAttribute("data-faction"));
+      var top = document.querySelector(".f-switch");
+      if (p.classList.contains("f-pick-end") && top && top.getBoundingClientRect().top < 0) top.scrollIntoView({ block: "start" });
+    }); });
+    [].slice.call(document.querySelectorAll(".f-switch")).forEach(function (sw) { sw.hidden = false; });
     showFaction("wardens");
   }
 
@@ -80,6 +89,45 @@
   } else {
     settle.forEach(function (n) { n.classList.add("in"); });
   }
+
+  // r47: whenSettled (UX review r46, "When scroll-triggered motion starts"; Kyle: let people get the whole picture on the screen, THEN
+  // animate). A scroll-started motion plays only when the WHOLE element is on screen (or, if it is taller than the screen, fills 90% of
+  // it) and no scrolling at all (page or a sideways card row) has happened for 1 second. If it leaves the screen first, it waits for the
+  // next time. It never starts while something else is arriving (quietAt). With motion off (switch or device setting) it calls
+  // play(false): the caller shows the end state at once. Used by cards.js (cards blow in) and try-turn.js (the Frontier card).
+  var waiting = [];
+  function armSettle(t) { clearTimeout(t.timer); if (t.inView && !t.done) t.timer = setTimeout(function () { fireSettle(t); }, 1000); }
+  function fireSettle(t) {
+    if (!t.inView || t.done) return;
+    if (Date.now() < quietAt) { t.timer = setTimeout(function () { fireSettle(t); }, 400); return; }
+    t.done = true;
+    if (sio) sio.unobserve(t.el);
+    waiting.splice(waiting.indexOf(t), 1);
+    t.play(root.classList.contains("anim"));
+  }
+  var sio = "IntersectionObserver" in window ? new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      var t = e.target._settle; if (!t) return;
+      var h = window.innerHeight || root.clientHeight;
+      t.inView = e.isIntersecting && (e.intersectionRatio >= 0.99 || (e.boundingClientRect.height > h && e.intersectionRect.height >= 0.9 * h));
+      armSettle(t);
+    });
+  }, { threshold: [0, 0.5, 0.9, 0.99, 1] }) : null;
+  window.addEventListener("scroll", function () { waiting.forEach(armSettle); }, { passive: true, capture: true });
+  window.DBN = {
+    whenSettled: function (el, play) {
+      var t = { el: el, play: play, inView: false, done: false, timer: 0 };
+      if (!sio) { t.done = true; play(false); return { cancel: function () {} }; }
+      el._settle = t; waiting.push(t); sio.observe(el);
+      return { cancel: function () {
+        if (t.done) return;
+        t.done = true; clearTimeout(t.timer); sio.unobserve(el);
+        var i = waiting.indexOf(t); if (i >= 0) waiting.splice(i, 1);
+      } };
+    },
+    hold: function (ms) { quietAt = Math.max(quietAt, Date.now() + ms); },  // a phone tag never swings while a card blows in
+    anim: function () { return root.classList.contains("anim"); }
+  };
 
   // Phone tags (r41l). Kyle: "what if the tiny posted note with the nail was small, but it wiggled so people can tap it".
   // r42 (Kyle, 2026-11-18: "I kind of wish the things on the small pin tags just kind of wiggled every few seconds rather than once"):
