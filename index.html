@@ -24,7 +24,6 @@
 <link rel="preload" href="fonts/GentiumBookPlus-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/site.css">
 <script>try { var r = document.documentElement;
-  if (localStorage.getItem("dustbanners-ai-art") === "off") r.classList.add("art-off");
   var t = localStorage.getItem("dustbanners-theme"); if (t === "light" || t === "dark") r.classList.add("theme-" + t);
   if (localStorage.getItem("dustbanners-motion") === "off") r.classList.add("motion-off");
 } catch (e) {}</script>
@@ -44,7 +43,6 @@
       <li><a href="#join">Join Us</a></li>
     </ul></nav>
     <div class="switches">
-      <button type="button" class="tool" id="art-toggle">AI art: Off</button>
       <button type="button" class="tool" id="theme-toggle">Dark mode</button>
       <button type="button" class="tool" id="motion-toggle">Motion: On</button>
     </div>
@@ -152,58 +150,203 @@
       <p class="small">Those games belong to their makers. Dustbanners is not connected to any of them.</p>
     </div>
     <h3 id="cards">The cards</h3>
-    <p>Every card in the first box is one of these eight kinds. Here is one of each, with its real rules text. The names are
-    plain stand-ins for now. The final art will come from human artists.</p>
+    <p>Every card in the first box is one of these nine kinds. Pick a Banner to see one of each kind, with its real rules text. The names are
+    plain stand-ins for now. The pictures are my own photos, and a plain box means that card has no photo yet. The final art will come
+    from human artists.</p>
+    <div class="d-mode f-switch" role="group" aria-label="Show the cards of one Banner" hidden>
+      <button type="button" class="d-act f-pick" data-faction="wardens" aria-pressed="true">Wardens</button>
+      <button type="button" class="d-act f-pick" data-faction="raiders" aria-pressed="false">Raiders</button>
+    </div>
+    <div class="card-set" data-faction="wardens" role="group" aria-label="Wardens cards">
     <ul class="card-grid">
       <li>
         <h3>Leader</h3>
-        <img class="ai-art" src="img/card-leader.webp" width="480" height="672" loading="lazy" alt="A Leader card named Warden Leader. Health 12. Its rules say: [1/Opp Turn] The first time a Unit or Companion you control would take damage, you may pay 1 Supply: prevent 1 damage. [1/Opp Turn] After your Unit Guards, prevents damage, or survives combat while defending, give one of your ready Units +1 Attack through your next turn. This bonus cannot stack with itself on one Unit. Placeholder art (AI-made).">
-        <img class="free-art" src="img/card-leader-photo-r41o.webp" width="480" height="672" loading="lazy" alt="A Leader card named Warden Leader. Health 12. Its rules say: [1/Opp Turn] The first time a Unit or Companion you control would take damage, you may pay 1 Supply: prevent 1 damage. [1/Opp Turn] After your Unit Guards, prevents damage, or survives combat while defending, give one of your ready Units +1 Attack through your next turn. This bonus cannot stack with itself on one Unit. Photo by Kyle (stand-in art): a wooded hill with a thin tower on top, above gray water.">
+        <article class="gc fac-w" aria-label="Warden Leader, Leader">
+          <div class="gc-top"><p class="gc-name">Warden Leader</p></div>
+          <p class="gc-line"><span class="gc-fac"><svg class="gc-ic" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14V2M4 3h8l-2 3 2 3H4"/></svg>Wardens</span><span>Leader</span></p>
+          <figure class="gc-art"><img src="img/card-photo-w-leader.webp" width="480" height="553" loading="lazy" alt="Photo by Kyle (stand-in art): a wooded hill with a thin tower on top, above gray water."></figure>
+          <div class="gc-rules"><p>[1/Opp Turn] The first time a Unit or Companion you control would take damage, you may pay 1 Supply: prevent 1 damage. [1/Opp Turn] After your Unit Guards, prevents damage, or survives combat while defending, give one of your ready Units +1 Attack through your next turn. This bonus cannot stack with itself on one Unit.</p></div>
+          <ul class="gc-stats" aria-label="Stats"><li><b>12</b><span>Health</span></li></ul>
+        </article>
         <p>Your Leader leads your Banner. If your Leader is defeated, you lose.</p>
       </li>
       <li>
         <h3>Companion</h3>
-        <img class="ai-art" src="img/card-companion.webp" width="480" height="672" loading="lazy" alt="A Companion card named Guard Pig. ATK 1, RET 3, Health 6. Its rules say: Guard Pig may Guard a Unit, Companion, or your Leader at Guard Pig&#x27;s Location. [1/Opp Turn] After combat ends, if Guard Pig Guarded and remains in play, ready one other Unit you control at that Location. Placeholder art (AI-made).">
-        <img class="free-art" src="img/card-companion-photo-r41o.webp" width="480" height="672" loading="lazy" alt="A Companion card named Guard Pig. ATK 1, RET 3, Health 6. Its rules say: Guard Pig may Guard a Unit, Companion, or your Leader at Guard Pig&#x27;s Location. [1/Opp Turn] After combat ends, if Guard Pig Guarded and remains in play, ready one other Unit you control at that Location. Photo by Kyle (stand-in art): a bare field below a line of trees and a blue summer sky.">
+        <article class="gc fac-w" aria-label="Guard Pig, Companion">
+          <div class="gc-top"><p class="gc-name">Guard Pig</p></div>
+          <p class="gc-line"><span class="gc-fac"><svg class="gc-ic" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14V2M4 3h8l-2 3 2 3H4"/></svg>Wardens</span><span>Companion</span></p>
+          <figure class="gc-art"><img src="img/card-photo-w-companion.webp" width="480" height="553" loading="lazy" alt="Photo by Kyle (stand-in art): a bare field below a line of trees and a blue summer sky."></figure>
+          <div class="gc-rules"><p>Guard Pig may Guard. [1/Opp Turn] After combat ends, if Guard Pig Guarded and remains in play, ready one other Unit you control there.</p></div>
+          <ul class="gc-stats" aria-label="Stats"><li><b>1</b><span>ATK</span></li><li><b>3</b><span>RET</span></li><li><b>6</b><span>Health</span></li></ul>
+        </article>
         <p>A Companion is an animal or a person who fights beside your Leader. If it is defeated, you can bring it back.</p>
       </li>
       <li>
         <h3>Unit</h3>
-        <img class="ai-art" src="img/card-unit.webp" width="480" height="672" loading="lazy" alt="A Unit card named Warden Healer. Cost 2. ATK 1, RET 2, Health 3. Its rules say: Once each turn after a Unit or Companion is dealt damage and remains in play, you may exhaust Warden Healer to Restore 1 damage from it. Placeholder art (AI-made).">
-        <img class="free-art" src="img/card-unit-photo-r41o.webp" width="480" height="672" loading="lazy" alt="A Unit card named Warden Healer. Cost 2. ATK 1, RET 2, Health 3. Its rules say: Once each turn after a Unit or Companion is dealt damage and remains in play, you may exhaust Warden Healer to Restore 1 damage from it. Photo by Kyle (stand-in art): a camp fire burning in a ring of stones in a forest clearing.">
+        <article class="gc fac-w" aria-label="Warden Healer, Unit">
+          <div class="gc-top"><p class="gc-name">Warden Healer</p><span class="gc-cost"><span class="vh">Cost </span>2</span></div>
+          <p class="gc-line"><span class="gc-fac"><svg class="gc-ic" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14V2M4 3h8l-2 3 2 3H4"/></svg>Wardens</span><span>Unit</span></p>
+          <figure class="gc-art"><img src="img/card-photo-w-unit.webp" width="480" height="553" loading="lazy" alt="Photo by Kyle (stand-in art): a camp fire burning in a ring of stones in a forest clearing."></figure>
+          <div class="gc-rules"><p>Once each turn after a Companion you control is dealt damage and remains in play, you may exhaust Warden Healer to Restore 1 damage from it.</p></div>
+          <ul class="gc-stats" aria-label="Stats"><li><b>1</b><span>ATK</span></li><li><b>2</b><span>RET</span></li><li><b>3</b><span>Health</span></li></ul>
+        </article>
         <p>Units are your Banner&rsquo;s people. They move, attack, defend and <strong>Capture</strong> places.</p>
       </li>
       <li>
         <h3>Tactic</h3>
-        <img class="ai-art" src="img/card-tactic.webp" width="480" height="672" loading="lazy" alt="A Tactic card named Fall Back. Cost 1. Its rules say: After attackers are declared, move one damaged Unit or Companion you control to an adjacent Location you control. Prevent the next 1 damage that would be dealt to it this turn. Placeholder art (AI-made).">
-        <img class="free-art" src="img/card-tactic-photo.webp" width="480" height="672" loading="lazy" alt="A Tactic card named Fall Back. Cost 1. Its rules say: After attackers are declared, move one damaged Unit or Companion you control to an adjacent Location you control. Prevent the next 1 damage that would be dealt to it this turn. Photo by Kyle (stand-in art): a dark blue banner against an orange sunset sky.">
+        <article class="gc fac-w" aria-label="Fall Back, Tactic">
+          <div class="gc-top"><p class="gc-name">Fall Back</p><span class="gc-cost"><span class="vh">Cost </span>1</span></div>
+          <p class="gc-line"><span class="gc-fac"><svg class="gc-ic" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14V2M4 3h8l-2 3 2 3H4"/></svg>Wardens</span><span>Tactic</span></p>
+          <figure class="gc-art"><img src="img/card-photo-w-tactic.webp" width="480" height="553" loading="lazy" alt="Photo by Kyle (stand-in art): a dark blue banner against an orange sunset sky."></figure>
+          <div class="gc-rules"><p>After attackers are declared, move one damaged Unit or Companion you control to an adjacent Location you control. Prevent the next 1 damage that would be dealt to it this turn.</p></div>
+          
+        </article>
         <p>A Tactic is a one-time action. Do what it says, then put it in your discard pile, the Ditch.</p>
       </li>
       <li>
         <h3>Equipment</h3>
-        <img class="ai-art" src="img/card-equipment.webp" width="480" height="672" loading="lazy" alt="An Equipment card named Warden Shield. Cost 2. DUR 3. Its rules say: The attached Unit may Guard. While Guarding, prevent the first 1 combat damage dealt to it each turn. Placeholder art (AI-made).">
-        <img class="free-art" src="img/card-equipment-photo.webp" width="480" height="672" loading="lazy" alt="An Equipment card named Warden Shield. Cost 2. DUR 3. Its rules say: The attached Unit may Guard. While Guarding, prevent the first 1 combat damage dealt to it each turn. Photo by Kyle (stand-in art): a dark blue banner in the brush below a sunlit hill.">
+        <article class="gc fac-w" aria-label="Warden Shield, Equipment">
+          <div class="gc-top"><p class="gc-name">Warden Shield</p><span class="gc-cost"><span class="vh">Cost </span>2</span></div>
+          <p class="gc-line"><span class="gc-fac"><svg class="gc-ic" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14V2M4 3h8l-2 3 2 3H4"/></svg>Wardens</span><span>Equipment</span></p>
+          <figure class="gc-art"><img src="img/card-photo-w-equipment.webp" width="480" height="553" loading="lazy" alt="Photo by Kyle (stand-in art): a dark blue banner in the brush below a sunlit hill."></figure>
+          <div class="gc-rules"><p>The attached Unit may Guard. While Guarding, prevent the first 1 combat damage dealt to it each turn.</p></div>
+          <ul class="gc-stats" aria-label="Stats"><li><b>3</b><span>DUR</span></li></ul>
+        </article>
         <p>Equipment is gear. It goes on a card it names, or it sits at a place you control.</p>
       </li>
       <li>
         <h3>Structure</h3>
-        <img class="ai-art" src="img/card-structure.webp" width="480" height="672" loading="lazy" alt="A Structure card named Field Clinic. Cost 3. DUR 4. Its rules say: [1/Turn: After Combat] After combat ends at this Location during your turn, you may pay 1 Supply. Restore 1 damage from one surviving Unit or Companion you control there. Placeholder art (AI-made).">
-        <img class="free-art" src="img/card-structure-photo.webp" width="480" height="672" loading="lazy" alt="A Structure card named Field Clinic. Cost 3. DUR 4. Its rules say: [1/Turn: After Combat] After combat ends at this Location during your turn, you may pay 1 Supply. Restore 1 damage from one surviving Unit or Companion you control there. Photo by Kyle (stand-in art): sheds and rail cars at the foot of a green hill.">
+        <article class="gc fac-w" aria-label="Field Clinic, Structure">
+          <div class="gc-top"><p class="gc-name">Field Clinic</p><span class="gc-cost"><span class="vh">Cost </span>3</span></div>
+          <p class="gc-line"><span class="gc-fac"><svg class="gc-ic" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14V2M4 3h8l-2 3 2 3H4"/></svg>Wardens</span><span>Structure</span></p>
+          <figure class="gc-art"><img src="img/card-photo-w-structure.webp" width="480" height="553" loading="lazy" alt="Photo by Kyle (stand-in art): sheds and rail cars at the foot of a green hill."></figure>
+          <div class="gc-rules"><p>[1/Turn: After Combat] After combat ends at this Location during your turn, you may pay 1 Supply. Restore 1 damage from a surviving Companion you control there.</p></div>
+          <ul class="gc-stats" aria-label="Stats"><li><b>4</b><span>DUR</span></li></ul>
+        </article>
         <p>A Structure is something you build at a place you control.</p>
       </li>
       <li>
+        <h3>Vehicle</h3>
+        <article class="gc fac-w" aria-label="Warden Truck, Vehicle">
+          <div class="gc-top"><p class="gc-name">Warden Truck</p><span class="gc-cost"><span class="vh">Cost </span>3</span></div>
+          <p class="gc-line"><span class="gc-fac"><svg class="gc-ic" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14V2M4 3h8l-2 3 2 3H4"/></svg>Wardens</span><span>Vehicle</span></p>
+          <figure class="gc-art"><div class="gc-ph">Placeholder: no photo yet</div></figure>
+          <div class="gc-rules"><p>Capacity 2. Warden Truck can be driven only to a Location you control. The first time each turn it carries one or more Units or Companions there, choose one of them. It stays ready, but it cannot attack this turn.</p></div>
+          <ul class="gc-stats" aria-label="Stats"><li><b>4</b><span>DUR</span></li><li><b>2</b><span>CAP</span></li></ul>
+        </article>
+        <p>A Vehicle is a ride. It sits at a place you control. A Unit drives it, and it can carry your other ready Units, your Companions or your Leader, up to its Capacity. It is not Equipment.</p>
+      </li>
+    </ul>
+    </div>
+    <div class="card-set" data-faction="raiders" role="group" aria-label="Raiders cards">
+    <ul class="card-grid">
+      <li>
+        <h3>Leader</h3>
+        <article class="gc fac-r" aria-label="Raider Leader, Leader">
+          <div class="gc-top"><p class="gc-name">Raider Leader</p></div>
+          <p class="gc-line"><span class="gc-fac"><svg class="gc-ic" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14V2M4 3h8l-2 3 2 3H4"/></svg>Raiders</span><span>Leader</span></p>
+          <figure class="gc-art"><div class="gc-ph">Placeholder: no photo yet</div></figure>
+          <div class="gc-rules"><p>[1/Turn] The first time your Units deal combat damage to an opposing Leader, Generate 1 Supply this turn. [1/Turn] When you declare an attack against a damaged, Isolated, or undefended legal target, you may pay 1 Supply to give one attacking Unit Overrun this combat.</p></div>
+          <ul class="gc-stats" aria-label="Stats"><li><b>12</b><span>Health</span></li></ul>
+        </article>
+        <p>Your Leader leads your Banner. If your Leader is defeated, you lose.</p>
+      </li>
+      <li>
+        <h3>Companion</h3>
+        <article class="gc fac-r" aria-label="Scrap Boar, Companion">
+          <div class="gc-top"><p class="gc-name">Scrap Boar</p></div>
+          <p class="gc-line"><span class="gc-fac"><svg class="gc-ic" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14V2M4 3h8l-2 3 2 3H4"/></svg>Raiders</span><span>Companion</span></p>
+          <figure class="gc-art"><div class="gc-ph">Placeholder: no photo yet</div></figure>
+          <div class="gc-rules"><p>[1/Turn] After Scrap Boar enters a contested or opponent-controlled Location, you may deal 1 damage to Scrap Boar. If Scrap Boar remains in play, ready it. If it readies this way, choose one opposing Unit or Companion there; it gets -1 Retaliation this turn.</p></div>
+          <ul class="gc-stats" aria-label="Stats"><li><b>3</b><span>ATK</span></li><li><b>1</b><span>RET</span></li><li><b>5</b><span>Health</span></li></ul>
+        </article>
+        <p>A Companion is an animal or a person who fights beside your Leader. If it is defeated, you can bring it back.</p>
+      </li>
+      <li>
+        <h3>Unit</h3>
+        <article class="gc fac-r" aria-label="Raider Blade, Unit">
+          <div class="gc-top"><p class="gc-name">Raider Blade</p><span class="gc-cost"><span class="vh">Cost </span>2</span></div>
+          <p class="gc-line"><span class="gc-fac"><svg class="gc-ic" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14V2M4 3h8l-2 3 2 3H4"/></svg>Raiders</span><span>Unit</span></p>
+          <figure class="gc-art"><img src="img/card-photo-r-unit.webp" width="480" height="553" loading="lazy" alt="Photo by Kyle (stand-in art): a tall red sandstone cliff with a shadowed alcove and green shrubs on its ledges."></figure>
+          <div class="gc-rules"><p>Raider Blade gets +1 Attack while attacking a damaged Unit or Companion.</p></div>
+          <ul class="gc-stats" aria-label="Stats"><li><b>2</b><span>ATK</span></li><li><b>1</b><span>RET</span></li><li><b>2</b><span>Health</span></li></ul>
+        </article>
+        <p>Units are your Banner&rsquo;s people. They move, attack, defend and <strong>Capture</strong> places.</p>
+      </li>
+      <li>
+        <h3>Tactic</h3>
+        <article class="gc fac-r" aria-label="Quick Hit, Tactic">
+          <div class="gc-top"><p class="gc-name">Quick Hit</p><span class="gc-cost"><span class="vh">Cost </span>1</span></div>
+          <p class="gc-line"><span class="gc-fac"><svg class="gc-ic" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14V2M4 3h8l-2 3 2 3H4"/></svg>Raiders</span><span>Tactic</span></p>
+          <figure class="gc-art"><div class="gc-ph">Placeholder: no photo yet</div></figure>
+          <div class="gc-rules"><p>After one of your attacking Units deals combat damage, move it to one adjacent legal Location. This movement cannot trigger another Quick Hit effect this turn.</p></div>
+          
+        </article>
+        <p>A Tactic is a one-time action. Do what it says, then put it in your discard pile, the Ditch.</p>
+      </li>
+      <li>
+        <h3>Equipment</h3>
+        <article class="gc fac-r" aria-label="Rough Knife, Equipment">
+          <div class="gc-top"><p class="gc-name">Rough Knife</p><span class="gc-cost"><span class="vh">Cost </span>1</span></div>
+          <p class="gc-line"><span class="gc-fac"><svg class="gc-ic" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14V2M4 3h8l-2 3 2 3H4"/></svg>Raiders</span><span>Equipment</span></p>
+          <figure class="gc-art"><div class="gc-ph">Placeholder: no photo yet</div></figure>
+          <div class="gc-rules"><p>The attached Unit gets +1 Attack while attacking a damaged or Isolated target.</p></div>
+          <ul class="gc-stats" aria-label="Stats"><li><b>2</b><span>DUR</span></li></ul>
+        </article>
+        <p>Equipment is gear. It goes on a card it names, or it sits at a place you control.</p>
+      </li>
+      <li>
+        <h3>Structure</h3>
+        <article class="gc fac-r" aria-label="Stash House, Structure">
+          <div class="gc-top"><p class="gc-name">Stash House</p><span class="gc-cost"><span class="vh">Cost </span>2</span></div>
+          <p class="gc-line"><span class="gc-fac"><svg class="gc-ic" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14V2M4 3h8l-2 3 2 3H4"/></svg>Raiders</span><span>Structure</span></p>
+          <figure class="gc-art"><img src="img/card-photo-r-structure.webp" width="480" height="553" loading="lazy" alt="Photo by Kyle (stand-in art): a rocky gap in sandy cliffs that opens onto a green valley and snow-capped peaks under a blue sky."></figure>
+          <div class="gc-rules"><p>[1/Turn] After a Raider Unit you control leaves a contested Location without Capturing it, look at the top two cards of your Faction Deck. Put one into your hand and the other on the bottom of your Faction Deck.</p></div>
+          <ul class="gc-stats" aria-label="Stats"><li><b>3</b><span>DUR</span></li></ul>
+        </article>
+        <p>A Structure is something you build at a place you control.</p>
+      </li>
+      <li>
+        <h3>Vehicle</h3>
+        <article class="gc fac-r" aria-label="Raider Bike, Vehicle">
+          <div class="gc-top"><p class="gc-name">Raider Bike</p><span class="gc-cost"><span class="vh">Cost </span>2</span></div>
+          <p class="gc-line"><span class="gc-fac"><svg class="gc-ic" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14V2M4 3h8l-2 3 2 3H4"/></svg>Raiders</span><span>Vehicle</span></p>
+          <figure class="gc-art"><div class="gc-ph">Placeholder: no photo yet</div></figure>
+          <div class="gc-rules"><p>Capacity 1. The first time each turn it carries its driver into a contested or opponent-controlled Location, that Unit gets +1 Attack until the end of your next turn.</p></div>
+          <ul class="gc-stats" aria-label="Stats"><li><b>3</b><span>DUR</span></li><li><b>1</b><span>CAP</span></li></ul>
+        </article>
+        <p>A Vehicle is a ride. It sits at a place you control. A Unit drives it, and it can carry your other ready Units, your Companions or your Leader, up to its Capacity. It is not Equipment.</p>
+      </li>
+    </ul>
+    </div>
+    <div class="card-set card-shared" role="group" aria-label="Cards both Banners share">
+    <p class="small">Both Banners share these two: the places on the map and the Frontier Deck.</p>
+    <ul class="card-grid">
+      <li>
         <h3>Battlefield Location</h3>
-        <img class="ai-art" src="img/card-location.webp" width="480" height="672" loading="lazy" alt="A Battlefield Location card named Mountain Road. DUR 4. Its rules say: Capture Reward - When a player Captures Mountain Road, that player draws 1 card, then discards 1 card. Routes: the West Yard; the Upper Junction. Placeholder art (AI-made).">
-        <img class="free-art" src="img/card-location-photo.webp" width="480" height="672" loading="lazy" alt="A Battlefield Location card named Mountain Road. DUR 4. Its rules say: Capture Reward - When a player Captures Mountain Road, that player draws 1 card, then discards 1 card. Routes: the West Yard; the Upper Junction. Photo by Kyle (stand-in art): a paved road that leads into the mountains.">
+        <article class="gc fac-n" aria-label="Mountain Road, Battlefield Location">
+          <div class="gc-top"><p class="gc-name">Mountain Road</p></div>
+          <p class="gc-line"><span class="gc-fac">Shared</span><span>Battlefield Location</span></p>
+          <figure class="gc-art"><img src="img/card-photo-location.webp" width="480" height="553" loading="lazy" alt="Photo by Kyle (stand-in art): a paved road that leads into the mountains."></figure>
+          <div class="gc-rules"><p>Capture Reward - When a player Captures Mountain Road, that player draws 1 card, then discards 1 card. Routes: the West Yard; the Upper Junction.</p></div>
+          <ul class="gc-stats" aria-label="Stats"><li><b>4</b><span>DUR</span></li></ul>
+        </article>
         <p>A Location is one of the nine places on the map.</p>
       </li>
       <li>
         <h3>Frontier card</h3>
-        <img class="ai-art" src="img/card-frontier.webp" width="480" height="672" loading="lazy" alt="A Frontier card named Hidden Supplies. Its rules say: Resolve - Each player Generates 1 Supply this turn. The reveal controller Generates 1 additional Supply. Placeholder art (AI-made).">
-        <img class="free-art" src="img/card-frontier-photo.webp" width="480" height="672" loading="lazy" alt="A Frontier card named Hidden Supplies. Its rules say: Resolve - Each player Generates 1 Supply this turn. The reveal controller Generates 1 additional Supply. Photo by Kyle (stand-in art): a rocky, snowy mountaintop high above a valley.">
+        <article class="gc fac-n" aria-label="Hidden Supplies, Frontier card">
+          <div class="gc-top"><p class="gc-name">Hidden Supplies</p></div>
+          <p class="gc-line"><span class="gc-fac">Shared</span><span>Frontier card</span></p>
+          <figure class="gc-art"><img src="img/card-photo-frontier.webp" width="480" height="553" loading="lazy" alt="Photo by Kyle (stand-in art): a rocky, snowy mountaintop high above a valley."></figure>
+          <div class="gc-rules"><p>Resolve - Each player Generates 1 Supply this turn. The reveal controller Generates 1 additional Supply.</p></div>
+          
+        </article>
         <p>Frontier cards come from the shared Frontier Deck.</p>
       </li>
     </ul>
+    </div>
+    <p class="small">On a card: the number in the circle is its cost in Supply. ATK is Attack, RET is Retaliation, DUR is Durability and CAP is Capacity.</p>
   </div>
   <div class="margin">
     <div class="scrap" role="note">
@@ -422,11 +565,9 @@
       editor.</strong></p>
       <p>I use AI tools to help make Dustbanners. The world, the rules and every final decision are mine. AI tools helped build and
       test the digital version of the game, run its balance simulations, and draft some of the text, which I edit and approve. A
-      paid human editor will do the final pass on every word players see. This site starts with AI art off, so the card
-      pictures you see first are my own photos. I adjusted them with simple editing scripts. No AI image generator made or changed them. If
-      you switch AI art on, the cards show AI-made placeholder art instead, and each picture&rsquo;s description says it is
-      AI-made. The final card art, box art, card backs and logo
-      will be made by paid human artists. AI art is used only for our own placeholders.</p>
+      paid human editor will do the final pass on every word players see. The card pictures on this site are my own photos. I adjusted them with simple editing scripts. No AI image generator made or
+      changed them. Where a card has no photo yet, you see a plain labeled box. The final card art, box art, card backs and logo
+      will be made by paid human artists.</p>
       <p>Are you an artist? <a href="draw.html">Sign up to draw for Dustbanners</a>. It will be paid work once the game is funded.</p>
     </div>
     <div class="tag-note">

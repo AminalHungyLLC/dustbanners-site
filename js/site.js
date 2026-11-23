@@ -1,23 +1,23 @@
-/* Dustbanners site r41: the three switches (AI art, Light/Dark, Motion), the phone menu, and notes and bills that settle in once.
+/* Dustbanners site r43: the two switches (Light/Dark, Motion), the card faction switch, the phone menu, and notes and bills that settle in once.
    Same storage keys as the live site, so a visitor's earlier choices carry over. No outside scripts. */
 (function () {
   var root = document.documentElement;
   function $(id) { return document.getElementById(id); }
   function store(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
 
-  // AI art switch (Kyle 2026-10-14): hides every AI-made placeholder picture and shows its twin. Since r41l it starts Off:
-  // the twin cards show unless this visitor chose "on" before (Kyle, Tent site-human-made-line-01). Same storage key as before.
-  // Since r41m the twins carry Kyle's own adjusted photos, not an empty art box (Kyle, 2026-11-17: "For AI Art Off, can you replace it with my photos?").
-  var abtn = $("art-toggle");
-  try { if (localStorage.getItem("dustbanners-ai-art") === "on") root.classList.add("art-on"); } catch (e) {}
-  function showArt() { if (abtn) abtn.textContent = root.classList.contains("art-on") ? "AI art: On" : "AI art: Off"; }
-  if (abtn) abtn.addEventListener("click", function () {
-    root.classList.toggle("art-on");
-    root.classList.remove("art-off");
-    store("dustbanners-ai-art", root.classList.contains("art-on") ? "on" : "off");
-    showArt();
-  });
-  showArt();
+  // Card faction switch (r43, Kyle 2026-11-22: a Raider switch): the cards section shows one Banner at a time, Wardens first. Without script both
+  // lists show and the switch stays hidden. Nothing is stored.
+  var sets = [].slice.call(document.querySelectorAll(".card-set[data-faction]")), picks = [].slice.call(document.querySelectorAll(".f-pick"));
+  function showFaction(f) {
+    sets.forEach(function (s) { s.hidden = s.getAttribute("data-faction") !== f; });
+    picks.forEach(function (p) { p.setAttribute("aria-pressed", p.getAttribute("data-faction") === f ? "true" : "false"); });
+  }
+  if (sets.length && picks.length) {
+    picks.forEach(function (p) { p.addEventListener("click", function () { showFaction(p.getAttribute("data-faction")); }); });
+    var sw = document.querySelector(".f-switch");
+    if (sw) sw.hidden = false;
+    showFaction("wardens");
+  }
 
   // Light/Dark switch: starts from the device setting; a click picks the other look and remembers it on this device.
   var tbtn = $("theme-toggle"), dark = window.matchMedia("(prefers-color-scheme: dark)");

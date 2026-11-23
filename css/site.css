@@ -280,19 +280,39 @@ details.lead summary { cursor: pointer; font-style: normal; min-height: 32px; }
   .margin { margin-top: 40px; }
 }
 
-/* ---------- The cards (kept as on the live site until 0.6 seals) ---------- */
-/* r41l: AI art is off unless the visitor switches it on (Kyle, Tent site-human-made-line-01: art-free cards by default). r41m: those cards now carry Kyle's adjusted photos. */
-html:not(.art-on) .ai-art { display: none !important; }
-.free-art { display: block; }
-html.art-on .free-art { display: none; }
-.card-grid { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); }
-.card-grid li { background: var(--panel); border: 1px solid var(--line); padding: 14px; }
-.card-grid img { display: block; width: 100%; max-width: 360px; height: auto; margin: 0 auto 12px; }
-.card-grid img.free-art { display: block; }
-html.art-on .card-grid img.free-art { display: none; }
+/* ---------- The cards (r43, Kyle 2026-11-22) ----------
+   Cards are drawn in the page: real text, Kyle's own photos in the art box, no card pictures with words baked in, no switched art.
+   A Wardens / Raiders switch shows one Banner's cards at a time (script adds it; without script both lists show). */
+.card-set[hidden], .f-switch[hidden] { display: none !important; }
+.f-switch { margin: 12px 0 4px; }
+.card-shared { margin-top: 26px; }
+.card-grid { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+.card-grid > li { background: var(--panel); border: 1px solid var(--line); padding: 14px; }
 .card-grid h3 { margin: 0 0 10px; font-size: 18px; text-align: center; text-transform: uppercase; }
-.card-grid p { margin: 0; font-size: 17px; }
-.card-grid p.pic-note { margin: -4px 0 12px; font-size: 14px; text-align: center; }
+.card-grid > li > p { margin: 0; font-size: 17px; }
+.vh { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* The card. It stays light in the dark look, like a printed card. */
+.gc { --gc-bg: #e4e2ec; --gc-edge: #3b2f78; --gc-ink: #1b1a22; --gc-sub: #3d3a4a; --gc-line: #8d8aa0;
+  display: flex; flex-direction: column; gap: 8px; max-width: 360px; margin: 0 auto 12px; padding: 12px; background: var(--gc-bg); color: var(--gc-ink);
+  border: 1px solid var(--gc-line); border-left: 14px solid var(--gc-edge); border-radius: 10px; }
+.gc.fac-r { --gc-bg: #eee4dd; --gc-edge: #8f2d1e; --gc-sub: #4a3a34; --gc-line: #a58f84; }
+.gc.fac-n { --gc-bg: #e7e4da; --gc-edge: #4f4a40; --gc-sub: #3f3b32; --gc-line: #9b9686; }
+.gc-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+.gc .gc-name { margin: 0; font-size: 20px; font-weight: bold; line-height: 1.15; color: var(--gc-ink); }
+.gc-cost { flex: none; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--gc-edge); color: #fff; font-size: 17px; font-weight: bold; }
+.gc .gc-line { margin: 0; display: flex; justify-content: space-between; gap: 8px; padding-bottom: 3px; border-bottom: 2px solid var(--gc-edge); font-size: 15px; font-weight: bold; color: var(--gc-sub); }
+.gc-fac { display: inline-flex; align-items: center; gap: 5px; }
+.gc-ic { flex: none; }
+.gc-art { margin: 0; border: 1px solid rgba(0, 0, 0, .4); background: #cfcbc0; }
+.card-grid .gc-art img { display: block; width: 100%; height: auto; max-width: none; margin: 0; }
+.gc-ph { display: grid; place-items: center; aspect-ratio: 480 / 553; padding: 10px; text-align: center; font-size: 15px; font-weight: bold; color: #2b2820;
+  background: repeating-linear-gradient(45deg, #d9d6cc, #d9d6cc 10px, #cdc9bd 10px, #cdc9bd 20px); }
+.card-grid .gc-rules p { margin: 0; font-size: 16px; line-height: 1.35; color: var(--gc-ink); }
+.gc-stats { list-style: none; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; margin: auto 0 0; padding: 0; }
+.card-grid .gc-stats li { display: flex; flex-direction: column; align-items: center; min-width: 54px; padding: 3px 8px; background: var(--gc-edge); color: #fff; border: 0; line-height: 1.15; }
+.gc-stats b { font-size: 18px; }
+.gc-stats span { font-size: 12px; font-weight: bold; letter-spacing: .03em; }
 
 /* ---------- Try one turn (r41h): six short guided examples, a new one on each visit. Places keep one size; the message box
    sits under the map; the one button to press next sits right under it. That button is big, has its own bright color (--go,
