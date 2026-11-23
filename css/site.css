@@ -286,33 +286,50 @@ details.lead summary { cursor: pointer; font-style: normal; min-height: 32px; }
 .card-set[hidden], .f-switch[hidden] { display: none !important; }
 .f-switch { margin: 12px 0 4px; }
 .card-shared { margin-top: 26px; }
-.card-grid { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+.card-grid { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(min(270px, 100%), 1fr)); } /* r45: on screens 300 px and wider a card is at least 238 px wide, so its rules text stays at 11 px or more */
 .card-grid > li { background: var(--panel); border: 1px solid var(--line); padding: 14px; }
 .card-grid h3 { margin: 0 0 10px; font-size: 18px; text-align: center; text-transform: uppercase; }
 .card-grid > li > p { margin: 0; font-size: 17px; }
 .vh { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
-/* The card. It stays light in the dark look, like a printed card. */
+/* The card. It stays light in the dark look, like a printed card.
+   r45 (Kyle 2026-11-23: the cards were "VERY long"): every card has the printed card's shape, 2.5 x 3.5 in (5 : 7), at every width.
+   Layout follows the printed face: faction strip 4.5% at the left, name and cost bar, type line, art box from 18% to 88% of the
+   height with the rules on a solid panel and at least a third of the art box left clear, stat blocks at the bottom right. Sizes scale with the card (cqw = 1% of
+   the card's width), so every card looks the same at every width. If text ever cannot fit, the rules panel scrolls; nothing is cut off. */
 .gc { --gc-bg: #e4e2ec; --gc-edge: #3b2f78; --gc-ink: #1b1a22; --gc-sub: #3d3a4a; --gc-line: #8d8aa0;
-  display: flex; flex-direction: column; gap: 8px; max-width: 360px; margin: 0 auto 12px; padding: 12px; background: var(--gc-bg); color: var(--gc-ink);
-  border: 1px solid var(--gc-line); border-left: 14px solid var(--gc-edge); border-radius: 10px; }
+  container-type: inline-size; display: flex; flex-direction: column; width: 100%; max-width: 320px; aspect-ratio: 5 / 7; min-height: 0;
+  margin: 0 auto 12px; padding: 0; color: var(--gc-ink);
+  background: linear-gradient(90deg, var(--gc-edge) 0 4.5%, var(--gc-bg) 4.5%); border: 1px solid var(--gc-line); border-radius: 10px; }
 .gc.fac-r { --gc-bg: #eee4dd; --gc-edge: #8f2d1e; --gc-sub: #4a3a34; --gc-line: #a58f84; }
 .gc.fac-n { --gc-bg: #e7e4da; --gc-edge: #4f4a40; --gc-sub: #3f3b32; --gc-line: #9b9686; }
-.gc-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
-.gc .gc-name { margin: 0; font-size: 20px; font-weight: bold; line-height: 1.15; color: var(--gc-ink); }
-.gc-cost { flex: none; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--gc-edge); color: #fff; font-size: 17px; font-weight: bold; }
-.gc .gc-line { margin: 0; display: flex; justify-content: space-between; gap: 8px; padding-bottom: 3px; border-bottom: 2px solid var(--gc-edge); font-size: 15px; font-weight: bold; color: var(--gc-sub); }
-.gc-fac { display: inline-flex; align-items: center; gap: 5px; }
-.gc-ic { flex: none; }
-.gc-art { margin: 0; border: 1px solid rgba(0, 0, 0, .4); background: #cfcbc0; }
-.card-grid .gc-art img { display: block; width: 100%; height: auto; max-width: none; margin: 0; }
-.gc-ph { display: grid; place-items: center; aspect-ratio: 480 / 553; padding: 10px; text-align: center; font-size: 15px; font-weight: bold; color: #2b2820;
+.gc > * { flex: none; margin-left: 7.7cqw; margin-right: 4.8cqw; }
+.gc-top { display: flex; justify-content: space-between; align-items: center; gap: 2cqw; margin-top: 2.4cqw; min-height: 10.8cqw; }
+.gc .gc-name { margin: 0; font-size: 16px; font-size: max(13px, 6.6cqw); font-weight: bold; line-height: 1.1; color: var(--gc-ink); }
+.gc-cost { flex: none; display: grid; place-items: center; width: 26px; height: 26px; width: 10.8cqw; height: 10.8cqw; border-radius: 50%; background: var(--gc-edge); color: #fff;
+  font-size: 15px; font-size: max(12px, 6.1cqw); font-weight: bold; line-height: 1; }
+.gc .gc-line { display: flex; justify-content: space-between; gap: 2cqw; margin-top: 1.2cqw; margin-bottom: 0; padding-bottom: .8cqw; border-bottom: 2px solid var(--gc-edge);
+  font-size: 12px; font-size: max(11px, 5cqw); font-weight: bold; line-height: 1.2; color: var(--gc-sub); white-space: nowrap; }
+.gc-fac { display: inline-flex; align-items: center; gap: 1.2cqw; }
+.gc-ic { flex: none; width: 1em; height: 1em; }
+.gc-art { flex: 1 1 0; min-height: 32.4cqw; margin-top: 4.4cqw; margin-bottom: 0; position: relative; overflow: hidden; border: 1px solid rgba(0, 0, 0, .4); background: #cfcbc0; }
+.card-grid .gc-art img { display: block; width: 100%; height: 100%; max-width: none; margin: 0; object-fit: cover; object-position: 50% 50%; }
+.gc-ph { display: grid; place-items: center; height: 100%; padding: 2.5cqw; text-align: center; font-size: 12px; font-size: max(11px, 4.6cqw); font-weight: bold; line-height: 1.25; color: #2b2820;
   background: repeating-linear-gradient(45deg, #d9d6cc, #d9d6cc 10px, #cdc9bd 10px, #cdc9bd 20px); }
-.card-grid .gc-rules p { margin: 0; font-size: 16px; line-height: 1.35; color: var(--gc-ink); }
-.gc-stats { list-style: none; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; margin: auto 0 0; padding: 0; }
-.card-grid .gc-stats li { display: flex; flex-direction: column; align-items: center; min-width: 54px; padding: 3px 8px; background: var(--gc-edge); color: #fff; border: 0; line-height: 1.15; }
-.gc-stats b { font-size: 18px; }
-.gc-stats span { font-size: 12px; font-weight: bold; letter-spacing: .03em; }
+.gc-rules { flex: 0 1 auto; min-height: 0; overflow-y: auto; padding: 2.2cqw 2.5cqw; background: #faf8f3; border: 1px solid rgba(0, 0, 0, .4); border-top: 0; }
+.card-grid .gc-rules p { margin: 0; font-size: 12px; font-size: max(11px, 4.8cqw); line-height: 1.28; color: var(--gc-ink); }
+.card-grid .gc-rules p + p { margin-top: .35em; }
+.gc > .gc-rules:last-child { margin-bottom: 4.8cqw; }
+/* Battlefield Location and Frontier cards print their rules at the top of the art box */
+.gc.fac-n .gc-rules { order: 1; margin-top: 4.4cqw; border-top: 1px solid rgba(0, 0, 0, .4); border-bottom: 0; }
+.gc.fac-n .gc-art { order: 2; margin-top: 0; }
+.gc.fac-n .gc-stats { order: 3; }
+.gc.fac-n > .gc-rules:last-child { margin-bottom: 0; }
+.gc.fac-n:not(:has(.gc-stats)) .gc-art { margin-bottom: 4.8cqw; }
+.gc-stats { list-style: none; display: flex; justify-content: flex-end; align-items: stretch; gap: 1.1cqw; min-height: 12.3cqw; margin-top: 3.4cqw; margin-bottom: 1.6cqw; padding: 0; }
+.card-grid .gc-stats li { display: flex; flex-direction: column; justify-content: center; align-items: center; min-width: 12.8cqw; padding: .4cqw 1.6cqw; background: var(--gc-edge); color: #fff; border: 0; line-height: 1.1; }
+.gc-stats b { font-size: 13px; font-size: max(12px, 5.4cqw); }
+.gc-stats span { font-size: 11px; font-size: max(11px, 3.6cqw); font-weight: bold; letter-spacing: .03em; }
 
 /* ---------- Try one turn (r41h): six short guided examples, a new one on each visit. Places keep one size; the message box
    sits under the map; the one button to press next sits right under it. That button is big, has its own bright color (--go,
