@@ -22,7 +22,7 @@
 <link rel="icon" type="image/png" href="img/sun.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preload" href="fonts/GentiumBookPlus-Regular.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/site.css">
+<link rel="stylesheet" href="css/site.css?v=r46">
 <script>try { var r = document.documentElement;
   var t = localStorage.getItem("dustbanners-theme"); if (t === "light" || t === "dark") r.classList.add("theme-" + t);
   if (localStorage.getItem("dustbanners-motion") === "off") r.classList.add("motion-off");
@@ -165,7 +165,7 @@
           <div class="gc-top"><p class="gc-name">Warden Leader</p></div>
           <p class="gc-line"><span class="gc-fac"><svg class="gc-ic" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14V2M4 3h8l-2 3 2 3H4"/></svg>Wardens</span><span>Leader</span></p>
           <figure class="gc-art"><img src="img/card-photo-w-leader.webp" width="480" height="553" loading="lazy" alt="Photo by Kyle (stand-in art): a wooded hill with a thin tower on top, above gray water."></figure>
-          <div class="gc-rules"><p>Their turn, first damage to your fighter - 1 Supply - Prevent 1 of it.</p><p>Their turn, after your Unit Guards, prevents damage, or survives defending - Your ready Unit gets +1 Attack through your next turn.</p></div>
+          <div class="gc-rules"><p>Their turn, first damage to your fighter - 1 Supply - <strong>Fortify 1</strong>.</p><p>Their turn, after your Unit Guards, prevents damage, or survives defending - Your ready Unit gets <strong>Momentum</strong>.</p></div>
           <ul class="gc-stats" aria-label="Stats"><li><b>12</b><span>Health</span></li></ul>
         </article>
         <p>Your Leader leads your Banner. If your Leader is defeated, you lose. A <strong>fighter</strong> is a Unit or Companion. A card that also means your Leader says &ldquo;fighter or Leader&rdquo;.</p>
@@ -176,7 +176,7 @@
           <div class="gc-top"><p class="gc-name">Guard Pig</p></div>
           <p class="gc-line"><span class="gc-fac"><svg class="gc-ic" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14V2M4 3h8l-2 3 2 3H4"/></svg>Wardens</span><span>Companion</span></p>
           <figure class="gc-art"><img src="img/card-photo-w-companion.webp" width="480" height="553" loading="lazy" alt="Photo by Kyle (stand-in art): a bare field below a line of trees and a blue summer sky."></figure>
-          <div class="gc-rules"><p>Guard Pig may Guard. [1/Opp Turn] After combat ends, if Guard Pig Guarded and remains in play, ready one other Unit you control there.</p></div>
+          <div class="gc-rules"><p>May Guard.</p><p>Their turn, after combat, if this Guarded and survived - Ready another Unit of yours.</p></div>
           <ul class="gc-stats" aria-label="Stats"><li><b>1</b><span>ATK</span></li><li><b>3</b><span>RET</span></li><li><b>6</b><span>Health</span></li></ul>
         </article>
         <p>A Companion is an animal or a person who fights beside your Leader. If it is defeated, you can bring it back.</p>
@@ -187,7 +187,7 @@
           <div class="gc-top"><p class="gc-name">Warden Healer</p><span class="gc-cost"><span class="vh">Cost </span>2</span></div>
           <p class="gc-line"><span class="gc-fac"><svg class="gc-ic" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14V2M4 3h8l-2 3 2 3H4"/></svg>Wardens</span><span>Unit</span></p>
           <figure class="gc-art"><img src="img/card-photo-w-unit.webp" width="480" height="553" loading="lazy" alt="Photo by Kyle (stand-in art): a camp fire burning in a ring of stones in a forest clearing."></figure>
-          <div class="gc-rules"><p>Once each turn after a Companion you control is dealt damage and remains in play, you may exhaust Warden Healer to Restore 1 damage from it.</p></div>
+          <div class="gc-rules"><p>After a Companion of yours is damaged and survives - Exhaust - Restore 1 to it.</p></div>
           <ul class="gc-stats" aria-label="Stats"><li><b>1</b><span>ATK</span></li><li><b>2</b><span>RET</span></li><li><b>3</b><span>Health</span></li></ul>
         </article>
         <p>Units are your Banner&rsquo;s people. They move, attack, defend and <strong>Capture</strong> places.</p>
@@ -198,7 +198,7 @@
           <div class="gc-top"><p class="gc-name">Fall Back</p><span class="gc-cost"><span class="vh">Cost </span>1</span></div>
           <p class="gc-line"><span class="gc-fac"><svg class="gc-ic" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14V2M4 3h8l-2 3 2 3H4"/></svg>Wardens</span><span>Tactic</span></p>
           <figure class="gc-art"><img src="img/card-photo-w-tactic.webp" width="480" height="553" loading="lazy" alt="Photo by Kyle (stand-in art): a dark blue banner against an orange sunset sky."></figure>
-          <div class="gc-rules"><p>After attackers are declared, move one damaged Unit or Companion you control to an adjacent Location you control. Prevent the next 1 damage that would be dealt to it this turn.</p></div>
+          <div class="gc-rules"><p>After attackers - Move a damaged fighter of yours one road, to a Location you control. <strong>Fortify 1</strong> to it this turn.</p></div>
           
         </article>
         <p>A Tactic is a one-time action. Do what it says, then put it in your discard pile, the Ditch.</p>
@@ -209,7 +209,7 @@
           <div class="gc-top"><p class="gc-name">Warden Shield</p><span class="gc-cost"><span class="vh">Cost </span>2</span></div>
           <p class="gc-line"><span class="gc-fac"><svg class="gc-ic" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14V2M4 3h8l-2 3 2 3H4"/></svg>Wardens</span><span>Equipment</span></p>
           <figure class="gc-art"><img src="img/card-photo-w-equipment.webp" width="480" height="553" loading="lazy" alt="Photo by Kyle (stand-in art): a dark blue banner in the brush below a sunlit hill."></figure>
-          <div class="gc-rules"><p>The attached Unit may Guard. While Guarding, prevent the first 1 combat damage dealt to it each turn.</p></div>
+          <div class="gc-rules"><p>Its Unit may Guard. While Guarding, it prevents the first 1 combat damage to it each turn.</p></div>
           <ul class="gc-stats" aria-label="Stats"><li><b>3</b><span>DUR</span></li></ul>
         </article>
         <p>Equipment is gear. It goes on a card it names, or it sits at a place you control.</p>
@@ -220,7 +220,7 @@
           <div class="gc-top"><p class="gc-name">Field Clinic</p><span class="gc-cost"><span class="vh">Cost </span>3</span></div>
           <p class="gc-line"><span class="gc-fac"><svg class="gc-ic" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14V2M4 3h8l-2 3 2 3H4"/></svg>Wardens</span><span>Structure</span></p>
           <figure class="gc-art"><img src="img/card-photo-w-structure.webp" width="480" height="553" loading="lazy" alt="Photo by Kyle (stand-in art): sheds and rail cars at the foot of a green hill."></figure>
-          <div class="gc-rules"><p>[1/Turn: After Combat] After combat ends at this Location during your turn, you may pay 1 Supply. Restore 1 damage from a surviving Companion you control there.</p></div>
+          <div class="gc-rules"><p>Your turn, after combat here - 1 Supply - Restore 1 to a surviving Companion of yours here.</p></div>
           <ul class="gc-stats" aria-label="Stats"><li><b>4</b><span>DUR</span></li></ul>
         </article>
         <p>A Structure is something you build at a place you control.</p>
@@ -231,7 +231,7 @@
           <div class="gc-top"><p class="gc-name">Warden Truck</p><span class="gc-cost"><span class="vh">Cost </span>3</span></div>
           <p class="gc-line"><span class="gc-fac"><svg class="gc-ic" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14V2M4 3h8l-2 3 2 3H4"/></svg>Wardens</span><span>Vehicle</span></p>
           <figure class="gc-art"><div class="gc-ph">Placeholder: no photo yet</div></figure>
-          <div class="gc-rules"><p>Capacity 2. Warden Truck can be driven only to a Location you control. The first time each turn it carries one or more Units or Companions there, choose one of them. It stays ready, but it cannot attack this turn.</p></div>
+          <div class="gc-rules"><p>Can be driven only to a Location you control.</p><p>First drive carrying fighters there - One of them stays ready, but can't attack this turn.</p></div>
           <ul class="gc-stats" aria-label="Stats"><li><b>4</b><span>DUR</span></li><li><b>2</b><span>CAP</span></li></ul>
         </article>
         <p>A Vehicle is a ride. It sits at a place you control. A Unit drives it, and it can carry your other ready Units, your Companions or your Leader, up to its Capacity. It is not Equipment.</p>
@@ -246,7 +246,7 @@
           <div class="gc-top"><p class="gc-name">Raider Leader</p></div>
           <p class="gc-line"><span class="gc-fac"><svg class="gc-ic" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14V2M4 3h8l-2 3 2 3H4"/></svg>Raiders</span><span>Leader</span></p>
           <figure class="gc-art"><div class="gc-ph">Placeholder: no photo yet</div></figure>
-          <div class="gc-rules"><p>[1/Turn] The first time your Units deal combat damage to an opposing Leader, Generate 1 Supply this turn. [1/Turn] When you declare an attack against a damaged, Isolated, or undefended legal target, you may pay 1 Supply to give one attacking Unit Overrun this combat.</p></div>
+          <div class="gc-rules"><p>First Hit by your Units on the enemy Leader - Generate 1 Supply.</p><p>After your attackers, if one targets a damaged, Isolated or undefended target - 1 Supply - An attacking Unit gets Overrun.</p></div>
           <ul class="gc-stats" aria-label="Stats"><li><b>12</b><span>Health</span></li></ul>
         </article>
         <p>Your Leader leads your Banner. If your Leader is defeated, you lose.</p>
@@ -257,7 +257,7 @@
           <div class="gc-top"><p class="gc-name">Scrap Boar</p></div>
           <p class="gc-line"><span class="gc-fac"><svg class="gc-ic" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14V2M4 3h8l-2 3 2 3H4"/></svg>Raiders</span><span>Companion</span></p>
           <figure class="gc-art"><div class="gc-ph">Placeholder: no photo yet</div></figure>
-          <div class="gc-rules"><p>[1/Turn] After Scrap Boar enters a contested or opponent-controlled Location, you may deal 1 damage to Scrap Boar. If Scrap Boar remains in play, ready it. If it readies this way, choose one opposing Unit or Companion there; it gets -1 Retaliation this turn.</p></div>
+          <div class="gc-rules"><p>After this enters a contested or enemy Location - 1 damage to this - If it survives, ready it. If that readied it, an enemy fighter gets -1 Retaliation.</p></div>
           <ul class="gc-stats" aria-label="Stats"><li><b>3</b><span>ATK</span></li><li><b>1</b><span>RET</span></li><li><b>5</b><span>Health</span></li></ul>
         </article>
         <p>A Companion is an animal or a person who fights beside your Leader. If it is defeated, you can bring it back.</p>
@@ -268,7 +268,7 @@
           <div class="gc-top"><p class="gc-name">Raider Blade</p><span class="gc-cost"><span class="vh">Cost </span>2</span></div>
           <p class="gc-line"><span class="gc-fac"><svg class="gc-ic" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14V2M4 3h8l-2 3 2 3H4"/></svg>Raiders</span><span>Unit</span></p>
           <figure class="gc-art"><img src="img/card-photo-r-unit.webp" width="480" height="553" loading="lazy" alt="Photo by Kyle (stand-in art): a tall red sandstone cliff with a shadowed alcove and green shrubs on its ledges."></figure>
-          <div class="gc-rules"><p>Raider Blade gets +1 Attack while attacking a damaged Unit or Companion.</p></div>
+          <div class="gc-rules"><p>Gets +1 Attack when attacking a damaged fighter.</p></div>
           <ul class="gc-stats" aria-label="Stats"><li><b>2</b><span>ATK</span></li><li><b>1</b><span>RET</span></li><li><b>2</b><span>Health</span></li></ul>
         </article>
         <p>Units are your Banner&rsquo;s people. They move, attack, defend and <strong>Capture</strong> places.</p>
@@ -279,7 +279,7 @@
           <div class="gc-top"><p class="gc-name">Quick Hit</p><span class="gc-cost"><span class="vh">Cost </span>1</span></div>
           <p class="gc-line"><span class="gc-fac"><svg class="gc-ic" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14V2M4 3h8l-2 3 2 3H4"/></svg>Raiders</span><span>Tactic</span></p>
           <figure class="gc-art"><div class="gc-ph">Placeholder: no photo yet</div></figure>
-          <div class="gc-rules"><p>After one of your attacking Units deals combat damage, move it to one adjacent legal Location. This movement cannot trigger another Quick Hit effect this turn.</p></div>
+          <div class="gc-rules"><p>Hit by your attacking Unit - Move it one road.</p></div>
           
         </article>
         <p>A Tactic is a one-time action. Do what it says, then put it in your discard pile, the Ditch.</p>
@@ -290,7 +290,7 @@
           <div class="gc-top"><p class="gc-name">Rough Knife</p><span class="gc-cost"><span class="vh">Cost </span>1</span></div>
           <p class="gc-line"><span class="gc-fac"><svg class="gc-ic" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14V2M4 3h8l-2 3 2 3H4"/></svg>Raiders</span><span>Equipment</span></p>
           <figure class="gc-art"><div class="gc-ph">Placeholder: no photo yet</div></figure>
-          <div class="gc-rules"><p>The attached Unit gets +1 Attack while attacking a damaged or Isolated target.</p></div>
+          <div class="gc-rules"><p>Its Unit gets +1 Attack when attacking a damaged or Isolated target.</p></div>
           <ul class="gc-stats" aria-label="Stats"><li><b>2</b><span>DUR</span></li></ul>
         </article>
         <p>Equipment is gear. It goes on a card it names, or it sits at a place you control.</p>
@@ -301,7 +301,7 @@
           <div class="gc-top"><p class="gc-name">Stash House</p><span class="gc-cost"><span class="vh">Cost </span>2</span></div>
           <p class="gc-line"><span class="gc-fac"><svg class="gc-ic" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14V2M4 3h8l-2 3 2 3H4"/></svg>Raiders</span><span>Structure</span></p>
           <figure class="gc-art"><img src="img/card-photo-r-structure.webp" width="480" height="553" loading="lazy" alt="Photo by Kyle (stand-in art): a rocky gap in sandy cliffs that opens onto a green valley and snow-capped peaks under a blue sky."></figure>
-          <div class="gc-rules"><p>[1/Turn] After a Raider Unit you control leaves a contested Location without Capturing it, look at the top two cards of your Faction Deck. Put one into your hand and the other on the bottom of your Faction Deck.</p></div>
+          <div class="gc-rules"><p>After your Raider Unit leaves a contested Location without Capturing it - Look at your top 2 cards. Put 1 in your hand &amp; 1 on the bottom.</p></div>
           <ul class="gc-stats" aria-label="Stats"><li><b>3</b><span>DUR</span></li></ul>
         </article>
         <p>A Structure is something you build at a place you control.</p>
@@ -312,7 +312,7 @@
           <div class="gc-top"><p class="gc-name">Raider Bike</p><span class="gc-cost"><span class="vh">Cost </span>2</span></div>
           <p class="gc-line"><span class="gc-fac"><svg class="gc-ic" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14V2M4 3h8l-2 3 2 3H4"/></svg>Raiders</span><span>Vehicle</span></p>
           <figure class="gc-art"><div class="gc-ph">Placeholder: no photo yet</div></figure>
-          <div class="gc-rules"><p>Capacity 1. The first time each turn it carries its driver into a contested or opponent-controlled Location, that Unit gets +1 Attack until the end of your next turn.</p></div>
+          <div class="gc-rules"><p>First drive into a contested or enemy Location - Its driver gets <strong>Momentum</strong>.</p></div>
           <ul class="gc-stats" aria-label="Stats"><li><b>3</b><span>DUR</span></li><li><b>1</b><span>CAP</span></li></ul>
         </article>
         <p>A Vehicle is a ride. It sits at a place you control. A Unit drives it, and it can carry your other ready Units, your Companions or your Leader, up to its Capacity. It is not Equipment.</p>
@@ -328,7 +328,7 @@
           <div class="gc-top"><p class="gc-name">Mountain Road</p></div>
           <p class="gc-line"><span class="gc-fac">Shared</span><span>Battlefield Location</span></p>
           <figure class="gc-art"><img src="img/card-photo-location.webp" width="480" height="553" loading="lazy" alt="Photo by Kyle (stand-in art): a paved road that leads into the mountains."></figure>
-          <div class="gc-rules"><p>Capture Reward - When a player Captures Mountain Road, that player draws 1 card, then discards 1 card. Routes: the West Yard; the Upper Junction.</p></div>
+          <div class="gc-rules"><p>Capture Reward - <strong>Rethink</strong>.</p><p>Routes: the West Yard; the Upper Junction.</p></div>
           <ul class="gc-stats" aria-label="Stats"><li><b>4</b><span>DUR</span></li></ul>
         </article>
         <p>A Location is one of the nine places on the map.</p>
@@ -339,13 +339,20 @@
           <div class="gc-top"><p class="gc-name">Hidden Supplies</p></div>
           <p class="gc-line"><span class="gc-fac">Shared</span><span>Frontier card</span></p>
           <figure class="gc-art"><img src="img/card-photo-frontier.webp" width="480" height="553" loading="lazy" alt="Photo by Kyle (stand-in art): a rocky, snowy mountaintop high above a valley."></figure>
-          <div class="gc-rules"><p>Resolve - Each player Generates 1 Supply this turn. The reveal controller Generates 1 additional Supply.</p></div>
+          <div class="gc-rules"><p>Resolve - Each player Generates 1 Supply. You Generate 1 more.</p></div>
           
         </article>
         <p>Frontier cards come from the shared Frontier Deck.</p>
       </li>
     </ul>
     </div>
+    <p><strong>Words on these cards</strong></p>
+    <ul class="points">
+      <li>Fighter: a Unit or Companion. A card that also means your Leader says &ldquo;fighter or Leader&rdquo;.</li>
+      <li><strong>Fortify N:</strong> prevent the next N damage to that card this turn, unless the card says longer. That card is the one the line names, or the one damage is about to hit. It can be any card you control. If Fortify happens because damage is about to hit, it stops only that damage.</li>
+      <li><strong>Momentum:</strong> it gets +1 Attack through your next turn, even if it moves. Momentum from different cards adds up. One card&rsquo;s Momentum doesn&rsquo;t add to itself.</li>
+      <li><strong>Rethink:</strong> draw 1, then discard 1.</li>
+    </ul>
     <p class="small">On a card: the number in the circle is its cost in Supply. ATK is Attack, RET is Retaliation, DUR is Durability and CAP is Capacity.</p>
   </div>
   <div class="margin">
@@ -605,8 +612,8 @@
   <p class="made">Human made. AI assisted.</p>
   <p><span class="nw">Dustbanners&trade; &middot; &copy; 2026 AminalHungy</span> <span class="nw">&middot; <a href="privacy.html">Privacy</a></span></p>
 </footer>
-<script src="js/try-turn.js"></script>
-<script src="js/try-advanced.js"></script>
-<script src="js/site.js"></script>
+<script src="js/try-turn.js?v=r46"></script>
+<script src="js/try-advanced.js?v=r46"></script>
+<script src="js/site.js?v=r46"></script>
 </body>
 </html>
