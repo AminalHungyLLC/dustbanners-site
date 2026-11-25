@@ -1,7 +1,7 @@
 /* Try one turn (site r41i; r41l: each turn starts with a Frontier card; r42: only real moves): six short guided examples of a turn, a
    new one on each visit. Simplified only in size (three places, not nine). Every move is in rule book r7l, and every Frontier card is a
    real card's effect in plain words under a stand-in name (Kyle, 2026-11-18: no made-up actions or terms; the replaced words are
-   listed in site-r42a-c/CHANGES-r42a-c.md). Keyboard: Tab and Enter. No timers (r47: apart from the one-time dust-in of the Frontier card).
+   listed in site-r42a-c/CHANGES-r42a-c.md). Keyboard: Tab and Enter. No timers (r49: the r47 dust-in of the Frontier card is gone).
    The last example seen is kept in this browser only (dustbanners-try-example); if storage fails, a random one is shown. */
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -233,26 +233,11 @@
   }
   // r41l: the Frontier card shows for the whole example: face down first, then the card step 1 reveals (it turns over once).
   var front = $("d-front"), storm = front.querySelector(".d-storm"), frontKey = "";
-  // r47 (S4 + S2): the face-down Frontier card blows in on a dusty wind once per page view, when the whole card is on screen and
-  // scrolling has stopped for about 1 second (window.DBN.whenSettled in site.js). Step 1 then turns it over, as before. A press first,
-  // or motion off, shows it at once.
-  var dust = null;
-  function frontDust() {
-    if (!window.DBN || dust) return;
-    front.classList.add("dust-wait");
-    dust = window.DBN.whenSettled(front, function (moving) {  // front never moves; the card inside it does
-      if (!front.classList.contains("dust-wait")) return;
-      front.classList.remove("dust-wait");
-      if (!moving || !front.classList.contains("down")) return;
-      window.DBN.hold(1500); demo.classList.add("dusting"); front.classList.add("dust-go");
-      setTimeout(function () { front.classList.remove("dust-go"); demo.classList.remove("dusting"); }, 1150);
-    });
-  }
-  function stopDust() { if (dust) dust.cancel(); front.classList.remove("dust-wait", "dust-go"); demo.classList.remove("dusting"); }
+  // r49 (Kyle 2026-11-25: dust only on the flip or turn action): the r47 scroll-triggered dust-in of the face-down Frontier card is gone.
+  // The card simply shows face down; step 1 ("Reveal the Frontier card") turns it over, as before (that turn is a press, not scroll).
   function showFront(s, up) {
     var f = up ? s.front : DOWN, key = x + (up ? "u" : "d");
     front.hidden = false;
-    if (up) stopDust();
     if (key === frontKey) return;
     frontKey = key;
     front.classList.toggle("down", !up);
@@ -293,6 +278,4 @@
   if (coarse) { if (coarse.addEventListener) coarse.addEventListener("change", label); else if (coarse.addListener) coarse.addListener(label); }
   var first;
   try { var v = parseInt(localStorage.getItem(KEY), 10); first = isNaN(v) ? 0 : v + 1; } catch (e) { first = Math.floor(Math.random() * X.length); }
-  pick(first);
-  if (window.DBN) frontDust(); else document.addEventListener("DOMContentLoaded", frontDust);  // site.js (DBN) loads after this file
-})();
+  pick(first);})();

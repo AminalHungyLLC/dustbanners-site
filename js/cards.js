@@ -4,9 +4,8 @@
    - A separate Flip button in the corner turns the card over. The back is a plain labeled stand-in panel, not card art: it explains the
      words on that card, copied from the page's own "Words on these cards" list (S3).
    - Phones (under 768 px): each card list is a sideways swipe row with a "Card 1 of 7" line and Previous / Next buttons (H2).
-   - The first card of each Banner view blows in on a dusty wind the first time it is shown (r47b: not every card), only when the whole
-     card is on screen and scrolling has stopped for about 1 second (window.DBN.whenSettled in site.js). Hidden Supplies, the Frontier
-     card, blows in face down, then turns face up (S4, S2).
+   - r49: a short puff of dust plays over a card each time it is flipped or exhausted / readied, on every card (Kyle 2026-11-25). The
+     r47/r47b scroll-in dust (first card of each Banner, Hidden Supplies face-down reveal) is gone.
    Every motion runs only when the site allows motion (html.anim: the Motion switch is on and the device does not ask for less motion);
    otherwise the cards are simply there, and flip and exhaust switch at once (CSS). No outside requests. Nothing is stored. */
 (function () {
@@ -30,7 +29,7 @@
       var card = li.querySelector("article.gc"); if (!card) return;
       var name = (card.getAttribute("aria-label") || "").split(",")[0].trim() || "this card";
       var fac = card.classList.contains("fac-r") ? "fac-r" : card.classList.contains("fac-n") ? "fac-n" : "fac-w";
-      // hold (never moves: it is what "the whole card is on screen" measures) > dust (blows in) > turn (exhausted) > flip (front, back)
+      // hold (the card's place; the dust puff plays over it) > dust (r47 wrapper, kept; no longer animated) > turn (exhausted) > flip (front, back)
       var hold = el("div", "gc-hold"), dust = el("div", "gc-dust"), turn = el("div", "gc-turn"), flip = el("div", "gc-flip"), back = el("div", "gc-back " + fac);
       li.insertBefore(hold, card);
       flip.appendChild(card); flip.appendChild(back); turn.appendChild(flip); dust.appendChild(turn); hold.appendChild(dust);
@@ -60,9 +59,9 @@
       li.insertBefore(fb, h3 ? h3.nextSibling : hold);
       li.classList.add("has-hold");
 
-      var h = { li: li, hold: hold, card: card, back: back, ex: ex, fb: fb, name: name, settle: null, reveal: /^Frontier card$/i.test(h3 ? h3.textContent.trim() : ""), userFlipped: false };
-      ex.addEventListener("click", function () { done(h); setEx(h, !hold.classList.contains("ex")); });
-      fb.addEventListener("click", function () { done(h); h.userFlipped = true; setFlip(h, !hold.classList.contains("flipped")); });
+      var h = { li: li, hold: hold, card: card, back: back, ex: ex, fb: fb, name: name, puff: 0 };
+      ex.addEventListener("click", function () { setEx(h, !hold.classList.contains("ex")); done(h); });
+      fb.addEventListener("click", function () { setFlip(h, !hold.classList.contains("flipped")); done(h); });
       holds.push(h);
     });
   });
@@ -80,35 +79,18 @@
     else { h.back.setAttribute("aria-hidden", "true"); h.card.removeAttribute("aria-hidden"); }
   }
 
-  // Dust-in, once per card per page view. Cards that settle together go one after another.
-  var nextAt = 0;
-  function later(fn) { var now = Date.now(), at = Math.max(now, nextAt); nextAt = at + 260; setTimeout(fn, at - now); }
-  function done(h) {  // a press always shows the card at once
-    if (h.settle) { h.settle.cancel(); h.settle = null; }
-    h.li.classList.remove("dust-wait", "dust-go");
+  // r49 (Kyle 2026-11-25: "i want the dust to play over the card only when it's flipped or exhausted, so that way each card will do it,
+  // but only on the flip or turn action"): every card, both Banners, gets a short puff of dust (about 0.9 s) over it each time it is
+  // flipped or exhausted / readied. Nothing plays on scroll any more. The puff never takes a tap (pointer-events: none) and is gone when
+  // it ends. Motion off (the switch or the device setting): no puff, the flip or turn just happens (CSS).
+  function done(h) {  // a press restarts the puff on this card
+    if (!anim()) return;
+    var c = h.hold.classList;
+    c.remove("dust-puff"); void h.hold.offsetWidth; c.add("dust-puff");
+    clearTimeout(h.puff);
+    h.puff = setTimeout(function () { c.remove("dust-puff"); }, 1000);
+    if (DBN) DBN.hold(1000);  // a phone tag never swings during the puff
   }
-  function blow(h, moving) {
-    h.settle = null;
-    if (!h.li.classList.contains("dust-wait")) return;
-    if (!moving) { h.li.classList.remove("dust-wait"); if (h.reveal && !h.userFlipped) setFlip(h, false); return; }
-    later(function () {
-      if (!h.li.classList.contains("dust-wait")) return;
-      if (DBN) DBN.hold(1500);
-      h.li.classList.remove("dust-wait"); h.li.classList.add("dust-go");
-      setTimeout(function () { h.li.classList.remove("dust-go"); }, 1150);
-      if (h.reveal) setTimeout(function () { if (!h.userFlipped) setFlip(h, false); }, 1350);  // the Frontier card turns face up
-    });
-  }
-  // r47b (QA-AND-REVIEW-r47 finding 4; approved S4: "the first card of each Banner arrives on a gust", not every card): only the first
-  // card of the Wardens view and of the Raiders view blows in, plus Hidden Supplies, which blows in face down and turns up (S2).
-  // Every other card is simply there.
-  if (DBN) holds.forEach(function (h) {
-    var first = !!h.li.closest(".card-set[data-faction]") && h.li === h.li.parentNode.firstElementChild;
-    if (!first && !h.reveal) return;
-    h.li.classList.add("dust-wait");
-    if (h.reveal && anim()) setFlip(h, true);  // face down until it has blown in (motion off: face up from the start)
-    h.settle = DBN.whenSettled(h.hold, function (moving) { blow(h, moving); });
-  });
 
   // Phones: the sideways swipe row (CSS scroll-snap). The row takes arrow keys when focused; Previous / Next do the same.
   var phone = window.matchMedia("(max-width: 767px)");

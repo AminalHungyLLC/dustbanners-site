@@ -608,7 +608,7 @@ footer.site .gate-btn:hover, footer.site .gate-btn:focus { background: var(--pan
 
 /* ---------- r47 (Kyle 2026-11-23, "Yes, all of it": website/qa/UX-UI-REVIEW-r46.md section 4) ----------
    The card section spans the whole page width on wide screens (M4) and is a sideways swipe row on phones (H2). A card can be exhausted
-   (turned 90 degrees, S1) and flipped to a plain labeled back that explains its words (S3). Cards blow in on a dusty wind once (S4, S2).
+   (turned 90 degrees, S1) and flipped to a plain labeled back that explains its words (S3). r49: a puff of dust plays over a card on each flip or exhaust (Kyle 2026-11-25); nothing plays on scroll.
    Every motion sits inside prefers-reduced-motion: no-preference AND html.anim (the Motion switch): with motion off the cards are simply
    there, and flip and exhaust switch at once. The card itself keeps its 2.5 x 3.5 in shape and its cloud face (r46). */
 @media (min-width: 900px) { .leaf > .leaf-wide { grid-column: 1 / -1; } }
@@ -656,7 +656,7 @@ footer.site .gate-btn:hover, footer.site .gate-btn:focus { background: var(--pan
 .gc-flipbtn::before { content: "\21BB"; content: "\21BB" / ""; font-size: 17px; line-height: 1; }
 .gc-flipbtn[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
 .gc-flipbtn:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
-.card-grid > li::before, .card-grid > li::after { content: ""; position: absolute; pointer-events: none; opacity: 0; z-index: 5; }
+.gc-hold::before, .gc-hold::after { content: ""; position: absolute; pointer-events: none; opacity: 0; z-index: 3; }   /* r49: the dust puff layers (hidden until a flip or exhaust) */
 .gc-nav { display: none; }
 
 /* Phones: a sideways swipe row, one card and a peek of the next, with "Card 1 of 7" and Previous / Next (keyboard: Tab to the row, then the arrow keys) */
@@ -691,7 +691,6 @@ footer.site .gate-btn:hover, footer.site .gate-btn:focus { background: var(--pan
 @media (max-width: 420px) { .d-mini { width: 80px; } }
 @media (max-width: 359px) { .d-mini { width: 76px; } .d-mini .d-mk { font-size: 11px; } }
 #d-front { position: relative; }
-#d-front::after { content: ""; position: absolute; left: 6px; top: 28px; width: 4px; height: 4px; border-radius: 50%; pointer-events: none; opacity: 0; }
 
 @media (prefers-reduced-motion: no-preference) {
   html.anim .gc-turn { transition: transform .35s cubic-bezier(0.22, 1, 0.36, 1); }
@@ -701,28 +700,16 @@ footer.site .gate-btn:hover, footer.site .gate-btn:focus { background: var(--pan
   html.anim .gc-flip > .gc { transition: visibility 0s linear 0s; }
   html.anim .gc-hold.flipped .gc-flip > .gc { transition-delay: .3s; }
   html.anim .gc-tag { transition: opacity .2s linear .2s; }
-  /* Dust-in: waiting faint and a little to the left; then a gust blows it in (slide, fade, a soft blur on wider screens, a puff of specks) */
-  html.anim .card-grid > li.dust-wait .gc-dust, html.anim #d-front.dust-wait .d-storm { opacity: .15; transform: translateX(-24px); }
-  html.anim .card-grid > li.dust-go { overflow: hidden; }
-  html.anim .card-grid > li.dust-go .gc-dust, html.anim #d-front.dust-go .d-storm { animation: dust-in .95s cubic-bezier(0.22, 1, 0.36, 1) both !important; }
-  html.anim .card-grid > li::after, html.anim #d-front::after { width: 4px; height: 4px; left: 12%; top: 30%; border-radius: 50%; background: rgba(150, 118, 74, .8);
-    box-shadow: 34px -38px 0 0 rgba(150, 118, 74, .65), 72px 22px 0 1px rgba(171, 139, 95, .6), 112px -12px 0 0 rgba(150, 118, 74, .75), 150px 64px 0 1px rgba(171, 139, 95, .55),
-      58px 112px 0 0 rgba(150, 118, 74, .65), 190px 30px 0 0 rgba(171, 139, 95, .6), 22px 162px 0 1px rgba(150, 118, 74, .55), 128px 146px 0 0 rgba(150, 118, 74, .65), 214px 104px 0 0 rgba(171, 139, 95, .55); }
-  html.anim #d-front::after { left: 4px; top: 24px; box-shadow: 22px -14px 0 0 rgba(150, 118, 74, .65), 46px 30px 0 1px rgba(171, 139, 95, .6), 70px 4px 0 0 rgba(150, 118, 74, .75), 30px 64px 0 0 rgba(150, 118, 74, .6), 84px 52px 0 1px rgba(171, 139, 95, .55); }
-  html.anim .card-grid > li::before { inset: 0; background: linear-gradient(100deg, transparent 25%, rgba(214, 190, 150, .45) 48%, transparent 72%); }
-  html.anim .card-grid > li.dust-go::after, html.anim #d-front.dust-go::after { animation: dust-specks 1.1s ease-out both; }
-  html.anim .card-grid > li.dust-go::before { animation: dust-haze .9s ease-out both; }
-  html.anim .demo.dusting .d-go { animation: none; }   /* one thing moves at a time */
-  @keyframes dust-in { from { opacity: .15; transform: translateX(var(--dust-x, -24px)); filter: blur(var(--dust-blur, 0px)); } 60% { filter: blur(0px); } to { opacity: 1; transform: none; filter: none; } }
-  @keyframes dust-specks { 0% { opacity: 0; transform: translateX(-50px); } 25% { opacity: 1; } 100% { opacity: 0; transform: translate(80px, 14px); } }
-  @keyframes dust-haze { 0% { opacity: 0; transform: translateX(-55%); } 35% { opacity: 1; } 100% { opacity: 0; transform: translateX(55%); } }
-}
-@media (prefers-reduced-motion: no-preference) and (max-width: 767px) {
-  /* r47b: in the swipe row the waiting card starts only 12 px to the left, so the row edge does not cut it while it waits (review finding 2 note) */
-  html.anim .card-grid > li.dust-wait .gc-dust { transform: translateX(-12px); }
-  html.anim .card-grid > li { --dust-x: -12px; }
-}
-@media (prefers-reduced-motion: no-preference) and (min-width: 768px) {
-  html.anim .card-grid > li { --dust-blur: 3px; }
-  html.anim .card-grid > li.dust-wait .gc-dust { filter: blur(3px); }   /* no blur on phones: it is costly to paint there (review S4) */
+  /* r49 (Kyle 2026-11-25): a puff of dust over the card on each flip and each exhaust / ready, every card (js adds .dust-puff for 1 s).
+     A sandy haze drifts across the card and a few specks blow through, all inside the card's own box, then fade to nothing. It never
+     takes a tap (pointer-events: none) and leaves nothing behind. No scroll-in dust any more. */
+  html.anim .gc-hold.dust-puff::before { inset: 0; border-radius: 10px;
+    background: radial-gradient(ellipse 55% 40% at 35% 60%, rgba(214, 190, 150, .62), transparent 70%), radial-gradient(ellipse 45% 35% at 68% 38%, rgba(190, 160, 115, .5), transparent 70%);
+    animation: puff-haze .9s ease-out both; }
+  html.anim .gc-hold.dust-puff::after { left: 6%; top: 28%; width: 5px; height: 5px; border-radius: 50%; background: rgba(150, 118, 74, .85);
+    box-shadow: 28px -30px 0 0 rgba(150, 118, 74, .7), 60px 24px 0 1px rgba(171, 139, 95, .65), 96px -10px 0 0 rgba(150, 118, 74, .8), 126px 58px 0 1px rgba(171, 139, 95, .6),
+      48px 100px 0 0 rgba(150, 118, 74, .7), 150px 22px 0 0 rgba(171, 139, 95, .65), 18px 150px 0 1px rgba(150, 118, 74, .6), 110px 132px 0 0 rgba(150, 118, 74, .7), 160px 96px 0 0 rgba(171, 139, 95, .6);
+    animation: puff-specks .9s ease-out both; }
+  @keyframes puff-haze { 0% { opacity: 0; transform: translateX(-8%); } 30% { opacity: 1; } 100% { opacity: 0; transform: translateX(8%); } }
+  @keyframes puff-specks { 0% { opacity: 0; transform: translate(-16px, 6px); } 25% { opacity: 1; } 100% { opacity: 0; transform: translate(44px, -14px); } }
 }
