@@ -1,6 +1,6 @@
 /* Dustbanners site r47: the cards on the home page (Kyle 2026-11-23, "Yes, all of it", from website/qa/UX-UI-REVIEW-r46.md).
-   - Tap (or click, Enter, Space) a card to exhaust it: it turns 90 degrees, like a card on the table, with a small "Exhausted" tag.
-     Do it again to ready it. A real button with aria-pressed (S1).
+   - Tap (or click, Enter, Space) a Leader, Companion, Unit or Vehicle card to exhaust it: it turns 90 degrees, like a card on the
+     table, with a small "Exhausted" tag. Do it again to ready it. A real button with aria-pressed (S1). r50: other cards never exhaust.
    - A separate Flip button in the corner turns the card over. The back is a plain labeled stand-in panel, not card art: it explains the
      words on that card, copied from the page's own "Words on these cards" list (S3).
    - Phones (under 768 px): each card list is a sideways swipe row with a "Card 1 of 7" line and Previous / Next buttons (H2).
@@ -50,17 +50,26 @@
       back.appendChild(el("p", "gb-note", "Card back art coming from our artists."));
       back.setAttribute("aria-hidden", "true"); back.inert = true;
 
-      var ex = el("button", "gc-ex"); ex.type = "button"; ex.setAttribute("aria-pressed", "false"); ex.setAttribute("aria-label", "Exhaust " + name);
-      var tag = el("span", "gc-tag", "Exhausted"); tag.setAttribute("aria-hidden", "true");
-      hold.appendChild(ex); hold.appendChild(tag);
+      // r50 (Kyle 2026-11-25: "I don't think the location or frontier cards can become exhausted in the game. So they shouldn't on the
+      // page"; rule book r7m-draft-r11e: Locations never exhaust (line 331), Structures and Equipment never exhaust (420), a Vehicle
+      // exhausts after a drive (420), Leaders and Companions exhaust (307, 514), Tactics are one-time and Frontier cards are not in play):
+      // only Leader, Companion, Unit and Vehicle cards get the exhaust button and tag. On the others a tap does nothing; Flip stays.
+      var h3 = li.querySelector(":scope > h3");
+      var kindWord = (card.getAttribute("aria-label") || "").split(",").slice(1).join(",").trim() || (h3 ? h3.textContent.trim() : "");
+      var canExhaust = /^(Leader|Companion|Unit|Vehicle)$/.test(kindWord);
+      var ex = null;
+      if (canExhaust) {
+        ex = el("button", "gc-ex"); ex.type = "button"; ex.setAttribute("aria-pressed", "false"); ex.setAttribute("aria-label", "Exhaust " + name);
+        var tag = el("span", "gc-tag", "Exhausted"); tag.setAttribute("aria-hidden", "true");
+        hold.appendChild(ex); hold.appendChild(tag);
+      }
       var fb = el("button", "gc-flipbtn", "Flip"); fb.type = "button"; fb.setAttribute("aria-pressed", "false");
       fb.appendChild(el("span", "vh", " " + name));
-      var h3 = li.querySelector(":scope > h3");
       li.insertBefore(fb, h3 ? h3.nextSibling : hold);
       li.classList.add("has-hold");
 
       var h = { li: li, hold: hold, card: card, back: back, ex: ex, fb: fb, name: name, puff: 0 };
-      ex.addEventListener("click", function () { setEx(h, !hold.classList.contains("ex")); done(h); });
+      if (ex) ex.addEventListener("click", function () { setEx(h, !hold.classList.contains("ex")); done(h); });
       fb.addEventListener("click", function () { setFlip(h, !hold.classList.contains("flipped")); done(h); });
       holds.push(h);
     });
