@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://app.kit.com https://*.kit.com">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Dustbanners</title>
-<meta name="description" content="Dustbanners: a two-player card game of survival on a broken frontier. Win by breaking the enemy Leader, or by holding the map.">
+<meta name="description" content="Dustbanners: a two-player card game of survival on a broken frontier. Win by defeating the enemy Leader, or by holding the map.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://dustbanners.com/">
 <meta property="og:title" content="Dustbanners">
@@ -22,8 +22,10 @@
 <link rel="icon" type="image/png" href="img/sun.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preload" href="fonts/GentiumBookPlus-Regular.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/site.css?v=r51">
-<script src="js/prefs.js?v=r51"></script>
+<link rel="stylesheet" href="css/site.css?v=r52g">
+<link rel="stylesheet" href="css/define.css?v=r52g">
+<link rel="stylesheet" href="css/boards.css?v=r52g">
+<script src="js/prefs.js?v=r52g"></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to the page</a>
@@ -61,7 +63,7 @@
   </div>
   <figure class="map-fig">
     <svg class="map" viewBox="0 0 520 400" role="img" aria-labelledby="map-t">
-      <title id="map-t">A hand-drawn sketch of Crosswater Valley. A river winds from the top left to the bottom right. Nine small places with flags sit along it, joined by dotted trails. Two places are labeled with stand-in names: Rusted Track and the Lower Junction.</title>
+      <title id="map-t">A hand-drawn sketch of Crosswater Valley. A river winds from the top left to the bottom right. Nine small Locations with flags sit along it, joined by dotted trails. Two Locations are labeled with stand-in names: Rusted Track and the Lower Junction.</title>
       <defs><filter id="wob"><feTurbulence baseFrequency=".035" numOctaves="2" seed="7" result="t"/><feDisplacementMap in="SourceGraphic" in2="t" scale="6"/></filter></defs>
       <g filter="url(#wob)">
         <g class="lyr lyr-land"><path class="ink" stroke-width="1.5" d="M30 300 l14 -22 l14 22 M62 310 l16 -26 l16 26 M400 60 l14 -22 l14 22 M436 70 l16 -28 l16 28 M470 62 l12 -18 l12 18 M150 330 l12 -18 l12 18 M20 150 q10 -8 20 0 M30 170 q10 -8 20 0 M455 150 q10 -8 20 0 M476 318 v44 M454 340 h44 M476 318 l-5 10 h10 z"/></g>
@@ -77,16 +79,16 @@
       <text x="182" y="214" font-size="15">Rusted Track</text>
       <text x="318" y="322" font-size="15">the Lower Junction</text>
       <text x="470" y="312" font-size="13">N</text>
-      <text x="330" y="30" font-size="14">nine places</text>
+      <text x="330" y="30" font-size="14">nine Locations</text>
     </svg>
-    <figcaption>A sketch of the valley for this site, not the game board. Place names are stand-ins.</figcaption>
+    <figcaption>A sketch of the valley for this site, not the game board. Location names are stand-ins.</figcaption>
   </figure>
 
 <section class="strip" aria-labelledby="strip-h">
   <h2 id="strip-h">The game in three lines</h2>
-  <ol>
-    <li><span class="t">Two players. Nine places.</span><span class="d">Ages 14 and up. Each of you leads a faction into the valley.</span></li>
-    <li><span class="t">Two ways to win</span><span class="d">Both are always open: break the enemy Leader, or hold all 9 places at the end of a turn.</span></li>
+  <ol data-define="strip">
+    <li><span class="t">Two players. Nine Locations.</span><span class="d">Ages 14 and up. Each of you plays a Banner: the team you play as, like the Wardens or the Raiders.</span></li>
+    <li><span class="t">Two ways to win</span><span class="d">Both are always open: defeat the enemy Leader, or hold all 9 Locations at the end of a turn.</span></li>
     <li><span class="t">Trouble every turn</span><span class="d">The Frontier Deck turns up something every turn (a storm, a wild animal, a find) that both of you have to deal with.</span></li>
   </ol>
   <p class="more"><a href="#game">How the game works</a></p>
@@ -112,7 +114,21 @@
   <div class="body">
     <p class="folio">Part 1</p>
     <h2 id="game-h">The Game</h2>
-    <p>You lead a Banner into a valley of nine places, about eighty years after the world fell apart. Every faction flies a banner, and in this game the side you lead is called a Banner.</p>
+    <p class="kb-row"><button type="button" class="kb-tab" aria-haspopup="dialog" aria-controls="kb-sheet" aria-expanded="false"><span class="kb-tack" aria-hidden="true"></span>Keeper&rsquo;s board</button></p>
+    <p data-define="game">Dustbanners is a card game for two players, ages 14 and up. About eighty years after the world fell apart, each of you leads a Banner into a valley of nine Locations, the spots on the map. Your Banner is the team you play as, like the Wardens or the Raiders. Each team has its own people, its own flag and its own way to play. (The printed rule book also calls a Banner a faction.)</p>
+    <h3>How you win</h3>
+    <p data-define="game">There are two ways to win, and both are always open: defeat the enemy Leader with damage, or hold all 9 Locations at the end of a turn.</p>
+    <h3>How it plays</h3>
+    <p data-define="game">Each player draws 5 opening cards, and both players start their first turn with 3 Supply. Supply is what you spend to play cards and pay for actions. Then you take turns. Each turn has six parts, called phases, always in this order:</p>
+    <ul class="points" data-define="game">
+      <li><strong>Recovery:</strong> your cards are ready to act again, and your Supply refills up to your limit. The limit goes up by 1 on each of your turns after your first.</li>
+      <li><strong>Frontier:</strong> a card from the shared Frontier Deck brings something both players must deal with, like a storm, a wild animal or a find.</li>
+      <li><strong>Draw:</strong> draw one card.</li>
+      <li><strong>Operations:</strong> play cards, move along the roads between Locations, <strong>Explore</strong> to turn up more Frontier cards, and <strong>Capture</strong> Locations that nobody controls.</li>
+      <li><strong>Conflict:</strong> make one attack on enemy cards, a wild animal, or a Location you don&rsquo;t control, or skip it. Attacks deal damage.</li>
+      <li><strong>End:</strong> check for a win. Damage on Units is removed. Then the other player takes a turn.</li>
+    </ul>
+    <p class="small">All the game words are explained in the <a href="#try-words">&ldquo;New here?&rdquo; box</a>, under &ldquo;Try one turn&rdquo; below.<span data-define-hint hidden> You can also tap or click any word with a dotted line to see what it means.</span></p>
     <div class="tag-note">
       <details>
         <summary><svg class="tag-ic" viewBox="0 0 40 40" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M11 36C10.6 26 10.2 15 10.8 4.5M11 6C16 4.8 20.5 8.2 27 6.4C25 9.6 25.4 13 28.6 16.4C22 18.2 17 15.2 11.2 17"/></svg><span class="tag-l">A Keeper&rsquo;s note</span> <span class="tag-hint"><span class="t-tap">Tap to read</span><span class="t-click">Click to read</span></span></summary>
@@ -121,12 +137,10 @@
         <p>Some trail marks are meant for one banner only. Don&rsquo;t follow a mark you can&rsquo;t read.</p></details>
       </details>
     </div>
-    <h3>How it plays</h3>
-    <p>Each player draws 5 opening cards, and both players start their first turn with 3 Supply.</p>
     <h3>Two sides that play nothing alike</h3>
-    <p>The first box has two factions: the Wardens and the Raiders. Each Banner has two Leaders and two Companions to choose from. More factions to come.</p>
+    <p>The first box has two Banners: the Wardens and the Raiders. Each Banner has two Leaders and two Companions to choose from. More Banners to come.</p>
     <div class="sides">
-      <div class="side"><h3>Wardens</h3><p>&ldquo;How do we protect what&rsquo;s ours?&rdquo;</p><p class="small">Their word is <strong>Guard</strong>. A <strong>Guard</strong> protects your things where it stands: your Units, Companions and Leader there, and the place itself if you hold it.</p></div>
+      <div class="side"><h3>Wardens</h3><p>&ldquo;How do we protect what&rsquo;s ours?&rdquo;</p><p class="small">Their word is <strong>Guard</strong>. A <strong>Guard</strong> protects your things where it stands: your Units, Companions and Leader there, and the Location itself if you hold it.</p></div>
       <div class="side"><h3>Raiders</h3><p>&ldquo;What can we take?&rdquo;</p><p class="small">Their word is <strong>Ambush</strong>. An <strong>Ambush</strong> card waits for the moment written on it, then strikes.</p></div>
     </div>
     <h3>What&rsquo;s in it for you</h3>
@@ -134,7 +148,6 @@
       <li><strong>A world that will grow.</strong> Each season will add a chapter of the story, and new cards will come from it.</li>
       <li><strong>The same box for everyone.</strong> No random packs. Every box has the same cards, and nothing stronger is sold later.</li>
       <li><strong>Tested before you play.</strong> More than 20,000 simulated games so far, computer against computer, to help balance the cards.</li>
-      <li><strong>Made by people.</strong> The ideas and decisions are mine. Human artists will make the final art, card backs and logo, and a human editor will do the final text pass.</li>
     </ul>
     <div class="comparables">
       <h3>If you like&hellip;</h3>
@@ -142,12 +155,24 @@
         <li>Magic: The Gathering, but want fixed boxes, a simpler resource (we call it Supply), and a world whose story grows with every season.</li>
         <li>Android: Netrunner, for two sides that play differently, no random packs, and a frontier with its own history to read.</li>
         <li>KeyForge, for decks that are ready to play out of the box.</li>
-        <li>Root, for factions that feel nothing alike, each with its own people, places and sayings.</li>
+        <li>Root, for teams that feel nothing alike, each with its own people, places and sayings.</li>
       </ul>
       <p class="small">Those games belong to their makers. Dustbanners is not connected to any of them.</p>
     </div>
   </div>
   <div class="margin">
+    <div class="scrap" role="note">
+      <p class="who">How you win</p>
+      <p>There are two ways to win, and both are always open: defeat the enemy Leader with damage, or hold all 9 Locations at the end of a turn.</p>
+    </div>
+    <div class="scrap" role="note">
+      <p class="who">Your turn, in order</p>
+      <ol class="pin-list" data-define="board"><li><strong>Recovery:</strong> cards ready, Supply refills</li><li><strong>Frontier:</strong> a shared Frontier card</li><li><strong>Draw:</strong> draw one card</li><li><strong>Operations:</strong> play, move, Explore, Capture</li><li><strong>Conflict:</strong> one attack, or skip</li><li><strong>End:</strong> check for a win</li></ol>
+    </div>
+    <div class="scrap" role="note" data-define-hint hidden>
+      <p class="who">Key words</p>
+      <ul class="pin-words"><li><button type="button" class="dw" data-word="banner" aria-expanded="false" aria-controls="dw-pop" aria-haspopup="dialog">Banner</button></li><li><button type="button" class="dw" data-word="unit" aria-expanded="false" aria-controls="dw-pop" aria-haspopup="dialog">Unit</button></li><li><button type="button" class="dw" data-word="companion" aria-expanded="false" aria-controls="dw-pop" aria-haspopup="dialog">Companion</button></li><li><button type="button" class="dw" data-word="location" aria-expanded="false" aria-controls="dw-pop" aria-haspopup="dialog">Location</button></li><li><button type="button" class="dw" data-word="supply" aria-expanded="false" aria-controls="dw-pop" aria-haspopup="dialog">Supply</button></li><li><button type="button" class="dw" data-word="ready" aria-expanded="false" aria-controls="dw-pop" aria-haspopup="dialog">Ready and exhausted</button></li></ul>
+    </div>
     <div class="scrap" role="note">
       <p class="who">A Keeper&rsquo;s note</p>
       <p>Every banner says its colors flew first. We wrote down every story.</p>
@@ -155,20 +180,20 @@
         <p>Some trail marks are meant for one banner only. Don&rsquo;t follow a mark you can&rsquo;t read.</p></details>
     </div>
     <svg class="cracks" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="c" d="M3 0L4.1 3.5L3.2 5L4.9 8.6L2.6 12.2L3.4 14L2.1 17.5L4.4 21.8L3.6 24L5.2 28.5L3.1 32L4.6 36.2L3.9 39M4.4 21.8L5.9 23.1L5.6 24.9L7.2 26.4M2.6 12.2L1.2 13.9"/><path class="s" d="M1.2 9.6L6.6 10.4M1.4 29.4L6.8 30.6"/></svg>
+    <div class="repairs" aria-hidden="true" hidden data-seam="stitch"></div>
   </div>
   <div class="leaf-wide">
     <h3 id="cards">The cards</h3>
-    <p>Every card in the first box is one of these nine kinds. Pick a Banner to see one of each kind, with its real rules text. The names are
-    plain stand-ins for now. The pictures are my own photos, and a plain box means that card has no photo yet. The final art will come
-    from human artists.</p>
-    <p class="small">On a card: the number in the circle is its cost in Supply. ATK is Attack, RET is Retaliation, DUR is Durability and CAP is Capacity.</p>
+    <p>Every card in the first box is one of these nine kinds. Pick a Banner (the Wardens or the Raiders) to see one of each kind, with its real rules text. The names are
+    plain stand-ins for now. The pictures are my own photos, and a plain box means that card has no photo yet.</p>
+    <p class="small" data-define="cards">On a card: the number in the circle is its cost in Supply. ATK is Attack, RET is Retaliation (the damage a defender deals back to its attacker), DUR is Durability and CAP is Capacity.</p>
     <p class="small gc-how" hidden><span class="t-tap">Tap a Leader, Companion, Unit or Vehicle</span><span class="t-click">Click a Leader, Companion, Unit or Vehicle</span> to exhaust it: it turns sideways, as in the game. Do it again to ready it. Other cards never exhaust. Press Flip on any card to read what its words mean.</p>
     <div class="d-mode f-switch" role="group" aria-label="Show the cards of one Banner" hidden>
       <button type="button" class="d-act f-pick" data-faction="wardens" aria-pressed="true">Wardens</button>
       <button type="button" class="d-act f-pick" data-faction="raiders" aria-pressed="false">Raiders</button>
     </div>
-    <div class="card-set" data-faction="wardens" role="group" aria-label="Wardens cards">
-    <ul class="card-grid" data-carousel="x" tabindex="0" aria-label="Wardens cards">
+    <div class="card-set" data-faction="wardens" role="group" aria-label="Wardens cards and the 2 shared cards">
+    <ul class="card-grid" data-carousel="x" tabindex="0" aria-label="Wardens cards and the 2 shared cards">
       <li>
         <h3>Leader</h3>
         <article class="gc fac-w" aria-label="Warden Leader, Leader">
@@ -200,7 +225,7 @@
           <div class="gc-rules"><p>After a Companion of yours is damaged and survives - Exhaust - Restore 1 to it.</p></div>
           <ul class="gc-stats" aria-label="Stats"><li><b>1</b><span aria-hidden="true">ATK</span><span class="vh">Attack</span></li><li><b>2</b><span aria-hidden="true">RET</span><span class="vh">Retaliation</span></li><li><b>3</b><span>Health</span></li></ul>
         </article>
-        <p>Units are your Banner&rsquo;s people. They move, attack, defend and <strong>Capture</strong> places.</p>
+        <p>Units are your Banner&rsquo;s people. They move, attack, defend and <strong>Capture</strong> Locations.</p>
       </li>
       <li>
         <h3>Tactic</h3>
@@ -222,7 +247,7 @@
           <div class="gc-rules"><p>Its Unit may Guard. While Guarding, it prevents the first 1 combat damage to it each turn.</p></div>
           <ul class="gc-stats" aria-label="Stats"><li><b>3</b><span aria-hidden="true">DUR</span><span class="vh">Durability</span></li></ul>
         </article>
-        <p>Equipment is gear. It goes on a card it names, or it sits at a place you control.</p>
+        <p>Equipment is gear. It goes on a card it names, or it sits at a Location you control.</p>
       </li>
       <li>
         <h3>Structure</h3>
@@ -233,7 +258,7 @@
           <div class="gc-rules"><p>Your turn, after combat here - 1 Supply - Restore 1 to a surviving Companion of yours here.</p></div>
           <ul class="gc-stats" aria-label="Stats"><li><b>4</b><span aria-hidden="true">DUR</span><span class="vh">Durability</span></li></ul>
         </article>
-        <p>A Structure is something you build at a place you control.</p>
+        <p>A Structure is something you build at a Location you control.</p>
       </li>
       <li>
         <h3>Vehicle</h3>
@@ -244,12 +269,34 @@
           <div class="gc-rules"><p>Can be driven only to a Location you control.</p><p>First drive carrying fighters there - One of them stays ready, but can't attack this turn.</p></div>
           <ul class="gc-stats" aria-label="Stats"><li><b>4</b><span aria-hidden="true">DUR</span><span class="vh">Durability</span></li><li><b>2</b><span aria-hidden="true">CAP</span><span class="vh">Capacity</span></li></ul>
         </article>
-        <p>A Vehicle is a ride. It sits at a place you control. A Unit drives it, and it can carry your other ready Units, your Companions or your Leader, up to its Capacity. It is not Equipment.</p>
+        <p>A Vehicle is a ride. It sits at a Location you control. A Unit drives it, and it can carry your other ready Units, your Companions or your Leader, up to its Capacity. It is not Equipment.</p>
+      </li>
+      <li>
+        <h3>Battlefield Location</h3>
+        <article class="gc fac-n" aria-label="Mountain Road, Battlefield Location">
+          <div class="gc-top"><p class="gc-name">Mountain Road</p></div>
+          <p class="gc-line"><span class="gc-fac">Shared</span><span>Battlefield Location</span></p>
+          <figure class="gc-art"><img src="img/card-photo-location.webp" width="480" height="553" loading="lazy" alt="Photo by Kyle (stand-in art): a paved road that leads into the mountains."></figure>
+          <div class="gc-rules"><p>Capture Reward - <strong>Rethink</strong>.</p><p>Routes: the West Yard; the Upper Junction.</p></div>
+          <ul class="gc-stats" aria-label="Stats"><li><b>4</b><span aria-hidden="true">DUR</span><span class="vh">Durability</span></li></ul>
+        </article>
+        <p>A Location is one of the nine spots on the map.</p>
+      </li>
+      <li>
+        <h3>Frontier card</h3>
+        <article class="gc fac-n" aria-label="Hidden Supplies, Frontier card">
+          <div class="gc-top"><p class="gc-name">Hidden Supplies</p></div>
+          <p class="gc-line"><span class="gc-fac">Shared</span><span>Frontier card</span></p>
+          <figure class="gc-art"><img src="img/card-photo-frontier.webp" width="480" height="553" loading="lazy" alt="Photo by Kyle (stand-in art): a rocky, snowy mountaintop high above a valley."></figure>
+          <div class="gc-rules"><p>Resolve - Each player Generates 1 Supply. You Generate 1 more.</p></div>
+          
+        </article>
+        <p>Frontier cards come from the shared Frontier Deck.</p>
       </li>
     </ul>
     </div>
-    <div class="card-set" data-faction="raiders" role="group" aria-label="Raiders cards">
-    <ul class="card-grid" data-carousel="x" tabindex="0" aria-label="Raiders cards">
+    <div class="card-set" data-faction="raiders" role="group" aria-label="Raiders cards and the 2 shared cards">
+    <ul class="card-grid" data-carousel="x" tabindex="0" aria-label="Raiders cards and the 2 shared cards">
       <li>
         <h3>Leader</h3>
         <article class="gc fac-r" aria-label="Raider Leader, Leader">
@@ -281,7 +328,7 @@
           <div class="gc-rules"><p>Gets +1 Attack when attacking a damaged fighter.</p></div>
           <ul class="gc-stats" aria-label="Stats"><li><b>2</b><span aria-hidden="true">ATK</span><span class="vh">Attack</span></li><li><b>1</b><span aria-hidden="true">RET</span><span class="vh">Retaliation</span></li><li><b>2</b><span>Health</span></li></ul>
         </article>
-        <p>Units are your Banner&rsquo;s people. They move, attack, defend and <strong>Capture</strong> places.</p>
+        <p>Units are your Banner&rsquo;s people. They move, attack, defend and <strong>Capture</strong> Locations.</p>
       </li>
       <li>
         <h3>Tactic</h3>
@@ -303,7 +350,7 @@
           <div class="gc-rules"><p>Its Unit gets +1 Attack when attacking a damaged or Isolated target.</p></div>
           <ul class="gc-stats" aria-label="Stats"><li><b>2</b><span aria-hidden="true">DUR</span><span class="vh">Durability</span></li></ul>
         </article>
-        <p>Equipment is gear. It goes on a card it names, or it sits at a place you control.</p>
+        <p>Equipment is gear. It goes on a card it names, or it sits at a Location you control.</p>
       </li>
       <li>
         <h3>Structure</h3>
@@ -314,7 +361,7 @@
           <div class="gc-rules"><p>After your Raider Unit leaves a contested Location without Capturing it - Look at your top 2 cards. Put 1 in your hand &amp; 1 on the bottom.</p></div>
           <ul class="gc-stats" aria-label="Stats"><li><b>3</b><span aria-hidden="true">DUR</span><span class="vh">Durability</span></li></ul>
         </article>
-        <p>A Structure is something you build at a place you control.</p>
+        <p>A Structure is something you build at a Location you control.</p>
       </li>
       <li>
         <h3>Vehicle</h3>
@@ -325,17 +372,8 @@
           <div class="gc-rules"><p>First drive into a contested or enemy Location - Its driver gets <strong>Momentum</strong>.</p></div>
           <ul class="gc-stats" aria-label="Stats"><li><b>3</b><span aria-hidden="true">DUR</span><span class="vh">Durability</span></li><li><b>1</b><span aria-hidden="true">CAP</span><span class="vh">Capacity</span></li></ul>
         </article>
-        <p>A Vehicle is a ride. It sits at a place you control. A Unit drives it, and it can carry your other ready Units, your Companions or your Leader, up to its Capacity. It is not Equipment.</p>
+        <p>A Vehicle is a ride. It sits at a Location you control. A Unit drives it, and it can carry your other ready Units, your Companions or your Leader, up to its Capacity. It is not Equipment.</p>
       </li>
-    </ul>
-    </div>
-    <div class="d-mode f-switch f-switch-end" role="group" aria-label="Show the cards of one Banner" hidden>
-      <button type="button" class="d-act f-pick-end" data-faction="wardens" aria-pressed="true">Wardens</button>
-      <button type="button" class="d-act f-pick-end" data-faction="raiders" aria-pressed="false">Raiders</button>
-    </div>
-    <div class="card-set card-shared" role="group" aria-label="Cards both Banners share">
-    <p class="small">Both Banners share these two: the places on the map and the Frontier Deck.</p>
-    <ul class="card-grid" data-carousel="x" tabindex="0" aria-label="Shared cards">
       <li>
         <h3>Battlefield Location</h3>
         <article class="gc fac-n" aria-label="Mountain Road, Battlefield Location">
@@ -345,7 +383,7 @@
           <div class="gc-rules"><p>Capture Reward - <strong>Rethink</strong>.</p><p>Routes: the West Yard; the Upper Junction.</p></div>
           <ul class="gc-stats" aria-label="Stats"><li><b>4</b><span aria-hidden="true">DUR</span><span class="vh">Durability</span></li></ul>
         </article>
-        <p>A Location is one of the nine places on the map.</p>
+        <p>A Location is one of the nine spots on the map.</p>
       </li>
       <li>
         <h3>Frontier card</h3>
@@ -360,12 +398,18 @@
       </li>
     </ul>
     </div>
+    <div class="d-mode f-switch f-switch-end" role="group" aria-label="Show the cards of one Banner" hidden>
+      <button type="button" class="d-act f-pick-end" data-faction="wardens" aria-pressed="true">Wardens</button>
+      <button type="button" class="d-act f-pick-end" data-faction="raiders" aria-pressed="false">Raiders</button>
+    </div>
     <p><strong>Words on these cards</strong></p>
     <ul class="points gc-words">
       <li data-word="fighter">Fighter: a Unit or Companion. A card that also means your Leader says &ldquo;fighter or Leader&rdquo;.</li>
       <li data-word="fortify"><strong>Fortify N:</strong> prevent the next N damage to that card this turn, unless the card says longer. That card is the one the line names, or the one damage is about to hit. It can be any card you control. If Fortify happens because damage is about to hit, it stops only that damage.</li>
       <li data-word="momentum"><strong>Momentum:</strong> it gets +1 Attack through your next turn, even if it moves. Momentum from different cards adds up. One card&rsquo;s Momentum doesn&rsquo;t add to itself.</li>
       <li data-word="rethink"><strong>Rethink:</strong> draw 1, then discard 1.</li>
+      <li data-word="isolated"><strong>Isolated:</strong> a Unit is Isolated when it is the only Unit its player has at its Location. A card can also make it Isolated until it next readies.</li>
+      <li data-word="overrun"><strong>Overrun:</strong> when an attack does more damage than the defender has Health left, the extra goes to the Location or Leader the defender was protecting. If the defender was protecting a Unit or Companion, the extra is lost.</li>
     </ul>
   </div>
 </section>
@@ -379,51 +423,73 @@
       <p id="st-play-c"><strong>Where the game stands</strong></p>
       <div class="st-bar" aria-hidden="true"><span class="st-fill" style="width:40%"></span><span class="st-tick" style="left:0"></span><span class="st-goal" style="left:100%"></span></div>
       <p class="st-nums"><span><strong>Now: step 3 of 6</strong></span><span>40% of the way to the printed game in your hands.</span></p>
-      <p class="st-trend">Version 0.6 is in testing now. Improved computer players are playing 23,800 games against each other, with more to follow. No results yet.</p>
+      <p class="st-trend">Version 0.6 is in testing now. No results from its test games are posted yet.</p>
       <p class="st-asof">As of November 2026. A target, not a promise.</p>
     </div>
     <div class="fact" id="events">
       <p><strong>Where we are:</strong> no game nights or conventions yet. A bill goes up here when one is real, and not before.</p>
     </div>
     <h3 id="try">Try one turn</h3>
+    <div class="fact" id="try-words">
+      <p><strong>New here? The words you will see:</strong></p>
+      <ul class="points dw-list">
+<!-- words:start -->
+        <li data-word="banner"><strong>Banner:</strong> The team you play as. There are two so far: the Wardens and the Raiders.</li>
+        <li data-word="leader"><strong>Leader:</strong> The card that leads your team. If your Leader is defeated, you lose.</li>
+        <li data-word="companion"><strong>Companion:</strong> One card: an animal or a person who fights beside your Leader. It starts in your Campsite.</li>
+        <li data-word="unit"><strong>Unit:</strong> One card, one of your team's people. Units move, fight and take Locations. A Unit is one card, not a whole team.</li>
+        <li data-word="location"><strong>Location:</strong> One of the nine spots on the map, like Rusted Track. Each one is marked Yours, Nobody or Theirs.</li>
+        <li data-word="control"><strong>Control:</strong> A Location you control is yours, marked Yours. A ready Unit can Capture a Location nobody controls, and your Units can take one from the other player.</li>
+        <li data-word="capture"><strong>Capture:</strong> A ready Unit takes a Location that nobody controls. It must not have moved there this turn, and no enemy Unit can be there. Some Locations give a bonus, a Capture Reward, when you Capture them.</li>
+        <li data-word="road"><strong>Road:</strong> The line that joins two Locations that are next to each other. Most cards move one road at a time.</li>
+        <li data-word="gate-yard"><strong>Gate yard and Campsite:</strong> Your gate yard is your home Location on the map. Your Campsite is your camp beside it, off the map. Your Leader and Companion start there.</li>
+        <li data-word="ready"><strong>Ready and exhausted:</strong> A ready card stands upright and can act. To exhaust a card means to turn it sideways. Moving, attacking and most other actions exhaust a card, and it can't act again until your next turn starts.</li>
+        <li data-word="supply"><strong>Supply:</strong> What you spend to play cards and pay for actions. Both players start their first turn with 3 Supply. On each of your later turns, it refills up to a limit 1 higher than before: 4 on your second turn, then 5, and so on.</li>
+        <li data-word="frontier"><strong>Frontier card:</strong> The Frontier is everything in the valley that nobody controls and nobody planned for. A Frontier card comes from a deck both players share. Early in every turn, one is turned over, bringing weather, a wild animal, a find or trouble that both players must deal with.</li>
+        <li data-word="phase"><strong>Phase, turn and round:</strong> A turn has six parts, called phases, always in the same order. A round is one turn for each player.</li>
+        <li data-word="attack"><strong>Attack, Health and Durability:</strong> Attack is the damage a card deals. Health is how much damage a Unit, Companion, Leader or wild animal can take before it is defeated. A Location (and some other cards) has Durability instead. When a Location has none left, nobody controls it.</li>
+<!-- words:end -->
+      </ul>
+      <p class="small">More about each kind of card: <a href="#cards">The cards</a>.</p>
+    </div>
     <p class="d-mode" role="group" aria-label="Pick a version of the example">
       <button type="button" class="d-act" id="d-simple" aria-pressed="true">Simple: step by step</button>
       <button type="button" class="d-act" id="d-adv" aria-pressed="false">Advanced: you choose</button>
     </p>
     <div class="demo" id="demo">
-      <p class="taste"><strong>A simplified example of one turn.</strong> <span id="d-goal">Your goal: <strong>Capture</strong> Rusted Track. Your Unit has been there since last turn.</span></p>
+      <p class="taste" data-define="simple"><strong>You play as the Wardens. Each example walks through one turn, one step at a time.</strong> Press the big button to take each step. Under it, you&rsquo;ll see what happened and why. There are six short examples, each with its own goal, on a small map of 3 Locations. Most happen on your turn; one shows the other player&rsquo;s turn. <span id="d-goal">Your goal: <strong>Capture</strong> Rusted Track, which means take a Location that nobody controls. Your Unit has stood there since your last turn.</span></p>
       <div class="d-head" id="d-head">
         <p class="d-sides"><span class="d-side you" id="d-you-s"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 15V1.5M3.8 2.2h8.4l-2 3l2 3H3.8"/></svg><span id="d-you">You: Player 1, the Wardens</span></span> <span class="d-side them" id="d-them-s"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 15V1.5M3.8 2.2h8.4l-2 3l2 3H3.8"/></svg><span id="d-them">Them: Player 2, the Raiders</span></span></p>
         <p class="d-when"><svg class="d-tally" id="d-tally" viewBox="0 0 34 20" width="34" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M4 3l1.5 14"/></svg><span class="d-stamp" id="d-round">Round 2</span><span class="d-turn" id="d-turn">Your turn</span></p>
         <ol class="d-phases" id="d-phases" aria-label="The six phases of a turn"><li>Recovery</li><li>Frontier</li><li>Draw</li><li>Operations</li><li>Conflict</li><li>End</li></ol>
       </div>
-      <div class="d-map" role="group" aria-label="The map: three places in a row">
-        <div class="d-place mine" id="d-p0"><span class="pn">Your gate yard</span><span class="po">Yours</span><span class="pt"></span><span class="pt"></span></div>
+      <div class="d-map" role="group" aria-label="The map: three Locations in a row">
+        <div class="d-place mine" id="d-p0"><span class="pn" data-define="simple-map">Your gate yard</span><span class="po">Yours</span><span class="pt"></span><span class="pt"></span></div>
         <div class="d-place open" id="d-p1"><span class="pn">Rusted Track</span><span class="po">Nobody</span><span class="pt">Your Unit</span><span class="pt"></span></div>
         <div class="d-place theirs" id="d-p2"><span class="pn">The Lower Junction</span><span class="po">Theirs</span><span class="pt enemy">Enemy Unit</span><span class="pt"></span></div>
       </div>
       <p class="d-camp" id="d-camp" hidden><span class="dc-l">Your Campsite, beside your gate yard:</span> <span class="pt" id="d-camp-pt"></span></p>
       <div class="d-say">
-        <div id="d-status" role="status" aria-live="polite"><p class="d-step">Example 1 of 6 &middot; Step 1 of 5</p><div class="d-mini k-unit" id="d-mini" aria-hidden="true"><p class="d-mk">Unit</p><svg viewBox="0 0 24 24" width="30" height="30" focusable="false"><path d="M12 3.5a3 3 0 1 1 0 6a3 3 0 1 1 0-6M5.5 20.5c0-4 2.9-6.5 6.5-6.5s6.5 2.5 6.5 6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><p class="d-mw"></p></div><p class="d-what">Your turn starts. Your Supply refills to 4. Your Unit at Rusted Track is ready.</p><p class="d-why">First, the top Frontier card is revealed. It can change your plan.</p></div>
+        <div id="d-status" role="status" aria-live="polite"><p class="d-step">Example 1 of 6 &middot; Step 1 of 5</p><div class="d-mini k-unit" id="d-mini" aria-hidden="true"><p class="d-mk">Unit</p><svg viewBox="0 0 24 24" width="30" height="30" focusable="false"><path d="M12 3.5a3 3 0 1 1 0 6a3 3 0 1 1 0-6M5.5 20.5c0-4 2.9-6.5 6.5-6.5s6.5 2.5 6.5 6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><p class="d-mw"></p></div><p class="d-what">Your turn starts. All your cards are ready again. So your Unit at Rusted Track is ready: it stands upright and can act. Your Supply refills to 4.</p><p class="d-why">First, the top Frontier card is revealed. Frontier cards come from a shared deck and bring trouble or luck to both players. It can change your plan.</p></div>
       </div>
       <p class="d-go-wrap"><button type="button" class="d-go" id="d-go">Click: Play your Unit</button></p>
       <div class="d-front" id="d-front" hidden>
         <div class="d-storm"><p class="d-deck">Frontier</p><svg viewBox="0 0 48 48" width="36" height="36" aria-hidden="true" focusable="false"><path d="M6 16h22a5 5 0 1 0-5-5M6 24h30a5 5 0 1 1-5 5M6 32h16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg><p class="d-sname">Wall of Wind</p></div>
-        <p class="d-stext">The Frontier Deck turns up something every turn, and both players must deal with it.</p>
+        <p class="d-stext" data-define="simple">The Frontier Deck turns up something every turn, and both players must deal with it.</p>
       </div>
       <p class="d-more" id="d-more" hidden>Liked it? <a href="#signup">Get email news</a> or <a href="#call-playtest">help us playtest</a>.</p>
       <p class="d-acts"><button type="button" class="d-act" id="d-reset">Start over</button> <button type="button" class="d-act" id="d-other">Try another example</button></p>
       <p class="d-keys">Tab and Enter work too.</p>
     </div>
     <div class="demo adv" id="adv" hidden>
-      <p class="taste"><strong>A harder example.</strong> Nothing tells you which move to make. Press Hint if you want one. <span id="a-goal">Your goal: take as much of the map as you can this turn.</span></p>
+      <p class="taste" data-define="adv"><strong>Here you make the choices.</strong> You play as the Wardens, on a map of 5 Locations. In each example, you pick each move yourself from a few options. A wrong pick tells you why, and you can pick again. Press Hint if you want one. There are three examples, each with its own goal. Two happen on your turn; one shows the other player&rsquo;s turn. <span id="a-goal">Your goal: take as much of the map as you can this turn.</span></p>
       <div class="d-head">
         <p class="d-sides"><span class="d-side you now" id="a-you-s"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 15V1.5M3.8 2.2h8.4l-2 3l2 3H3.8"/></svg><span id="a-you">You: Player 1, the Wardens</span></span> <span class="d-side them" id="a-them-s"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 15V1.5M3.8 2.2h8.4l-2 3l2 3H3.8"/></svg><span id="a-them">Them: Player 2, the Raiders</span></span></p>
         <p class="d-when"><span class="d-stamp" id="a-round">Round 4</span><span class="d-turn" id="a-turn">Your turn</span></p>
         <ol class="d-phases" aria-label="The six phases of a turn"><li>Recovery</li><li>Frontier</li><li>Draw</li><li>Operations</li><li>Conflict</li><li>End</li></ol>
       </div>
-      <div class="d-map a-map" role="group" aria-label="The map: five places joined by roads, in this order: your gate yard, Rusted Track, Mountain Road, The Lower Junction, their gate yard">
-        <div class="d-place" id="a-p0"><span class="pn">Your gate yard</span><span class="po"></span><span class="pt"></span><span class="pt"></span></div>
+      <div class="d-map a-map" role="group" aria-label="The map: five Locations joined by roads, in this order: your gate yard, Rusted Track, Mountain Road, The Lower Junction, their gate yard">
+        <div class="d-place" id="a-p0"><span class="pn" data-define="adv-map">Your gate yard</span><span class="po"></span><span class="pt"></span><span class="pt"></span></div>
         <div class="d-place" id="a-p1"><span class="pn">Rusted Track</span><span class="po"></span><span class="pt"></span><span class="pt"></span></div>
         <div class="d-place" id="a-p2"><span class="pn">Mountain Road</span><span class="po"></span><span class="pt"></span><span class="pt"></span></div>
         <div class="d-place" id="a-p3"><span class="pn">The Lower Junction</span><span class="po"></span><span class="pt"></span><span class="pt"></span></div>
@@ -434,7 +500,7 @@
       <p class="a-hint-text" id="a-hint-text" aria-live="polite"></p>
       <p class="d-acts"><button type="button" class="d-act" id="a-hint">Hint</button> <button type="button" class="d-act" id="a-again" hidden>Play it again</button> <button type="button" class="d-act" id="a-other">Try another example</button> <button type="button" class="d-act" id="a-back">Back to the simple examples</button></p>
     </div>
-    <p class="small">The real game has nine places, two full decks and a Frontier Deck that does not care who is winning.</p>
+    <p class="small">The real game has nine Locations, two full decks and a Frontier Deck that does not care who is winning.</p>
     <div class="tag-note">
       <details>
         <summary><svg class="tag-ic" viewBox="0 0 40 40" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 14.5C11 15.2 17 14.4 23 14.8C28 15 29.6 9.6 25.8 8.4C23.4 7.7 21.8 9.4 22.4 11M4.6 21.4C13 21 22 22 29.5 21.6C35 21.4 35.6 28.4 30.8 29C28.2 29.3 27 27.4 27.8 25.8M6.4 28.4C9.6 28.8 13 28.2 16.4 28.6"/></svg><span class="tag-l">A Keeper&rsquo;s note</span> <span class="tag-hint"><span class="t-tap">Tap to read</span><span class="t-click">Click to read</span></span></summary>
@@ -459,6 +525,7 @@
       <p>The wind takes no side. Plan for it anyway.</p>
     </div>
     <svg class="cracks" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="c" d="M96.9 33L95.6 36.4L96.4 38.8L94.8 42.6L97.3 46.1L96.1 49.4L97.6 53.8L95.2 57L96.5 61.3L95.1 65.7L96.2 70.4M95.2 57L93.4 58.8L93.9 60.6M96.4 38.8L98.4 40.1"/><path class="s" d="M93.4 44.2L98.9 45.4M93.1 63L98.6 64.1"/></svg>
+    <div class="repairs" aria-hidden="true" hidden data-seam="wire"></div>
   </div>
 </section>
 </div>
@@ -467,7 +534,7 @@
   <div class="wrap">
     <p class="folio">Part 3</p>
     <h2 id="involved-h">Get Involved</h2>
-    <p>Dustbanners is made by people, and it will need more of them. Four calls are posted here. Signing up is not a job offer: it does not promise any work, pay or due date.</p>
+    <p>Dustbanners will need more people to help. Four calls are posted here. Signing up is not a job offer: it does not promise any work, pay or due date.</p>
     <ul class="bills">
       <li><article class="bill float" id="call-playtest" aria-labelledby="call-playtest-h">
         <p class="no">Call 1 &middot; playtesters</p>
@@ -559,6 +626,7 @@
       <p>Leave your name here. We write when there is news, and not otherwise.</p>
     </div>
     <svg class="cracks" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="c" d="M98.1 0L96.6 3.3L97.9 6.4L95.9 9.8L98.3 13.2L96.4 16.4L97.6 20.2L95.8 23.7L96.9 27.2M95.9 9.8L93.8 11.1L94.4 12.9M96.4 16.4L93.2 18.8"/><path class="s" d="M93.6 4.6L99 5.6M93.9 21.2L99.2 22.4"/></svg>
+    <div class="repairs" aria-hidden="true" hidden data-seam="bolt"></div>
   </div>
 </section>
 
@@ -574,13 +642,12 @@
     then get surprised by one they can only guess.</p>
     <h3 id="ai">How AI is used</h3>
     <div class="panel">
-      <p><strong>The finished game will be made by people: the art by human artists, the final words by a human
-      editor.</strong></p>
+      <p><strong>The finished game will be made by people: the art, card backs and logo by human artists, the final words by a
+      human editor.</strong></p>
       <p>I use AI tools to help make Dustbanners. The world, the rules and every final decision are mine. AI tools helped build and
-      test the digital version of the game, run its balance simulations, and draft some of the text, which I edit and approve. A
-      human editor will do the final pass on every word players see. The card pictures on this site are my own photos. I adjusted them with simple editing scripts. No AI image generator made or
-      changed them. Where a card has no photo yet, you see a plain labeled box. The final card art, box art, card backs and logo
-      will be made by human artists.</p>
+      test the digital version of the game, run its balance simulations, and draft some of the text, which I edit and approve.
+      The card pictures on this site are my own photos. I adjusted them with simple editing scripts. No AI image generator made or
+      changed them. Where a card has no photo yet, you see a plain labeled box.</p>
       <p>Are you an artist? <a href="draw.html">Sign up to draw for Dustbanners</a>. It is paid work, or for fun if you prefer.</p>
     </div>
     <div class="tag-note">
@@ -615,12 +682,22 @@
     <p class="gate-ask"><span class="nw">Something broken or confusing</span> <span class="nw">on this site?</span></p>
     <a class="gate-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSeLGjetFpVL5vjk9n1kVDnuCJZK04rodNUD4oKncrjfLcybfA/viewform" rel="noopener">Leave Word at the Gate</a>
   </div>
-  <p class="made">Human made. AI assisted.</p>
   <p><span class="nw">Dustbanners&trade; &middot; &copy; 2026 AminalHungy</span> <span class="nw">&middot; <a href="privacy.html">Privacy</a></span></p>
 </footer>
-<script src="js/try-turn.js?v=r51"></script>
-<script src="js/try-advanced.js?v=r51"></script>
-<script src="js/site.js?v=r51"></script>
-<script src="js/cards.js?v=r51"></script>
+<div class="kb-back" hidden></div>
+<div class="kb-sheet" id="kb-sheet" role="dialog" aria-modal="true" aria-labelledby="kb-title" hidden>
+  <div class="kb-grab" aria-hidden="true"></div>
+  <div class="kb-head"><h2 id="kb-title">Keeper&rsquo;s board</h2><button type="button" class="kb-close">Close</button></div>
+  <ul class="kb-stack" aria-label="The Keeper&rsquo;s board notes"></ul>
+  <div class="kb-nav"><button type="button" class="kb-prev">Previous</button><div class="kb-where"><span class="kb-dots" aria-hidden="true"></span><p class="kb-count" aria-live="polite">1 of 4</p></div><button type="button" class="kb-next">Next</button></div>
+</div>
+<script src="js/try-turn.js?v=r52g"></script>
+<script src="js/try-advanced.js?v=r52g"></script>
+<script src="js/site.js?v=r52g"></script>
+<script src="js/cards.js?v=r52g"></script>
+<script src="js/words.js?v=r52g"></script>
+<script src="js/define.js?v=r52g"></script>
+<script src="js/boards.js?v=r52g"></script>
+<script src="js/keeper.js?v=r52g"></script>
 </body>
 </html>

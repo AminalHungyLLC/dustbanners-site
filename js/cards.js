@@ -15,7 +15,7 @@
   var DBN = window.DBN || null;
   var anim = function () { return DBN ? DBN.anim() : root.classList.contains("anim"); };
   var words = [].slice.call(document.querySelectorAll(".gc-words li[data-word]"));
-  var FIND = { fighter: /\bfighters?\b/i, fortify: /\bFortify\b/, momentum: /\bMomentum\b/, rethink: /\bRethink\b/ };
+  var FIND = { fighter: /\bfighters?\b/i, fortify: /\bFortify\b/, momentum: /\bMomentum\b/, rethink: /\bRethink\b/, isolated: /\bIsolated\b/, overrun: /\bOverrun\b/ };  // r52 draft: Isolated and Overrun added (cold read: used on Raider cards, never explained)
   function el(tag, cls, text) { var n = document.createElement(tag); if (cls) n.className = cls; if (text) n.textContent = text; return n; }
 
   // One polite line for screen readers: "Warden Leader: exhausted." / "Warden Leader: ready."
@@ -113,7 +113,19 @@
     ul.parentNode.insertBefore(nav, ul.nextSibling);
     var r = { ul: ul, set: set, n: n, prev: prev, next: next, count: count, at: -1 };
     function step() { var a = ul.children[0], b = ul.children[1]; return a ? (b ? b.offsetLeft - a.offsetLeft : a.offsetWidth) : 0; }
-    function go(d) { ul.scrollBy({ left: d * step(), behavior: anim() ? "smooth" : "auto" }); }
+    // r52b (walk note 2026-11-27: at 375 px, Next clicks 1.2 s apart were dropped): Next/Previous used scrollBy, which
+    // counts from wherever a smooth scroll has got to, and scroll-snap then pulled the row back. Now each press moves to a
+    // target card, counted from the pending target while a scroll is still running. The target clears when the row
+    // reaches it, or 1.5 s after the last press (so a swipe by hand starts fresh).
+    r.target = null;
+    function go(d) {
+      var s = step(); if (!s) return;
+      var cur = r.target !== null ? r.target : Math.round(ul.scrollLeft / s);
+      var t = Math.max(0, Math.min(n - 1, cur + d));
+      r.target = t;
+      clearTimeout(r.clear); r.clear = setTimeout(function () { r.target = null; }, 1500);
+      ul.scrollTo({ left: t * s, behavior: anim() ? "smooth" : "auto" });
+    }
     prev.addEventListener("click", function () { go(-1); });
     next.addEventListener("click", function () { go(1); });
     r.update = function () {
@@ -121,6 +133,7 @@
       var s = step(), i = s ? Math.round(ul.scrollLeft / s) : 0;
       i = Math.max(0, Math.min(n - 1, i));
       if (ul.scrollLeft + ul.clientWidth >= ul.scrollWidth - 2) i = n - 1;
+      if (r.target !== null && i === r.target) r.target = null;
       if (i === r.at) return;
       r.at = i;
       count.textContent = "Card " + (i + 1) + " of " + n + (i < n - 1 ? ". Swipe for more." : ".");

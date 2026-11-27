@@ -1,0 +1,135 @@
+/* Cork-board repairs (site r52d; Kyle: "Make it all happen as long as it fits the lore"; citations in REPAIRS-LORE-r52d.md).
+   Decorative only: aria-hidden, no pointer events, under the notes (z-index 0; the notes are 1), so never over a note's
+   text. Shown and placed by js/boards.js (fixed in px from the top of the board, like the staples). Boards only show at
+   900 px and up, so phones have no repairs. */
+.margin > .repairs[hidden] { display: none; }
+@media (min-width: 900px) {
+  .margin > .repairs { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+  /* Visual review r52d: 34 px (was 22), placed in the gaps between notes by boards.js, so they read clearly. */
+  /* r52d seams (Kyle: repairs must "actually stitch something and go all the way across"): one break across the board,
+     drawn by js/boards.js at the board's real width, with its repair spanning it. */
+  /* r52d (Kyle: "You can only repair what's broken"): a repaired r41l crack is re-drawn as a real break, and its one
+     repair replaces its staples (js/boards.js). One break, one repair. */
+  .cracks.repaired .c, .cracks.repaired .s { display: none; }
+  .repairs .fix { position: absolute; left: 0; top: 0; display: block; overflow: visible; filter: drop-shadow(.6px .8px 0 rgba(0,0,0,.35)); }
+  .fix .gap { fill: #1a0f06; opacity: .88; }
+  .fix .lip { fill: none; stroke: rgba(255,232,196,.45); stroke-width: 1; }
+  .fix .hole { fill: #140b04; }
+  .fix .thread-under { stroke: #2a1a0c; stroke-width: 3.2; stroke-linecap: round; }
+  .fix .thread { stroke: #ece0c2; stroke-width: 1.5; stroke-linecap: round; }
+  .fix .wire-under { fill: none; stroke: #2a1a0c; stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; }
+  .fix .wire { fill: none; stroke: #a3a49e; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .fix .plate { fill: #8d8e88; stroke: #2a1a0c; stroke-width: 1.2; }
+  .fix .rust { fill: #8a4f2a; opacity: .75; }
+  .fix .washer { fill: #a3a49e; stroke: #2a1a0c; stroke-width: 1.1; }
+  .fix .hex { fill: #6f706a; stroke: #2a1a0c; stroke-width: .9; }
+  /* Visual review: a little more cork at the sides, no dead space under a note's last line, a clearer Sage advice toggle. */
+  /* Visual review r2: the cork-board cracks' staples (in the outer 7% of the width) must sit 6-8 px clear of the notes:
+     22 px of side cork puts the notes past them on both left and right boards, and gives a little margin at 1024. */
+  .leaf > .margin { padding-left: 22px; padding-right: 22px; }
+  .margin .scrap > :last-child { margin-bottom: 0; }
+  .margin .scrap details.lead > summary { color: var(--scrap-ink); font-size: 16px; }
+}
+/* The Leader's look note: the repairs read faintly on the dark cork, so they are a little brighter in dark mode only. */
+@media (min-width: 900px) and (prefers-color-scheme: dark) {
+  :root:not(.theme-light) .repairs .fix { filter: brightness(1.3) drop-shadow(.6px .8px 0 rgba(0,0,0,.5)); }
+}
+@media (min-width: 900px) { :root.theme-dark .repairs .fix { filter: brightness(1.3) drop-shadow(.6px .8px 0 rgba(0,0,0,.5)); } }
+@media (forced-colors: active) { .margin > .repairs { display: none; } }
+/* The Game board now holds 4 notes: the 4th gets its own tilt and nail spot, so no two notes hang the same way. */
+#game .margin .scrap:nth-child(4) { --tilt: .8deg; --nx: 5px; }
+
+/* r52d cards (Kyle: "just all 9 instead of having that empty space"): each Banner's grid now holds 9 cards (its 7 plus
+   the 2 shared), so from 768 px up the grid is exactly 3 columns: 3 rows of 3, no orphan gap. Under 768 px the phone
+   swipe row is unchanged (cards.js; "Card 1 of 9"). */
+/* Review r52d-r2 MED: at 768 px, 3 columns made each card about 204 px wide, under the size the cards are built for.
+   So 3 columns start at 900 px (3 rows of 3). From 768 to 899 px it stays 2 columns, and the 9th card sits centered
+   on its own row, so the last row looks meant, not empty. */
+@media (min-width: 900px) { .card-set .card-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+/* Retake note (1024, "FRONTIER CARD" nearly touched its Flip button): the Flip button sits in the item's top-right
+   corner, so the centered card-type title keeps clear of it on both sides. */
+@media (min-width: 768px) { .card-set .card-grid > li > h3 { padding: 0 66px; } }
+@media (min-width: 768px) and (max-width: 899px) {
+  .card-set .card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .card-set .card-grid > li:last-child:nth-child(odd) { grid-column: 1 / -1; justify-self: center; width: calc(50% - 10px); }
+}
+@media print { .margin > .repairs { display: none; } }
+
+/* ---------- Phones: the Keeper's board (Kyle: "if there is a smarter way to sneak all of those in there and not clutter
+   the mobile site"). One small pinned tab at the top corner of the Game section opens a bottom sheet with the board's
+   notes as a sideways stack (cloned from the desktop board by js/keeper.js, so there is one source). Phone only. */
+.kb-row { margin: 0 0 6px; text-align: right; }
+.kb-tab { font: inherit; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; display: inline-flex; align-items: center;
+  gap: 7px; min-height: 44px; padding: 6px 12px; background: var(--scrap); color: var(--scrap-ink); border: 1px solid var(--line);
+  border-radius: 3px; box-shadow: 1px 2px 0 var(--shadow); cursor: pointer; transform: rotate(-1.4deg); }
+.kb-tab:focus-visible { outline: 3px solid var(--scrap-ink); outline-offset: 3px; }
+.kb-tack { flex: none; width: 12px; height: 11px; border-radius: 53% 47% 51% 49% / 48% 54% 46% 52%; border: 1px solid #3f4448;
+  background: radial-gradient(circle at 34% 30%, #fdfdfb 0 9%, #d9dcde 24%, #a3a8ac 52%, #6b7176 88%); box-shadow: 1px 1px 1px rgba(0,0,0,.4); }
+.kb-back { position: fixed; inset: 0; z-index: 49; background: rgba(0,0,0,.45); }
+.kb-back[hidden], .kb-sheet[hidden] { display: none; }
+.kb-sheet { position: fixed; left: 0; right: 0; bottom: 0; z-index: 50; max-height: 85vh; overflow-y: auto; overscroll-behavior: contain;
+  box-sizing: border-box; padding: 10px 16px 20px; border-top: 7px solid var(--cork-frame); border-radius: 12px 12px 0 0;
+  background: url("../img/paper-grain.svg"), var(--cork); box-shadow: 0 -6px 18px var(--shadow); }
+.kb-grab { width: 44px; height: 5px; border-radius: 3px; background: var(--cork-ink); margin: 0 auto 10px; }
+.kb-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+#kb-title { margin: 0; padding: 4px 10px; font-size: 16px; letter-spacing: .06em; text-transform: uppercase; background: var(--scrap);
+  color: var(--scrap-ink); box-shadow: 1px 2px 0 var(--shadow); transform: rotate(-1deg); }
+.kb-close { font: inherit; font-size: .95rem; min-height: 44px; padding: 6px 14px; cursor: pointer; background: var(--btn); color: var(--btn-ink);
+  border: 0; border-radius: 4px; }
+.kb-close:focus-visible { outline: 3px solid var(--scrap); outline-offset: 2px; }
+.kb-nav { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 4px 0 0; }
+.kb-prev, .kb-next { font: inherit; font-size: .95rem; min-height: 44px; min-width: 44px; padding: 6px 12px; cursor: pointer;
+  background: var(--scrap); color: var(--scrap-ink); border: 1px solid var(--line); border-radius: 4px; box-shadow: 1px 2px 0 var(--shadow); }
+.kb-prev:disabled, .kb-next:disabled { opacity: .45; cursor: default; }
+.kb-prev:focus-visible, .kb-next:focus-visible { outline: 3px solid var(--scrap); outline-offset: 2px; }
+.kb-where { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.kb-dots { display: flex; gap: 7px; }
+.kb-dots span { width: 8px; height: 8px; border-radius: 50%; background: var(--board-muted); opacity: .55; }
+.kb-dots span.on { background: var(--board-ink); opacity: 1; }
+.kb-count { margin: 0; font-size: 14px; color: var(--board-ink); }
+.kb-stack { list-style: none; margin: 4px -16px 0; padding: 6px 16px 10px; display: grid; grid-auto-flow: column;
+  grid-auto-columns: min(86%, 340px); gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; }
+.kb-stack > li { scroll-snap-align: center; align-self: start; }  /* a short note doesn't stretch to the tallest (review) */
+.kb-stack .scrap { margin: 16px 4px 6px; max-width: none; }
+html.kb-open { overflow: hidden; }
+/* Walk BLOCKER (r52d): the sheet's notes must never be hidden by site.css's scroll arrival (html.anim .scrap:not(.in)).
+   keeper.js gives them "in"; this rule is a second guard. */
+html.anim .kb-stack .scrap:not(.in) { opacity: 1; translate: none; }
+@media (min-width: 900px) { .kb-row, .kb-sheet, .kb-back { display: none !important; } }
+
+/* ---------- Board motion (Kyle approved: A flutter once, B unfold, C pin wiggle, D a very slight sway on desktop only).
+   ALL of it runs only when the device allows motion AND the site's Motion switch is on (html.anim); otherwise none. */
+.margin > .scrap, .kb-stack .scrap { transform-origin: calc(50% + var(--nx, 0px)) 12px; }
+.margin > .scrap:nth-child(2), .kb-stack > li:nth-child(2) .scrap { --fd: .09s; --sw-t: 9s; }
+.margin > .scrap:nth-child(3), .kb-stack > li:nth-child(3) .scrap { --fd: .18s; --sw-t: 7.4s; }
+.margin > .scrap:nth-child(4), .kb-stack > li:nth-child(4) .scrap { --fd: .27s; --sw-t: 9.6s; }
+/* D pauses while a note is pointed at or holds focus, so text being read never moves. */
+.margin > .scrap:hover, .margin > .scrap:focus-within { animation-play-state: paused; }
+@keyframes kb-flutter {
+  0% { transform: rotate(calc(var(--tilt, -1.2deg) - 4deg)) translateY(-3px); }
+  35% { transform: rotate(calc(var(--tilt, -1.2deg) + 2.4deg)); }
+  65% { transform: rotate(calc(var(--tilt, -1.2deg) - .9deg)); }
+  100% { transform: rotate(var(--tilt, -1.2deg)); }
+}
+@keyframes kb-sway { from { transform: rotate(calc(var(--tilt, -1.2deg) - .5deg)); } to { transform: rotate(calc(var(--tilt, -1.2deg) + .5deg)); } }
+@keyframes kb-unfold { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+@keyframes kb-wiggle { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-14deg); } 50% { transform: rotate(10deg); } 75% { transform: rotate(-5deg); } }
+@keyframes kb-rise { from { transform: translateY(100%); } to { transform: none; } }
+@media (prefers-reduced-motion: no-preference) {
+  /* A: one flutter, when a desktop board first comes into view (js/boards.js), or when the phone sheet first opens. */
+  html.anim .margin.kb-in > .scrap, html.anim .kb-sheet.kb-in .kb-stack .scrap { animation: kb-flutter 1.1s cubic-bezier(.3, 1.4, .5, 1) var(--fd, 0s) 1 both; }
+  /* B: Sage advice unfolds. */
+  html.anim .scrap details.lead[open] > :not(summary), html.anim .tag-note details.lead[open] > :not(summary) { animation: kb-unfold .35s ease-out both; }
+  /* C: the pin wiggles on hover or tap. */
+  html.anim .scrap:hover::before, html.anim .scrap:active::before { animation: kb-wiggle .5s ease-in-out 1; }
+  /* the phone sheet rises on open (B on phones) */
+  html.anim .kb-sheet:not([hidden]) { animation: kb-rise .3s cubic-bezier(.22, 1, .36, 1) both; }
+  /* D: a very slight, slow sway, desktop only, after the flutter. */
+  @media (min-width: 900px) {
+    html.anim .margin > .scrap { animation: kb-sway var(--sw-t, 8s) ease-in-out 1.2s infinite alternate; }
+    html.anim .margin.kb-in > .scrap { animation: kb-flutter 1.1s cubic-bezier(.3, 1.4, .5, 1) var(--fd, 0s) 1 both, kb-sway var(--sw-t, 8s) ease-in-out 1.4s infinite alternate; }
+    /* r52e: the pause, after the sway rules and at least as specific, so the animation shorthand cannot reset it. */
+    html.anim .margin > .scrap:hover, html.anim .margin > .scrap:focus-within,
+    html.anim .margin.kb-in > .scrap:hover, html.anim .margin.kb-in > .scrap:focus-within { animation-play-state: paused; }
+  }
+}
