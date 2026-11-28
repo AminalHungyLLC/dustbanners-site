@@ -294,7 +294,7 @@ details.lead summary { cursor: pointer; font-style: normal; min-height: 32px; }
 
 /* The card. It stays light in the dark look, like a printed card.
    r45 (Kyle 2026-11-23: the cards were "VERY long"): every card has the printed card's shape, 2.5 x 3.5 in (5 : 7), at every width.
-   Layout follows the printed face: faction strip 4.5% at the left, name and cost bar, type line, art box from 18% to 88% of the
+   Layout follows the printed face: Banner strip 4.5% at the left, name and cost bar, type line, art box from 18% to 88% of the
    height with the rules on a solid panel and at least a third of the art box left clear, stat blocks at the bottom right. Sizes scale with the card (cqw = 1% of
    the card's width), so every card looks the same at every width. If text ever cannot fit, the rules panel scrolls; nothing is cut off. */
 .gc { --gc-bg: #e4e2ec; --gc-edge: #3b2f78; --gc-ink: #1b1a22; --gc-sub: #3d3a4a; --gc-line: #8d8aa0;

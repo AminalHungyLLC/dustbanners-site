@@ -1,31 +1,31 @@
-/* Dustbanners site r43: the two switches (Light/Dark, Motion), the card faction switch, the phone menu, and notes and bills that settle in once.
+/* Dustbanners site r43: the two switches (Light/Dark, Motion), the card Banner switch, the phone menu, and notes and bills that settle in once.
    Same storage keys as the live site, so a visitor's earlier choices carry over. No outside scripts.
-   r47: the saved choices are put back by js/prefs.js in <head>; the faction switch also sits below the cards; whenSettled (window.DBN). */
+   r47: the saved choices are put back by js/prefs.js in <head>; the Banner switch also sits below the cards; whenSettled (window.DBN). */
 (function () {
   var root = document.documentElement;
   function $(id) { return document.getElementById(id); }
   function store(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
 
-  // Card faction switch (r43, Kyle 2026-11-22: a Raider switch): the cards section shows one Banner at a time, Wardens first. Without script both
+  // Card Banner switch (r43, Kyle 2026-11-22: a Raider switch): the cards section shows one Banner at a time, Wardens first. Without script both
   // lists show and the switch stays hidden. Nothing is stored.
   // r47 (UX review r46, M1): the same two buttons repeat below the card list (.f-pick-end), so nobody has to scroll back up to switch.
   // A press on the lower switch brings the top of the card section back into view when it is above the screen.
-  var sets = [].slice.call(document.querySelectorAll(".card-set[data-faction]")), picks = [].slice.call(document.querySelectorAll(".f-pick, .f-pick-end"));
-  function showFaction(f) {
+  var sets = [].slice.call(document.querySelectorAll(".card-set[data-banner]")), picks = [].slice.call(document.querySelectorAll(".f-pick, .f-pick-end"));
+  function showBanner(f) {
     sets.forEach(function (s) {
-      s.hidden = s.getAttribute("data-faction") !== f;
+      s.hidden = s.getAttribute("data-banner") !== f;
       var row = s.querySelector(".card-grid"); if (row) row.scrollLeft = 0;
     });
-    picks.forEach(function (p) { p.setAttribute("aria-pressed", p.getAttribute("data-faction") === f ? "true" : "false"); });
+    picks.forEach(function (p) { p.setAttribute("aria-pressed", p.getAttribute("data-banner") === f ? "true" : "false"); });
   }
   if (sets.length && picks.length) {
     picks.forEach(function (p) { p.addEventListener("click", function () {
-      showFaction(p.getAttribute("data-faction"));
+      showBanner(p.getAttribute("data-banner"));
       var top = document.querySelector(".f-switch");
       if (p.classList.contains("f-pick-end") && top && top.getBoundingClientRect().top < 0) top.scrollIntoView({ block: "start" });
     }); });
     [].slice.call(document.querySelectorAll(".f-switch")).forEach(function (sw) { sw.hidden = false; });
-    showFaction("wardens");
+    showBanner("wardens");
   }
 
   // Light/Dark switch: starts from the device setting; a click picks the other look and remembers it on this device.

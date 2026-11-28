@@ -22,11 +22,11 @@
 <link rel="icon" type="image/png" href="img/sun.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preload" href="fonts/GentiumBookPlus-Regular.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/site.css?v=r53a">
-<link rel="stylesheet" href="css/define.css?v=r53a">
-<link rel="stylesheet" href="css/boards.css?v=r53a">
-<script src="js/prefs.js?v=r53a"></script>
-<script src="js/playwords.js?v=r53a"></script>
+<link rel="stylesheet" href="css/site.css?v=r53b">
+<link rel="stylesheet" href="css/define.css?v=r53b">
+<link rel="stylesheet" href="css/boards.css?v=r53b">
+<script src="js/prefs.js?v=r53b"></script>
+<script src="js/playwords.js?v=r53b"></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to the page</a>
@@ -116,7 +116,7 @@
     <p class="folio">Part 1</p>
     <h2 id="game-h">The Game</h2>
     <p class="kb-row"><button type="button" class="kb-tab" aria-haspopup="dialog" aria-controls="kb-sheet" aria-expanded="false"><span class="kb-tack" aria-hidden="true"></span>Keeper&rsquo;s board</button></p>
-    <p data-define="game">Dustbanners is a card game for two players, ages 14 and up. About eighty years after the world fell apart, each of you leads a Banner into a valley of nine Locations, the spots on the map. Your Banner is the team you play as, like the Wardens or the Raiders. Each team has its own people, its own flag and its own way to play. (The printed rule book also calls a Banner a faction.)</p>
+    <p data-define="game">Dustbanners is a card game for two players, ages 14 and up. About eighty years after the world fell apart, each of you leads a Banner into a valley of nine Locations, the spots on the map. Your Banner is the team you play as, like the Wardens or the Raiders. Each team has its own people, its own flag and its own way to play.</p>
     <h3>How you win</h3>
     <p data-define="game">There are two ways to win, and both are always open: defeat the enemy Leader with damage, or hold all 9 Locations at the end of a turn.</p>
     <h3>How it plays</h3>
@@ -190,10 +190,10 @@
     <p class="small" data-define="cards">On a card: the number in the circle is its cost in Supply. ATK is Attack, RET is Retaliation (the damage a defender deals back to its attacker), DUR is Durability and CAP is Capacity.</p>
     <p class="small gc-how" hidden><span class="t-tap">Tap a Leader, Companion, Unit or Vehicle</span><span class="t-click">Click a Leader, Companion, Unit or Vehicle</span> to exhaust it: it turns sideways, as in the game. Do it again to ready it. Other cards never exhaust. Press Flip on any card to read what its words mean.</p>
     <div class="d-mode f-switch" role="group" aria-label="Show the cards of one Banner" hidden>
-      <button type="button" class="d-act f-pick" data-faction="wardens" aria-pressed="true">Wardens</button>
-      <button type="button" class="d-act f-pick" data-faction="raiders" aria-pressed="false">Raiders</button>
+      <button type="button" class="d-act f-pick" data-banner="wardens" aria-pressed="true">Wardens</button>
+      <button type="button" class="d-act f-pick" data-banner="raiders" aria-pressed="false">Raiders</button>
     </div>
-    <div class="card-set" data-faction="wardens" role="group" aria-label="Wardens cards and the 2 shared cards">
+    <div class="card-set" data-banner="wardens" role="group" aria-label="Wardens cards and the 2 shared cards">
     <ul class="card-grid" data-carousel="x" tabindex="0" aria-label="Wardens cards and the 2 shared cards">
       <li>
         <h3>Leader</h3>
@@ -296,7 +296,7 @@
       </li>
     </ul>
     </div>
-    <div class="card-set" data-faction="raiders" role="group" aria-label="Raiders cards and the 2 shared cards">
+    <div class="card-set" data-banner="raiders" role="group" aria-label="Raiders cards and the 2 shared cards">
     <ul class="card-grid" data-carousel="x" tabindex="0" aria-label="Raiders cards and the 2 shared cards">
       <li>
         <h3>Leader</h3>
@@ -400,8 +400,8 @@
     </ul>
     </div>
     <div class="d-mode f-switch f-switch-end" role="group" aria-label="Show the cards of one Banner" hidden>
-      <button type="button" class="d-act f-pick-end" data-faction="wardens" aria-pressed="true">Wardens</button>
-      <button type="button" class="d-act f-pick-end" data-faction="raiders" aria-pressed="false">Raiders</button>
+      <button type="button" class="d-act f-pick-end" data-banner="wardens" aria-pressed="true">Wardens</button>
+      <button type="button" class="d-act f-pick-end" data-banner="raiders" aria-pressed="false">Raiders</button>
     </div>
     <p><strong>Words on these cards</strong></p>
     <ul class="points gc-words">
@@ -716,13 +716,13 @@
   <ul class="kb-stack" aria-label="The Keeper&rsquo;s board notes"></ul>
   <div class="kb-nav"><button type="button" class="kb-prev">Previous</button><div class="kb-where"><span class="kb-dots" aria-hidden="true"></span><p class="kb-count" aria-live="polite">1 of 4</p></div><button type="button" class="kb-next">Next</button></div>
 </div>
-<script src="js/try-turn.js?v=r53a"></script>
-<script src="js/try-advanced.js?v=r53a"></script>
-<script src="js/site.js?v=r53a"></script>
-<script src="js/cards.js?v=r53a"></script>
-<script src="js/words.js?v=r53a"></script>
-<script src="js/define.js?v=r53a"></script>
-<script src="js/boards.js?v=r53a"></script>
-<script src="js/keeper.js?v=r53a"></script>
+<script src="js/try-turn.js?v=r53b"></script>
+<script src="js/try-advanced.js?v=r53b"></script>
+<script src="js/site.js?v=r53b"></script>
+<script src="js/cards.js?v=r53b"></script>
+<script src="js/words.js?v=r53b"></script>
+<script src="js/define.js?v=r53b"></script>
+<script src="js/boards.js?v=r53b"></script>
+<script src="js/keeper.js?v=r53b"></script>
 </body>
 </html>

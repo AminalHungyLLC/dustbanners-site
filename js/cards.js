@@ -153,6 +153,6 @@
   }
   if (phone.addEventListener) phone.addEventListener("change", mode); else if (phone.addListener) phone.addListener(mode);
   mode();
-  // A faction switch shows another list: count from its first card again.
+  // A Banner switch shows another list: count from its first card again.
   [].slice.call(document.querySelectorAll(".f-pick, .f-pick-end")).forEach(function (b) { b.addEventListener("click", function () { rows.forEach(function (r) { r.at = -1; r.update(); }); }); });
 })();
