@@ -36,8 +36,6 @@
 }
 @media (min-width: 900px) { :root.theme-dark .repairs .fix { filter: brightness(1.3) drop-shadow(.6px .8px 0 rgba(0,0,0,.5)); } }
 @media (forced-colors: active) { .margin > .repairs { display: none; } }
-/* The Game board now holds 4 notes: the 4th gets its own tilt and nail spot, so no two notes hang the same way. */
-#game .margin .scrap:nth-child(4) { --tilt: .8deg; --nx: 5px; }
 
 /* r52d cards (Kyle: "just all 9 instead of having that empty space"): each Banner's grid now holds 9 cards (its 7 plus
    the 2 shared), so from 768 px up the grid is exactly 3 columns: 3 rows of 3, no orphan gap. Under 768 px the phone
