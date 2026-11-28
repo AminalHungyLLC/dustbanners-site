@@ -22,10 +22,11 @@
 <link rel="icon" type="image/png" href="img/sun.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preload" href="fonts/GentiumBookPlus-Regular.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/site.css?v=r52g">
-<link rel="stylesheet" href="css/define.css?v=r52g">
-<link rel="stylesheet" href="css/boards.css?v=r52g">
-<script src="js/prefs.js?v=r52g"></script>
+<link rel="stylesheet" href="css/site.css?v=r53a">
+<link rel="stylesheet" href="css/define.css?v=r53a">
+<link rel="stylesheet" href="css/boards.css?v=r53a">
+<script src="js/prefs.js?v=r53a"></script>
+<script src="js/playwords.js?v=r53a"></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to the page</a>
@@ -57,7 +58,7 @@
     <h1>Dustbanners</h1>
     <p class="hook">Eighty years after the fall, the valley still has nine outposts worth holding.</p>
     <p class="one">A two-player card game of survival on a broken frontier.</p>
-    <p class="ctas"><a class="btn" href="#signup">Get email news</a> <a class="btn quiet" href="#try">Try one turn</a></p>
+    <p class="ctas"><a class="btn quiet" href="#try">Try one turn</a></p>
     <p class="status-label">Kickstarter: coming soon. Get one email the day it launches.</p>
     <p class="status-label made">Human made. AI assisted. <a href="#ai">Read how</a></p>
   </div>
@@ -277,7 +278,7 @@
           <div class="gc-top"><p class="gc-name">Mountain Road</p></div>
           <p class="gc-line"><span class="gc-fac">Shared</span><span>Battlefield Location</span></p>
           <figure class="gc-art"><img src="img/card-photo-location.webp" width="480" height="553" loading="lazy" alt="Photo by Kyle (stand-in art): a paved road that leads into the mountains."></figure>
-          <div class="gc-rules"><p>Capture Reward - <strong>Rethink</strong>.</p><p>Routes: the West Yard; the Upper Junction.</p></div>
+          <div class="gc-rules"><p><strong class="gc-lab">Capture Reward</strong> <strong>Rethink</strong>.</p><p><strong class="gc-lab">Routes</strong> the West Yard; the Upper Junction.</p></div>
           <ul class="gc-stats" aria-label="Stats"><li><b>4</b><span aria-hidden="true">DUR</span><span class="vh">Durability</span></li></ul>
         </article>
         <p>A Location is one of the nine spots on the map.</p>
@@ -288,7 +289,7 @@
           <div class="gc-top"><p class="gc-name">Hidden Supplies</p></div>
           <p class="gc-line"><span class="gc-fac">Shared</span><span>Frontier card</span></p>
           <figure class="gc-art"><img src="img/card-photo-frontier.webp" width="480" height="553" loading="lazy" alt="Photo by Kyle (stand-in art): a rocky, snowy mountaintop high above a valley."></figure>
-          <div class="gc-rules"><p>Resolve - Each player Generates 1 Supply. You Generate 1 more.</p></div>
+          <div class="gc-rules"><p><strong class="gc-lab">Resolve</strong> Each player Generates 1 Supply. You Generate 1 more.</p></div>
           
         </article>
         <p>Frontier cards come from the shared Frontier Deck.</p>
@@ -380,7 +381,7 @@
           <div class="gc-top"><p class="gc-name">Mountain Road</p></div>
           <p class="gc-line"><span class="gc-fac">Shared</span><span>Battlefield Location</span></p>
           <figure class="gc-art"><img src="img/card-photo-location.webp" width="480" height="553" loading="lazy" alt="Photo by Kyle (stand-in art): a paved road that leads into the mountains."></figure>
-          <div class="gc-rules"><p>Capture Reward - <strong>Rethink</strong>.</p><p>Routes: the West Yard; the Upper Junction.</p></div>
+          <div class="gc-rules"><p><strong class="gc-lab">Capture Reward</strong> <strong>Rethink</strong>.</p><p><strong class="gc-lab">Routes</strong> the West Yard; the Upper Junction.</p></div>
           <ul class="gc-stats" aria-label="Stats"><li><b>4</b><span aria-hidden="true">DUR</span><span class="vh">Durability</span></li></ul>
         </article>
         <p>A Location is one of the nine spots on the map.</p>
@@ -391,7 +392,7 @@
           <div class="gc-top"><p class="gc-name">Hidden Supplies</p></div>
           <p class="gc-line"><span class="gc-fac">Shared</span><span>Frontier card</span></p>
           <figure class="gc-art"><img src="img/card-photo-frontier.webp" width="480" height="553" loading="lazy" alt="Photo by Kyle (stand-in art): a rocky, snowy mountaintop high above a valley."></figure>
-          <div class="gc-rules"><p>Resolve - Each player Generates 1 Supply. You Generate 1 more.</p></div>
+          <div class="gc-rules"><p><strong class="gc-lab">Resolve</strong> Each player Generates 1 Supply. You Generate 1 more.</p></div>
           
         </article>
         <p>Frontier cards come from the shared Frontier Deck.</p>
@@ -526,6 +527,30 @@
     </div>
     <svg class="cracks" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="c" d="M96.9 33L95.6 36.4L96.4 38.8L94.8 42.6L97.3 46.1L96.1 49.4L97.6 53.8L95.2 57L96.5 61.3L95.1 65.7L96.2 70.4M95.2 57L93.4 58.8L93.9 60.6M96.4 38.8L98.4 40.1"/><path class="s" d="M93.4 44.2L98.9 45.4M93.1 63L98.6 64.1"/></svg>
     <div class="repairs" aria-hidden="true" hidden data-seam="wire"></div>
+  </div>
+  <div class="margin kb-words-panel" id="kb-words">
+    <svg class="kb-chains" aria-hidden="true" focusable="false"></svg>
+    <div class="scrap" role="note" id="try-words-board" tabindex="-1">
+      <p class="who">New here? The words you will see:</p>
+      <div class="kw-list">
+<!-- board-words:start -->
+        <details class="kw" data-word="banner"><summary>Banner</summary><p>The team you play as. There are two so far: the Wardens and the Raiders.</p></details>
+        <details class="kw" data-word="leader"><summary>Leader</summary><p>The card that leads your team. If your Leader is defeated, you lose.</p></details>
+        <details class="kw" data-word="companion"><summary>Companion</summary><p>One card: an animal or a person who fights beside your Leader. It starts in your Campsite.</p></details>
+        <details class="kw" data-word="unit"><summary>Unit</summary><p>One card, one of your team's people. Units move, fight and take Locations. A Unit is one card, not a whole team.</p></details>
+        <details class="kw" data-word="location"><summary>Location</summary><p>One of the nine spots on the map, like Rusted Track. Each one is marked Yours, Nobody or Theirs.</p></details>
+        <details class="kw" data-word="control"><summary>Control</summary><p>A Location you control is yours, marked Yours. A ready Unit can Capture a Location nobody controls, and your Units can take one from the other player.</p></details>
+        <details class="kw" data-word="capture"><summary>Capture</summary><p>A ready Unit takes a Location that nobody controls. It must not have moved there this turn, and no enemy Unit can be there. Some Locations give a bonus, a Capture Reward, when you Capture them.</p></details>
+        <details class="kw" data-word="road"><summary>Road</summary><p>The line that joins two Locations that are next to each other. Most cards move one road at a time.</p></details>
+        <details class="kw" data-word="gate-yard"><summary>Gate yard and Campsite</summary><p>Your gate yard is your home Location on the map. Your Campsite is your camp beside it, off the map. Your Leader and Companion start there.</p></details>
+        <details class="kw" data-word="ready"><summary>Ready and exhausted</summary><p>A ready card stands upright and can act. To exhaust a card means to turn it sideways. Moving, attacking and most other actions exhaust a card, and it can't act again until your next turn starts.</p></details>
+        <details class="kw" data-word="supply"><summary>Supply</summary><p>What you spend to play cards and pay for actions. Both players start their first turn with 3 Supply. On each of your later turns, it refills up to a limit 1 higher than before: 4 on your second turn, then 5, and so on.</p></details>
+        <details class="kw" data-word="frontier"><summary>Frontier card</summary><p>The Frontier is everything in the valley that nobody controls and nobody planned for. A Frontier card comes from a deck both players share. Early in every turn, one is turned over, bringing weather, a wild animal, a find or trouble that both players must deal with.</p></details>
+        <details class="kw" data-word="phase"><summary>Phase, turn and round</summary><p>A turn has six parts, called phases, always in the same order. A round is one turn for each player.</p></details>
+        <details class="kw" data-word="attack"><summary>Attack, Health and Durability</summary><p>Attack is the damage a card deals. Health is how much damage a Unit, Companion, Leader or wild animal can take before it is defeated. A Location (and some other cards) has Durability instead. When a Location has none left, nobody controls it.</p></details>
+<!-- board-words:end -->
+      </div>
+    </div>
   </div>
 </section>
 </div>
@@ -691,13 +716,13 @@
   <ul class="kb-stack" aria-label="The Keeper&rsquo;s board notes"></ul>
   <div class="kb-nav"><button type="button" class="kb-prev">Previous</button><div class="kb-where"><span class="kb-dots" aria-hidden="true"></span><p class="kb-count" aria-live="polite">1 of 4</p></div><button type="button" class="kb-next">Next</button></div>
 </div>
-<script src="js/try-turn.js?v=r52g"></script>
-<script src="js/try-advanced.js?v=r52g"></script>
-<script src="js/site.js?v=r52g"></script>
-<script src="js/cards.js?v=r52g"></script>
-<script src="js/words.js?v=r52g"></script>
-<script src="js/define.js?v=r52g"></script>
-<script src="js/boards.js?v=r52g"></script>
-<script src="js/keeper.js?v=r52g"></script>
+<script src="js/try-turn.js?v=r53a"></script>
+<script src="js/try-advanced.js?v=r53a"></script>
+<script src="js/site.js?v=r53a"></script>
+<script src="js/cards.js?v=r53a"></script>
+<script src="js/words.js?v=r53a"></script>
+<script src="js/define.js?v=r53a"></script>
+<script src="js/boards.js?v=r53a"></script>
+<script src="js/keeper.js?v=r53a"></script>
 </body>
 </html>

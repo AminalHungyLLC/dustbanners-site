@@ -133,3 +133,22 @@ html.anim .kb-stack .scrap:not(.in) { opacity: 1; translate: none; }
     html.anim .margin.kb-in > .scrap:hover, html.anim .margin.kb-in > .scrap:focus-within { animation-play-state: paused; }
   }
 }
+
+/* r53a (PREP; Kyle: "all of this should be on the sideboard", "right next to the thing it's trying to help", "you can use
+   the corkboard", "boards can be strung together with chain too", "i guess a link could have a repair in it").
+   A second cork panel in the Play It margin, level with "Try one turn", hung from the Keeper's-note board by two chains
+   (js/playwords.js draws them to the real gap). It shows only on desktop and only when js/playwords.js runs (html.kb-words),
+   and then the inline "New here?" box is hidden, so the text is never doubled. Without JS, the page is as r52g. The panel
+   has no crack and no repair (nothing on it is broken); one chain link is broken and repaired (REPAIRS-LORE r6). */
+.leaf > .kb-words-panel { display: none; }
+@media (min-width: 900px) { #play > .margin { grid-column: 2; grid-row: 1; } html.kb-words #play > .kb-words-panel { display: flex; visibility: hidden; } html.kb-words.kb-level #play > .kb-words-panel { visibility: visible; } html.kb-words #try-words { display: none; } }
+.kb-chains { position: absolute; left: -7px; bottom: calc(100% + 7px); width: calc(100% + 14px); height: 0; overflow: visible; pointer-events: none; z-index: 0; filter: drop-shadow(.6px .8px 0 rgba(0,0,0,.35)); }
+.kb-chains .link-under { fill: none; stroke: #2a1a0c; stroke-width: 3.6; stroke-linecap: round; }
+.kb-chains .link { fill: none; stroke: #a3a49e; stroke-width: 1.8; stroke-linecap: round; }
+.kb-chains .eye { fill: #6f706a; stroke: #2a1a0c; stroke-width: 1; }
+#play .kb-words-panel > .scrap { font-style: normal; font-size: 15px; line-height: 1.4; --tilt: .7deg; --nx: -5px; }
+.kw > summary { cursor: pointer; font-weight: bold; min-height: 24px; padding: 2px 0; }
+.kw > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+.kw > p { margin: 2px 0 8px; }
+@media print { .kb-chains { display: none; } }
+@media (forced-colors: active) { .kb-chains { display: none; } }

@@ -330,6 +330,7 @@ details.lead summary { cursor: pointer; font-style: normal; min-height: 32px; }
   background: linear-gradient(to bottom, rgba(250, 248, 243, 0), rgba(250, 248, 243, .74) 6cqw); }
 .card-grid .gc-rules p { margin: 0; font-size: 12px; font-size: max(11px, 4.8cqw); line-height: 1.28; color: var(--gc-ink); }
 .card-grid .gc-rules p + p { margin-top: .35em; }
+.gc-rules .gc-lab { display: block; font-weight: bold; } /* r53a F-009: an ability label on its own line, bold, same size (Kyle's pick) */
 /* Battlefield Location and Frontier cards print their rules at the top of the art box */
 .gc.fac-n > .gc-rules { align-self: start; margin-top: calc(4.4cqw + 1px); margin-bottom: 0; padding: 2.6cqw 3cqw 7cqw;
   background: linear-gradient(to top, rgba(250, 248, 243, 0), rgba(250, 248, 243, .74) 6cqw); }
